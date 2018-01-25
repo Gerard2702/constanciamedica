@@ -26,7 +26,7 @@
         }
 	} 
 	else{
-		header("Location:../../index.php?error=1");
+		echo "No existe";
 	}
   }
   catch(Exception $e){
