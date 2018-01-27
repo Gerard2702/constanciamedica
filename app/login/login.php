@@ -19,14 +19,27 @@
         if($pass==$password){
         	$_SESSION['usuario'] = $user;
         	$_SESSION['tipousuario'] = $id_tipousuario;
-        	header("Location:../");
+        	switch ($id_tipousuario) {
+        		case '1':
+        			header("Location:../secretaria/");
+        			break;
+        		case '2':
+        			header("Location:../trabajador/");
+        			break;
+        		case '3':
+        			header("Location:../admin/");
+        			break;
+        		default:
+        			break;
+        	}
+        	
         }
         else{
-        	echo "contraseña incorrecta";
+        	header("Location:../../?error=1");
         }
 	} 
 	else{
-		echo "No existe";
+		header("Location:../../?error=2");
 	}
   }
   catch(Exception $e){

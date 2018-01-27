@@ -15,13 +15,14 @@
         <!-- ESTILOS  -->
         <link rel="stylesheet" href="assets/css/main.css">
         <link rel="stylesheet" href="assets/css/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
         <!-- FIN ESTILOS -->
 
         <script src="assets/js/core.js"></script>
     </head>
     <body>
         <div class="sign-in-wrapper">
+            
             <div class="sign-container">
                 <div class="text-center">
                     <!--<h2 class="logo"><img src="imgs/logo-dark.png" width="130px" alt=""/></h2>-->
@@ -36,24 +37,32 @@
                     <div class="form-group">
                         <input type="password" class="form-control" name="clave" placeholder="Contraseña" required="">
                     </div>
+                    <p id="mensaje" class="text-error"></p>
                     <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
-                    <!--<div class="text-center help-block">
-                        <a href="forgot-password.html"><small>Forgot password?</small></a>
-                        <p class="text-muted help-block"><small>Do not have an account?</small></p>
-                    </div>
-                    <a class="btn btn-md btn-default btn-block" href="registration.html">Create an account</a>
                 </form>
-                <div class="text-center copyright-txt">
-                    <small>Bootkit - Copyright © 2017</small>
-                </div>-->
+                
             </div>
         </div>
-
         <!-- inject:js -->
         <script src="assets/js/jquery-3.3.1.min.js"></script>
         <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/nicescroll.min.js"></script>
-        <script src=""></script>
+        <script >
+            $('#mensaje').hide();
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+            var error = getParameterByName('error');
+            if(error == 1){
+                $('#mensaje').html('Error! Contraseña incorrecta.').show();
+            }
+            if(error == 2){
+                $('#mensaje').html('Error! No existe el usuario.').show();
+            }
+        </script>
         <!-- endinject -->
 
     </body>

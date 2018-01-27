@@ -149,7 +149,7 @@ Layout
 }
 
 .ui-header--blue {
-    background-color: #4aa9e9;
+    background-color: #3B82B7;
 }
 
 .ui-header--green {
@@ -242,7 +242,7 @@ Layout
     margin-left: -240px;
     color: #c4c4c4;
     font-size: 13px;
-    background-color: #16171C;
+    background-color: white;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
     -webkit-transition: all .299s;
     transition: all .299s;
@@ -642,10 +642,10 @@ body {
 }
 
 body {
-   /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     font-size: 14px;
     color: #626262;
-    background-color: #222328;
+    background-color: #EFEFEF;
     -webkit-font-smoothing: antialiased;
     line-height: 1.5;
     letter-spacing: 0;
@@ -994,7 +994,7 @@ a:active {
 }
 
 .form-variance .form-group {
-    border-bottom: 1px solid #eaeef3;
+    /*border-bottom: 1px solid #eaeef3;*/
     padding-bottom: 15px;
 }
 
@@ -1620,8 +1620,8 @@ fieldset[disabled] .i-checks input + i:before {
 .pagination > li > span:hover,
 .pagination > li > span:focus {
     color: #ffffff;
-    background-color: #62549a;
-    border-color: #62549a;
+    background-color: #3B82B7;
+    border-color: #3B82B7;
 }
 
 .pagination > .active > a,
@@ -1631,8 +1631,8 @@ fieldset[disabled] .i-checks input + i:before {
 .pagination > .active > span:hover,
 .pagination > .active > span:focus {
     color: #ffffff;
-    background-color: #62549a;
-    border-color: #62549a;
+    background-color: #3B82B7;
+    border-color: #3B82B7;
 }
 
 
@@ -1641,8 +1641,8 @@ fieldset[disabled] .i-checks input + i:before {
 .pager li > a:hover,
 .pager li > a:focus {
     color: #ffffff;
-    background-color: #62549a;
-    border: 1px solid #62549a;
+    background-color: #3B82B7;
+    border: 1px solid #3B82B7;
 }
 
 .pagination > li > a,
