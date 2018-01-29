@@ -35,22 +35,22 @@
         <li id="medicos">
             <a href=""><i class="fa fa-user-md"></i><span>Medicos</span><i class="fa fa-angle-right pull-right"></i></a>
             <ul class="nav nav-sub">
-                <li id="agregar"><a href="#"><span>Agregar</span></a></li>
-                <li id="admin"><a href="#"><span>Administrar</span></a></li>
+                <li id="agregar"><a href="../admin/agregarmedico.php"><span>Agregar</span></a></li>
+                <li id="admin"><a href="../admin/adminmedico.php"><span>Administrar</span></a></li>
             </ul>
         </li>
         <li id="jefes">
             <a href=""><i class="fa fa-user-md"></i><span>Jefes de Servicio</span><i class="fa fa-angle-right pull-right"></i></a>
             <ul class="nav nav-sub">
-                <li id="agregar"><a href="#"><span>Agregar</span></a></li>
-                <li id="admin"><a href="#"><span>Administrar</span></a></li>
+                <li id="agregar"><a href="../admin/agregarjefeservicio.php"><span>Agregar</span></a></li>
+                <li id="admin"><a href="../admin/adminjefeservicio.php"><span>Administrar</span></a></li>
             </ul>
         </li>
         <li id="directores">
             <a href=""><i class="fa fa-user-md"></i><span>Directores</span><i class="fa fa-angle-right pull-right"></i></a>
             <ul class="nav nav-sub">
-                <li id="agregar"><a href="#"><span>Agregar</span></a></li>
-                <li id="admin"><a href="#"><span>Administrar</span></a></li>
+                <li id="agregar"><a href="../admin/agregardirector.php"><span>Agregar</span></a></li>
+                <li id="admin"><a href="../admin/admindirector.php"><span>Administrar</span></a></li>
             </ul>
         </li>
         <li id="precio">
