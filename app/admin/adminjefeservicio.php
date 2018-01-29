@@ -24,10 +24,10 @@
                                     <thead class="thead-inverse">
                                         <tr>
                                             <th class="col-md-1 text-center">#</th>
-                                            <th class="col-md-5">Nombre</th>
-                                            <th class="col-md-5">Servicio</th>
-                                            <th class="col-md-2">Status</th>
-                                            <th class="col-md-2 text-right">Opciones</th>
+                                            <th class="col-md-7">Nombre</th>
+                                            <th class="col-md-2">Servicio</th>
+                                            <th class="col-md-1">Status</th>
+                                            <th class="col-md-1 text-right">Opciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -35,15 +35,15 @@
                                             <td class="text-center">1</td>
                                             <td class="text-left">Jose Enrique Martines Hernandez</td>
                                             <td class="text-left">Medicina3</td>
-                                            <td class="text-left">Inactivo</td>
-                                            <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm "><i class="fa fa-pencil-square-o"></i> Ver Detalle</a></td>
+                                            <td class="text-left"><span class="label label-default">Inactivo</span></td>
+                                            <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Ver"><i class="fa fa-eye"></i></a>  <a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-center">2</td>
                                             <td class="text-left">Enrique Alejo Ortiz Peña</td>
                                             <td class="text-left">Ortopedia</td>
-                                            <td class="text-left">Activo</td>
-                                            <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm "><i class="fa fa-pencil-square-o"></i> Ver Detalle</a></td>
+                                            <td class="text-left"><span class="label label-success">Activo</span></td>
+                                            <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Ver"><i class="fa fa-eye"></i></a>  <a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
                                         </tr>
                                     </tbody>
                                 </table>

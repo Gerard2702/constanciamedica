@@ -3,12 +3,12 @@
 	$usuario = $_POST['usuario'];
 	$pass = md5($_POST['clave']);
 	include("../../config/database.php");
-	$sql = "SELECT user,password,id_tipousuario FROM usuario WHERE user=?";
+	$sql = "SELECT name,user,password,id_tipousuario FROM usuario WHERE user=?";
 	if($stmt = $conn->prepare($sql)){
 		$stmt->bind_param("s", $usuario);
 		$stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($user,$password,$id_tipousuario);
+		$stmt->bind_result($name,$user,$password,$id_tipousuario);
 	    $stmt->fetch();
 	    $rows = $stmt->num_rows;
 	    $stmt->close();
@@ -19,6 +19,7 @@
         if($pass==$password){
         	$_SESSION['usuario'] = $user;
         	$_SESSION['tipousuario'] = $id_tipousuario;
+        	$_SESSION['nombre'] = $name;
         	switch ($id_tipousuario) {
         		case '1':
         			header("Location:../secretaria/");
@@ -31,8 +32,7 @@
         			break;
         		default:
         			break;
-        	}
-        	
+        	}      	
         }
         else{
         	header("Location:../../?error=1");

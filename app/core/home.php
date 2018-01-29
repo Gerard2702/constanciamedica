@@ -1,7 +1,7 @@
 <!--main content start-->
 <div id="content" class="ui-content ui-content-aside-overlay">
     <div class="page-head-wrap">
-        <h4 class="margin0">BIENVENIDO <?php echo $_SESSION['usuario']; ?></h4>  
+        <h4 class="margin0">BIENVENIDO <?php echo $_SESSION['nombre']; ?></h4>  
     </div>
     <div class="ui-content-body">
         <div class="ui-container">

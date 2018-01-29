@@ -74,7 +74,7 @@
                         <li class="dropdown dropdown-usermenu">
                             <a href="#" class=" dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <div class="user-avatar"><img src="../../assets/img/edit-user.png" alt="usuario img"></div>
-                                <span class="hidden-sm hidden-xs"><?php echo $_SESSION['usuario']; ?></span>
+                                <span class="hidden-sm hidden-xs"><?php echo $_SESSION['nombre']; ?></span>
                                 <!--<i class="fa fa-angle-down"></i>-->
                                 <span class="caret hidden-sm hidden-xs"></span>
                             </a>

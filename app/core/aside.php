@@ -25,8 +25,8 @@
 			case '3':
 		?>
         <li id="inicio"><a href="../admin/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
-		<li id="trabajadores" class="active">
-            <a href=""><i class="fa fa-user"></i><span>Trabajadores</span><i class="fa fa-angle-right pull-right"></i></a>
+		<li id="trabajadores">
+            <a href=""><i class="fa fa-user"></i><span>Usuarios</span><i class="fa fa-angle-right pull-right"></i></a>
             <ul class="nav nav-sub">
                 <li id="agregar"><a href="../admin/agregartrabajador.php"><span>Agregar</span></a></li>
                 <li id="admin"><a href="../admin/admintrabajador.php"><span>Administrar</span></a></li>

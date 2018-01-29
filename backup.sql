@@ -157,10 +157,13 @@ CREATE TABLE IF NOT EXISTS `datos_iniciales` (
 CREATE TABLE IF NOT EXISTS `director` (
   `id_director` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) DEFAULT NULL,
+  `id_status` int(11) DEFAULT NULL,
   `id_servicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_director`),
   KEY `FK_dservicio` (`id_servicio`),
-  CONSTRAINT `FK_dservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`)
+  KEY `FK_dstatus` (`id_status`),
+  CONSTRAINT `FK_dservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
+  CONSTRAINT `FK_dstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla ts2.director: ~0 rows (aproximadamente)
@@ -183,10 +186,13 @@ CREATE TABLE IF NOT EXISTS `estado` (
 CREATE TABLE IF NOT EXISTS `jefe_servicio` (
   `id_jefe` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) DEFAULT NULL,
+  `id_status` int(11) DEFAULT NULL,
   `id_servicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_jefe`),
   KEY `FK_jsservicio` (`id_servicio`),
-  CONSTRAINT `FK_jsservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`)
+  KEY `FK_sstatus` (`id_status`),
+  CONSTRAINT `FK_jsservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
+  CONSTRAINT `FK_sstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla ts2.jefe_servicio: ~0 rows (aproximadamente)
@@ -197,10 +203,13 @@ CREATE TABLE IF NOT EXISTS `jefe_servicio` (
 CREATE TABLE IF NOT EXISTS `jefe_trabajo_social` (
   `id_jefesocial` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) DEFAULT NULL,
+  `id_status` int(11) DEFAULT NULL,
   `id_servicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_jefesocial`),
   KEY `FK_jtsservicio` (`id_servicio`),
-  CONSTRAINT `FK_jtsservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`)
+  KEY `FK_jtsstatus` (`id_status`),
+  CONSTRAINT `FK_jtsservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
+  CONSTRAINT `FK_jtsstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla ts2.jefe_trabajo_social: ~0 rows (aproximadamente)
@@ -211,10 +220,13 @@ CREATE TABLE IF NOT EXISTS `jefe_trabajo_social` (
 CREATE TABLE IF NOT EXISTS `medico_tratante` (
   `id_medico` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) DEFAULT NULL,
+  `id_status` int(11) DEFAULT NULL,
   `id_servicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_medico`),
   KEY `FK_mtservicio` (`id_servicio`),
-  CONSTRAINT `FK_mtservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`)
+  KEY `FK_mtstatus` (`id_status`),
+  CONSTRAINT `FK_mtservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
+  CONSTRAINT `FK_mtstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla ts2.medico_tratante: ~0 rows (aproximadamente)
@@ -239,11 +251,26 @@ CREATE TABLE IF NOT EXISTS `servicios` (
   PRIMARY KEY (`id_servicio`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.servicios: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.servicios: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `servicios` DISABLE KEYS */;
 INSERT INTO `servicios` (`id_servicio`, `nombre_servicio`) VALUES
 	(1, 'na');
 /*!40000 ALTER TABLE `servicios` ENABLE KEYS */;
+
+-- Volcando estructura para tabla ts2.status
+CREATE TABLE IF NOT EXISTS `status` (
+  `id_status` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_status` varchar(50) DEFAULT NULL,
+  `descripcion` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_status`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla ts2.status: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `status` DISABLE KEYS */;
+INSERT INTO `status` (`id_status`, `nombre_status`, `descripcion`) VALUES
+	(1, 'Activo', 'usuario activo en sus funciones'),
+	(2, 'Inactivo', 'usuario inhabilitado');
+/*!40000 ALTER TABLE `status` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ts2.tipo_usuario
 CREATE TABLE IF NOT EXISTS `tipo_usuario` (
@@ -252,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `tipo_usuario` (
   PRIMARY KEY (`id_tipousuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.tipo_usuario: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.tipo_usuario: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `tipo_usuario` DISABLE KEYS */;
 INSERT INTO `tipo_usuario` (`id_tipousuario`, `nombre_tipo`) VALUES
 	(1, 'secretaria'),
@@ -263,23 +290,27 @@ INSERT INTO `tipo_usuario` (`id_tipousuario`, `nombre_tipo`) VALUES
 -- Volcando estructura para tabla ts2.usuario
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
   `user` varchar(50) DEFAULT NULL,
+  `id_status` int(11) DEFAULT NULL,
   `password` varchar(128) DEFAULT NULL,
   `id_tipousuario` int(11) DEFAULT NULL,
   `id_servicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   KEY `FK_uservicio` (`id_servicio`),
   KEY `FK_utipousuario` (`id_tipousuario`),
+  KEY `FK_ustatus` (`id_status`),
   CONSTRAINT `FK_uservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
+  CONSTRAINT `FK_ustatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`),
   CONSTRAINT `FK_utipousuario` FOREIGN KEY (`id_tipousuario`) REFERENCES `tipo_usuario` (`id_tipousuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.usuario: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.usuario: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` (`id_user`, `user`, `password`, `id_tipousuario`, `id_servicio`) VALUES
-	(1, 'secre', '202cb962ac59075b964b07152d234b70', 1, 1),
-	(2, 'trabajador', '202cb962ac59075b964b07152d234b70', 2, NULL),
-	(3, 'admin', '202cb962ac59075b964b07152d234b70', 3, NULL);
+INSERT INTO `usuario` (`id_user`, `name`, `user`, `id_status`, `password`, `id_tipousuario`, `id_servicio`) VALUES
+	(1, 'Garrido Irene', 'secre', 1, '202cb962ac59075b964b07152d234b70', 1, 1),
+	(2, 'Perez Nathalia', 'trabajador', 1, '202cb962ac59075b964b07152d234b70', 2, NULL),
+	(3, 'Alonso Jose', 'admin', 1, '202cb962ac59075b964b07152d234b70', 3, NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

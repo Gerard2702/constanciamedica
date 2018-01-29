@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Servicio</label>
                                         <div class="col-sm-6">
-                                            <select name="services" id="services">
+                                            <select class="form-control" name="services" id="services">
                                                 <option value="Odontologia">Odontologia</option>
                                                 <option value="Medicina3">Medicina3</option>
                                             </select>

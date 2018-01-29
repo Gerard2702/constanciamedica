@@ -22,16 +22,39 @@
                             <div id="contenido">
                             	<form class="form-horizontal form-variance" method="get">
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Default</label>
+                                        <label class="col-sm-3 control-label">Nombre</label>
                                         <div class="col-sm-6">
                                             <input class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Help text</label>
+                                        <label class="col-sm-3 control-label">Usuario</label>
                                         <div class="col-sm-6">
                                             <input class="form-control" type="text">
-                                            <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Contraseña</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Tipo Usuario</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" name="tipouser" id="tipouser">
+                                                <option value="secretaria">Secretaria</option>
+                                                <option value="trabajador">Trabajador Social</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Servicio Asignado</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" name="servicio" id="servicio">
+                                                <option value="na">Na</option>
+                                            </select>
+                                            <span class="help-block">Servicio o Especialidad a la que pertenece</span>
                                         </div>
                                     </div>
                                     <div class="form-group">
