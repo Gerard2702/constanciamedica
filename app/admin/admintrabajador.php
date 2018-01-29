@@ -4,6 +4,22 @@
     include("../core/header.php");
 
     include("../core/aside.php");
+
+    include("../../config/database.php");
+
+     $sql = "SELECT usuario.id_user,usuario.user,usuario.name,status.nombre_status,servicios.nombre_servicio,tipo_usuario.nombre_tipo
+            FROM (((usuario
+            INNER JOIN status ON usuario.id_status = status.id_status)
+            INNER JOIN servicios ON usuario.id_servicio = servicios.id_servicio)
+            INNER JOIN tipo_usuario ON usuario.id_tipousuario = tipo_usuario.id_tipousuario);";
+
+    if ($stmt  = $conn->prepare($sql)) {
+        $stmt ->execute();
+        $stmt->store_result();
+        $rows = $stmt->num_rows;
+        $stmt ->bind_result($id, $user, $nombre, $status, $servicio, $tipousuario);    
+    }
+    $conn->close();
 ?>
  <!--main content start-->
 <div id="content" class="ui-content ui-content-aside-overlay">
@@ -33,24 +49,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td class="text-left">Jose Enrique Martines Hernandez</td>
-                                            <td class="text-left">jose2512</td>
-                                            <td class="text-left">Secretaria</td>
-                                            <td class="text-left">NA</td>
-                                            <td class="text-left"><span class="label label-default">Inactivo</span></td>
-                                            <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Ver"><i class="fa fa-eye"></i></a>  <a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">2</td>
-                                            <td class="text-left">Enrique Alejo Ortiz Peña</td>
-                                             <td class="text-left">jose2512</td>
-                                            <td class="text-left">Trabajador</td>
-                                            <td class="text-left">Ortopedia</td>
-                                            <td class="text-left"><span class="label label-success">Activo</span></td>
-                                            <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Ver"><i class="fa fa-eye"></i></a>  <a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
-                                        </tr>
+                                        <?<?php 
+                                            if($rows>0) {
+                                                while ($stmt->fetch()) {
+                                        ?>
+                                                <tr>
+                                                <td class="text-center"><?php echo $id ?></td>
+                                                <td class="text-left"><?php echo $nombre ?></td>
+                                                <td class="text-left"><?php echo $user ?></td>
+                                                <td class="text-left"><?php echo $tipousuario ?></td>
+                                                <td class="text-left"><?php echo $servicio ?></td>
+                                                <td class="text-left"><span class="label label-default"><?php echo $status ?></span></td>
+                                                <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Ver"><i class="fa fa-eye"></i></a>  <a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
+                                                </tr>    
+                                        <?php        
+                                                }
+                                            }
+                                            $stmt->close();
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
