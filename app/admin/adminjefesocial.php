@@ -1,5 +1,5 @@
 <?php
-    $title = "ADMINISTRAR TRABAJADOR";
+    $title = "ADMINISTRAR JEFE TRABAJO SOCIAL";
     
     include("../core/header.php");
 
@@ -7,24 +7,24 @@
 
     include("../../config/database.php");
 
-     $sql = "SELECT usuario.id_user,usuario.user,usuario.name,status.nombre_status,servicios.nombre_servicio,tipo_usuario.nombre_tipo
-            FROM (((usuario
-            INNER JOIN status ON usuario.id_status = status.id_status)
-            INNER JOIN servicios ON usuario.id_servicio = servicios.id_servicio)
-            INNER JOIN tipo_usuario ON usuario.id_tipousuario = tipo_usuario.id_tipousuario);";
+
+    $sql = "SELECT jefe_trabajo_social.id_jefesocial,jefe_trabajo_social.nombre,status.nombre_status,servicios.nombre_servicio
+            FROM ((jefe_trabajo_social
+            INNER JOIN status ON jefe_trabajo_social.id_status = status.id_status)
+            INNER JOIN servicios ON jefe_trabajo_social.id_servicio = servicios.id_servicio);";
 
     if ($stmt  = $conn->prepare($sql)) {
         $stmt ->execute();
         $stmt->store_result();
         $rows = $stmt->num_rows;
-        $stmt ->bind_result($id, $user, $nombre, $status, $servicio, $tipousuario);    
+        $stmt ->bind_result($id, $nombre, $status, $servicio);    
     }
     $conn->close();
 ?>
  <!--main content start-->
 <div id="content" class="ui-content ui-content-aside-overlay">
     <div class="page-head-wrap">
-        <h4 class="margin0">ADMINISTRAR TRABAJADORES</h4>  
+        <h4 class="margin0">ADMINISTRAR JEFE TRABAJO SOCIAL</h4>  
     </div>
     <div class="ui-content-body">
         <div class="ui-container">
@@ -40,11 +40,9 @@
                                     <thead class="thead-inverse">
                                         <tr>
                                             <th class="col-md-1 text-center">#</th>
-                                            <th class="col-md-4">Nombre</th>
-                                            <th class="col-md-2">Usuario</th>
-                                            <th class="col-md-1">Tipo Usuario</th>
+                                            <th class="col-md-7">Nombre</th>
                                             <th class="col-md-2">Servicio</th>
-                                            <th class="col-md-1">Estatus</th>
+                                            <th class="col-md-1">Status</th>
                                             <th class="col-md-1 text-right">Opciones</th>
                                         </tr>
                                     </thead>
@@ -56,11 +54,9 @@
                                                 <tr>
                                                 <td class="text-center"><?php echo $id ?></td>
                                                 <td class="text-left"><?php echo $nombre ?></td>
-                                                <td class="text-left"><?php echo $user ?></td>
-                                                <td class="text-left"><?php echo $tipousuario ?></td>
                                                 <td class="text-left"><?php echo $servicio ?></td>
                                                 <td class="text-left"><span class="label label-default"><?php echo $status ?></span></td>
-                                                <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="left" title="" data-original-title="Ver"><i class="fa fa-eye"></i></a>  <a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
+                                                <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Ver"><i class="fa fa-eye"></i></a>  <a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
                                                 </tr>    
                                         <?php        
                                                 }
@@ -83,12 +79,6 @@
     include("../core/footer.php");
  ?>
  <script>
-    $('#mimenu li').removeClass('active');
-    $('#mimenu li ul').removeClass('nav-sub--open');
-    $('#mimenu li ul li').removeClass('active');
-    $('#trabajadores').addClass('active');
-    $('#trabajadores ul').addClass('nav-sub--open');
-    $('#trabajadores ul #admin').addClass('active');
 
     $('#mitable').DataTable({
         //"pagingType": "full_numbers",
@@ -110,22 +100,3 @@
     });
 
 </script>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Datos Trabajador</h4>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>

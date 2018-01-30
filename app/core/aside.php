@@ -53,6 +53,13 @@
                 <li id="admin"><a href="../admin/admindirector.php"><span>Administrar</span></a></li>
             </ul>
         </li>
+        <li id="jefesocial">
+            <a href=""><i class="fa fa-user-md"></i><span>Jefe Trabajo Social</span><i class="fa fa-angle-right pull-right"></i></a>
+            <ul class="nav nav-sub">
+                <li id="agregar"><a href="../admin/agregarjefesocial.php"><span>Agregar</span></a></li>
+                <li id="admin"><a href="../admin/adminjefesocial.php"><span>Administrar</span></a></li>
+            </ul>
+        </li>
         <li id="precio">
             <a href=""><i class="fa fa-usd"></i><span>Precio</span></a> 
         </li>

@@ -47,7 +47,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?<?php 
+                                        <?php 
                                             if($rows>0) {
                                                 while ($stmt->fetch()) {
                                         ?>
@@ -56,12 +56,12 @@
                                                 <td class="text-left"><?php echo $nombre ?></td>
                                                 <td class="text-left"><?php echo $servicio ?></td>
                                                 <td class="text-left"><span class="label label-default"><?php echo $status ?></span></td>
-                                                <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Ver"><i class="fa fa-eye"></i></a>  <a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
+                                                <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Ver" onClick="Visualizacion('<?php echo $id; ?>')"><i class="fa fa-eye"></i></a>  <a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
                                                 </tr>    
                                         <?php        
                                                 }
                                             }
-                                            $stmt->close();
+                                            $stmt->close();                                            
                                         ?> 
                                     </tbody>
                                 </table>
@@ -78,6 +78,29 @@
 <?php
     include("../core/footer.php");
  ?>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Datos Trabajador</h4>
+            </div>
+            <div class="modal-body">
+                 <div id="form">
+                
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
  <script>
 
     $('#mitable').DataTable({
@@ -99,4 +122,22 @@
         }
     });
 
+</script>
+<script type="text/javascript">
+    function visualizacion(id){
+        $.ajax({
+            type:"POST",
+            url:"visualizarmedico.php",
+            dataType:"text",
+            data:{
+                idmedico: id
+            },
+            beforeSend: function() {
+                $("#form").html("<center><h4>Cargando datos de la reserva...</h4></center>");
+            }
+        }).done(function(data){
+            $("#form").html(data);
+            $("#form").show(true);
+        });   
+    }
 </script>
