@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `servicios` (
   PRIMARY KEY (`id_servicio`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.servicios: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.servicios: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `servicios` DISABLE KEYS */;
 INSERT INTO `servicios` (`id_servicio`, `nombre_servicio`) VALUES
 	(1, 'na');
@@ -309,8 +309,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`id_user`, `name`, `user`, `id_status`, `password`, `id_tipousuario`, `id_servicio`) VALUES
 	(1, 'Garrido Irene', 'secre', 1, '202cb962ac59075b964b07152d234b70', 1, 1),
-	(2, 'Perez Nathalia', 'trabajador', 1, '202cb962ac59075b964b07152d234b70', 2, NULL),
-	(3, 'Alonso Jose', 'admin', 1, '202cb962ac59075b964b07152d234b70', 3, NULL);
+	(2, 'Perez Nathalia', 'trabajador', 1, '202cb962ac59075b964b07152d234b70', 2, 1),
+	(3, 'Alonso Jose', 'admin', 1, '202cb962ac59075b964b07152d234b70', 3, 1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
