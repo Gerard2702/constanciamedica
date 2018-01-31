@@ -49,7 +49,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?<?php 
+                                        <?php 
                                             if($rows>0) {
                                                 while ($stmt->fetch()) {
                                         ?>
