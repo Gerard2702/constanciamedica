@@ -45,14 +45,15 @@
 			$stmtu->execute();						
 			$stmtu->close();
 		}
-	}/*else{
-		$mpass = md5($pass);
+	}else{
+		$passn = md5($pass);
 		$sql = "UPDATE usuario SET name=?, user=?, id_status=?, password=?, id_tipousuario=?, id_servicio=? WHERE id_user=?";
 		if($stmtu = $conn->prepare($sql)){
-			$stmtu->bind_param("ssisiii", $name,$usuario,$id_status,$mpass,$id_tipousuario,$id_servicio,$id);
+			$stmtu->bind_param("ssisiii", $name,$usuario,$id_status,$passn,$id_tipousuario,$id_servicio,$id);
 			$stmtu->execute();						
 			$stmtu->close();
-	}*/
+		}
+	}
 
 	header("Location:../../admin/admintrabajador.php");
  ?>
