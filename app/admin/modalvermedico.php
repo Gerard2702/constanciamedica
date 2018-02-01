@@ -1,11 +1,11 @@
 <?php 
 	include("../../config/database.php");
-	$id = $_POST['idtrabajador'];
-	$sql1="SELECT us.name, us.user,sta.id_status,sta.nombre_status,tip.id_tipousuario,tip.nombre_tipo,ser.id_servicio,ser.nombre_servicio FROM usuario us INNER JOIN status sta ON us.id_status=sta.id_status INNER JOIN tipo_usuario tip ON us.id_tipousuario=tip.id_tipousuario INNER JOIN servicios ser ON us.id_servicio=ser.id_servicio WHERE us.id_user=?";
+	$id = $_POST['idmedico'];
+	$sql1="SELECT mt.nombre, sta.id_status,sta.nombre_status, ser.id_servicio,ser.nombre_servicio FROM medico_tratante mt INNER JOIN status sta ON mt.id_status=sta.id_status INNER JOIN servicios ser ON mt.id_servicio=ser.id_servicio WHERE mt.id_medico=?";
 	if($stmt = $conn->prepare($sql1)){
 		$stmt->bind_param("i", $id);
 		$stmt->execute();
-		$stmt->bind_result($nombre,$usuario,$idstatus,$status,$idtipouser,$tipouser,$idservicio,$servicio);
+		$stmt->bind_result($nombre,$idstatus,$status,$idservicio,$servicio);
 		$stmt->fetch();
 		$stmt->close();
 	}
@@ -26,53 +26,16 @@
         $stmt3 ->bind_result($statusname);
     }
 
-    $sql4 = "SELECT nombre_tipo FROM tipo_usuario";
-    if($stmt4 = $conn->prepare($sql4)){
-        $stmt4 ->execute();
-        $stmt4->store_result();
-        $rows4 = $stmt4->num_rows;
-        $stmt4 ->bind_result($usuariotipo);
-    }
 	$conn->close();
  ?>
- <form class="form-horizontal form-variance" method="POST" action="../class/admin/editartrabajador.php">
+ <form class="form-horizontal form-variance" method="POST" action="../class/admin/editarmedico.php">
     <div class="form-group">
         <label class="col-sm-3 control-label">Nombre</label>
         <div class="col-sm-7">
             <input class="form-control" id="nombre" name="nombre" type="text" value="<?php echo $nombre ?>">
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label">Usuario</label>
-        <div class="col-sm-7">
-            <input class="form-control" id="usuario" name="usuario" type="text" value="<?php echo $usuario ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label">Contraseña</label>
-        <div class="col-sm-7">
-            <input class="form-control" id="pass" name="pass" type="password">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label">Tipo Usuario</label>
-        <div class="col-sm-7">
-            <select class="form-control" name="tipouser" id="tipouser">
-                <?php 
-                    if($rows4>0) {
-                        while ($stmt4->fetch()) {
-                            if($tipouser == $usuariotipo){ ?>
-                                <option value="<?php echo $usuariotipo ?>" selected><?php echo $usuariotipo; ?></option>
-                            <?php }else{ ?>
-                                <option value="<?php echo $usuariotipo ?>"><?php echo $usuariotipo; ?></option>
-                           <?php }
-                        }
-                    }
-                    $stmt4->close();
-                ?>
-            </select>
-        </div>
-    </div>
+
     <div class="form-group">
         <label class="col-sm-3 control-label">Servicio Asignado</label>
         <div class="col-sm-7">
@@ -94,7 +57,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-3 control-label">Estado</label>
+        <label class="col-sm-3 control-label">Status</label>
         <div class="col-sm-7">
             <select class="form-control" name="estado" id="estado">
             	<?php 
@@ -114,7 +77,7 @@
     </div>
     <div class="form-group">
     	<div class="col-sm-6 col-sm-offset-3">
-            <input id="id" name="id" type="hidden" value="<?php echo $id ?>"> 
+            <input id="id" name="id" type="hidden" value="<?php echo $id ?>">
     		<button type="submit" class="btn btn-primary">Guardar Cambios</button>
     	</div>
     </div>

@@ -56,7 +56,7 @@
                                                 <td class="text-left"><?php echo $nombre ?></td>
                                                 <td class="text-left"><?php echo $servicio ?></td>
                                                 <td class="text-left"><span class="label label-default"><?php echo $status ?></span></td>
-                                                <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Ver"><i class="fa fa-eye"></i></a>  <a href="javascript:;" class="btn btn-default btn-sm " data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
+                                                <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm verdirector"  data-placement="left" data-director="<?php echo $id ?>" ><i class="fa fa-eye"></i> Editar</a></td>
                                                 </tr>    
                                         <?php        
                                                 }
@@ -99,4 +99,46 @@
         }
     });
 
+
+    $(document).on("click", ".verdirector", function (e) {
+        e.preventDefault();
+        var iddirector = $(this).data('director');
+        $.ajax({
+            url: "modalverdirector.php",
+            type: 'POST',
+            data: { 
+                iddirector: iddirector
+            },
+            success: function (data) {
+                $("#conten-modal").html(data);
+                $("#myModal").modal('show'); 
+            },
+            error: function () {
+                alert("UN ERROR HA OCURRIDO");
+            }
+        });
+    });
+
 </script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Datos Director</h4>
+            </div>
+            <div class="modal-body">
+                <div id="conten-modal">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

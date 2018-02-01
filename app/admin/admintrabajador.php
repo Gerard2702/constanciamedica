@@ -60,7 +60,7 @@
                                                 <td class="text-left"><?php echo $tipousuario ?></td>
                                                 <td class="text-left"><?php echo $servicio ?></td>
                                                 <td class="text-left"><span class="label label-default"><?php echo $status ?></span></td>
-                                                <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm vertrabajador"  data-placement="left" data-trabajador="<?php echo $id ?>" ><i class="fa fa-eye"></i> Ver Detalle</a></td>
+                                                <td class="text-right"><a href="javascript:;" class="btn btn-default btn-sm vertrabajador"  data-placement="left" data-trabajador="<?php echo $id ?>" ><i class="fa fa-eye"></i> Editar</a></td>
                                                 </tr>    
                                         <?php        
                                                 }

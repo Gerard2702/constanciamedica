@@ -4,6 +4,16 @@
     include("../core/header.php");
 
     include("../core/aside.php");
+
+    include("../../config/database.php");
+
+    $sql2 = "SELECT nombre_servicio FROM servicios";
+    if($stmt2 = $conn->prepare($sql2)){
+        $stmt2 ->execute();
+        $stmt2->store_result();
+        $rows2 = $stmt2->num_rows;
+        $stmt2 ->bind_result($servicesname);
+    }
 ?>
  <!--main content start-->
 <div id="content" class="ui-content ui-content-aside-overlay">
@@ -20,19 +30,26 @@
                             	<h4>Datos Medico</h4>
                             </div>
                             <div id="contenido">
-                            	<form class="form-horizontal form-variance" method="get">
+                            	<form class="form-horizontal form-variance" method="POST" action="../class/admin/agregarmedico.php">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Completo</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" id="nombre" name="nombre" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Servicio</label>
                                         <div class="col-sm-6">
                                             <select class="form-control" name="services" id="services">
-                                                <option value="Odontologia">Odontologia</option>
-                                                <option value="Medicina3">Medicina3</option>
+                                                <?php 
+                                                    if($rows2>0) {
+                                                        while ($stmt2->fetch()) {?>
+                                                            <option value="<?php echo $servicesname ?>"><?php echo $servicesname; ?></option>                                                           
+                                                            <?php  
+                                                        } 
+                                                    }
+                                                    $stmt2->close();
+                                                ?>
                                             </select>
                                             <span class="help-block">Servicio o Especialidad a la que pertenece el medico</span>
                                         </div>
