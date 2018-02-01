@@ -1,47 +1,35 @@
--- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 01-02-2018 a las 05:00:01
--- Versión del servidor: 10.1.30-MariaDB
--- Versión de PHP: 7.2.1
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `ts2`
---
-CREATE DATABASE IF NOT EXISTS `ts2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `ts2`;
-
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versión del servidor:         10.1.29-MariaDB - mariadb.org binary distribution
+-- SO del servidor:              Win32
+-- HeidiSQL Versión:             9.5.0.5196
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `constancias`
---
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+
+-- Volcando estructura de base de datos para ts2
+CREATE DATABASE IF NOT EXISTS `ts2` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `ts2`;
+
+-- Volcando estructura para tabla ts2.constancias
 CREATE TABLE IF NOT EXISTS `constancias` (
   `id_constancia` int(11) NOT NULL AUTO_INCREMENT,
   `tipo_constancia` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_constancia`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla ts2.constancias: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `constancias` DISABLE KEYS */;
+INSERT INTO `constancias` (`id_constancia`, `tipo_constancia`) VALUES
+	(1, '');
+/*!40000 ALTER TABLE `constancias` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `datos_complementarios`
---
-
+-- Volcando estructura para tabla ts2.datos_complementarios
 CREATE TABLE IF NOT EXISTS `datos_complementarios` (
   `id_datosc` int(11) NOT NULL AUTO_INCREMENT,
   `id_constancia` int(11) DEFAULT NULL,
@@ -66,45 +54,52 @@ CREATE TABLE IF NOT EXISTS `datos_complementarios` (
   KEY `FK_dcmedico` (`id_medico`),
   KEY `FK_dcjefe` (`id_jefe`),
   KEY `FK_dcjefesocial` (`id_jefesocial`),
-  KEY `FK_dcdirector` (`id_director`)
+  KEY `FK_dcdirector` (`id_director`),
+  CONSTRAINT `FK_dcconstancia` FOREIGN KEY (`id_constancia`) REFERENCES `constancias` (`id_constancia`),
+  CONSTRAINT `FK_dcdatos` FOREIGN KEY (`id_datos`) REFERENCES `datos_iniciales` (`id_datos`),
+  CONSTRAINT `FK_dcdirector` FOREIGN KEY (`id_director`) REFERENCES `director` (`id_director`),
+  CONSTRAINT `FK_dcjefe` FOREIGN KEY (`id_jefe`) REFERENCES `jefe_servicio` (`id_jefe`),
+  CONSTRAINT `FK_dcjefesocial` FOREIGN KEY (`id_jefesocial`) REFERENCES `jefe_trabajo_social` (`id_jefesocial`),
+  CONSTRAINT `FK_dcmedico` FOREIGN KEY (`id_medico`) REFERENCES `medico_tratante` (`id_medico`),
+  CONSTRAINT `FK_dcuser` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`),
+  CONSTRAINT `Fk_dcservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla ts2.datos_complementarios: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `datos_complementarios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `datos_complementarios` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `datos_const_alta`
---
-
+-- Volcando estructura para tabla ts2.datos_const_alta
 CREATE TABLE IF NOT EXISTS `datos_const_alta` (
   `id_datosca` int(11) NOT NULL AUTO_INCREMENT,
   `id_datosc` int(11) DEFAULT NULL,
   `fecha_de_alta` date DEFAULT NULL,
   `diagnostico` varchar(3000) DEFAULT NULL,
   PRIMARY KEY (`id_datosca`),
-  KEY `FK_dcadatosc` (`id_datosc`)
+  KEY `FK_dcadatosc` (`id_datosc`),
+  CONSTRAINT `FK_dcadatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla ts2.datos_const_alta: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `datos_const_alta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `datos_const_alta` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `datos_const_fallecimiento`
---
-
+-- Volcando estructura para tabla ts2.datos_const_fallecimiento
 CREATE TABLE IF NOT EXISTS `datos_const_fallecimiento` (
   `id_datoscf` int(11) NOT NULL AUTO_INCREMENT,
   `id_datosc` int(11) DEFAULT NULL,
   `fecha_defuncion` date DEFAULT NULL,
   `diagnostico` varchar(3000) DEFAULT NULL,
   PRIMARY KEY (`id_datoscf`),
-  KEY `FK_dcfdatosc` (`id_datosc`)
+  KEY `FK_dcfdatosc` (`id_datosc`),
+  CONSTRAINT `FK_dcfdatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla ts2.datos_const_fallecimiento: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `datos_const_fallecimiento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `datos_const_fallecimiento` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `datos_const_fallecimiento_casa`
---
-
+-- Volcando estructura para tabla ts2.datos_const_fallecimiento_casa
 CREATE TABLE IF NOT EXISTS `datos_const_fallecimiento_casa` (
   `id_datoscfc` int(11) NOT NULL AUTO_INCREMENT,
   `id_datosc` int(11) DEFAULT NULL,
@@ -113,29 +108,29 @@ CREATE TABLE IF NOT EXISTS `datos_const_fallecimiento_casa` (
   `lugar_de_extencion` varchar(3000) DEFAULT NULL,
   `fecha_fallecimiento` date DEFAULT NULL,
   PRIMARY KEY (`id_datoscfc`),
-  KEY `FK_dcfcdatosc` (`id_datosc`)
+  KEY `FK_dcfcdatosc` (`id_datosc`),
+  CONSTRAINT `FK_dcfcdatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla ts2.datos_const_fallecimiento_casa: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `datos_const_fallecimiento_casa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `datos_const_fallecimiento_casa` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `datos_const_ingreso`
---
-
+-- Volcando estructura para tabla ts2.datos_const_ingreso
 CREATE TABLE IF NOT EXISTS `datos_const_ingreso` (
   `id_datosci` int(11) NOT NULL AUTO_INCREMENT,
   `id_datosc` int(11) DEFAULT NULL,
   `diagnostico` varchar(3000) DEFAULT NULL,
   PRIMARY KEY (`id_datosci`),
-  KEY `FK_dcidatosc` (`id_datosc`)
+  KEY `FK_dcidatosc` (`id_datosc`),
+  CONSTRAINT `FK_dcidatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla ts2.datos_const_ingreso: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `datos_const_ingreso` DISABLE KEYS */;
+/*!40000 ALTER TABLE `datos_const_ingreso` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `datos_iniciales`
---
-
+-- Volcando estructura para tabla ts2.datos_iniciales
 CREATE TABLE IF NOT EXISTS `datos_iniciales` (
   `id_datos` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` date DEFAULT NULL,
@@ -151,15 +146,16 @@ CREATE TABLE IF NOT EXISTS `datos_iniciales` (
   `id_estado` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_datos`),
   KEY `FK_diservicio` (`id_servicio`),
-  KEY `FK_diestado` (`id_estado`)
+  KEY `FK_diestado` (`id_estado`),
+  CONSTRAINT `FK_diestado` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`),
+  CONSTRAINT `FK_diservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla ts2.datos_iniciales: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `datos_iniciales` DISABLE KEYS */;
+/*!40000 ALTER TABLE `datos_iniciales` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `director`
---
-
+-- Volcando estructura para tabla ts2.director
 CREATE TABLE IF NOT EXISTS `director` (
   `id_director` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) DEFAULT NULL,
@@ -167,24 +163,16 @@ CREATE TABLE IF NOT EXISTS `director` (
   `id_servicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_director`),
   KEY `FK_dservicio` (`id_servicio`),
-  KEY `FK_dstatus` (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  KEY `FK_dstatus` (`id_status`),
+  CONSTRAINT `FK_dservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
+  CONSTRAINT `FK_dstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `director`
---
+-- Volcando datos para la tabla ts2.director: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `director` DISABLE KEYS */;
+/*!40000 ALTER TABLE `director` ENABLE KEYS */;
 
-INSERT INTO `director` (`id_director`, `nombre`, `id_status`, `id_servicio`) VALUES
-(1, 'Rodrigo Menjivar', 1, 1),
-(2, 'Jose Alejandrino', 1, 2),
-(3, 'Ernesto Landaverde', 1, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `estado`
---
-
+-- Volcando estructura para tabla ts2.estado
 CREATE TABLE IF NOT EXISTS `estado` (
   `id_estado` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_estado` varchar(50) DEFAULT NULL,
@@ -192,12 +180,11 @@ CREATE TABLE IF NOT EXISTS `estado` (
   PRIMARY KEY (`id_estado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla ts2.estado: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `estado` DISABLE KEYS */;
+/*!40000 ALTER TABLE `estado` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `jefe_servicio`
---
-
+-- Volcando estructura para tabla ts2.jefe_servicio
 CREATE TABLE IF NOT EXISTS `jefe_servicio` (
   `id_jefe` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) DEFAULT NULL,
@@ -205,23 +192,16 @@ CREATE TABLE IF NOT EXISTS `jefe_servicio` (
   `id_servicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_jefe`),
   KEY `FK_jsservicio` (`id_servicio`),
-  KEY `FK_sstatus` (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  KEY `FK_sstatus` (`id_status`),
+  CONSTRAINT `FK_jsservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
+  CONSTRAINT `FK_sstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `jefe_servicio`
---
+-- Volcando datos para la tabla ts2.jefe_servicio: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `jefe_servicio` DISABLE KEYS */;
+/*!40000 ALTER TABLE `jefe_servicio` ENABLE KEYS */;
 
-INSERT INTO `jefe_servicio` (`id_jefe`, `nombre`, `id_status`, `id_servicio`) VALUES
-(1, 'Jose ', 1, 2),
-(2, 'Jose Ernesto PeÃ±a AndranÃ©', 1, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `jefe_trabajo_social`
---
-
+-- Volcando estructura para tabla ts2.jefe_trabajo_social
 CREATE TABLE IF NOT EXISTS `jefe_trabajo_social` (
   `id_jefesocial` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) DEFAULT NULL,
@@ -229,24 +209,16 @@ CREATE TABLE IF NOT EXISTS `jefe_trabajo_social` (
   `id_servicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_jefesocial`),
   KEY `FK_jtsservicio` (`id_servicio`),
-  KEY `FK_jtsstatus` (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  KEY `FK_jtsstatus` (`id_status`),
+  CONSTRAINT `FK_jtsservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
+  CONSTRAINT `FK_jtsstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `jefe_trabajo_social`
---
+-- Volcando datos para la tabla ts2.jefe_trabajo_social: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `jefe_trabajo_social` DISABLE KEYS */;
+/*!40000 ALTER TABLE `jefe_trabajo_social` ENABLE KEYS */;
 
-INSERT INTO `jefe_trabajo_social` (`id_jefesocial`, `nombre`, `id_status`, `id_servicio`) VALUES
-(1, 'Alejandra Estrada Hernandez Hernanes', 1, 2),
-(2, 'Raziel Mentiras Locas', 1, 1),
-(3, 'Ã‘oÃ±o', 1, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `medico_tratante`
---
-
+-- Volcando estructura para tabla ts2.medico_tratante
 CREATE TABLE IF NOT EXISTS `medico_tratante` (
   `id_medico` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) DEFAULT NULL,
@@ -254,55 +226,42 @@ CREATE TABLE IF NOT EXISTS `medico_tratante` (
   `id_servicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_medico`),
   KEY `FK_mtservicio` (`id_servicio`),
-  KEY `FK_mtstatus` (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  KEY `FK_mtstatus` (`id_status`),
+  CONSTRAINT `FK_mtservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
+  CONSTRAINT `FK_mtstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `medico_tratante`
---
-
+-- Volcando datos para la tabla ts2.medico_tratante: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `medico_tratante` DISABLE KEYS */;
 INSERT INTO `medico_tratante` (`id_medico`, `nombre`, `id_status`, `id_servicio`) VALUES
-(1, 'Antonio Mejia Estrada Soza', 1, 1),
-(2, 'Alexis PeÃ±a', 1, 1);
+	(1, 'juan', 1, 1);
+/*!40000 ALTER TABLE `medico_tratante` ENABLE KEYS */;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `precio_constancias`
---
-
+-- Volcando estructura para tabla ts2.precio_constancias
 CREATE TABLE IF NOT EXISTS `precio_constancias` (
   `id_precio` int(11) NOT NULL AUTO_INCREMENT,
   `precio` float DEFAULT NULL,
   PRIMARY KEY (`id_precio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla ts2.precio_constancias: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `precio_constancias` DISABLE KEYS */;
+/*!40000 ALTER TABLE `precio_constancias` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `servicios`
---
-
+-- Volcando estructura para tabla ts2.servicios
 CREATE TABLE IF NOT EXISTS `servicios` (
   `id_servicio` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_servicio` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_servicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `servicios`
---
-
+-- Volcando datos para la tabla ts2.servicios: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `servicios` DISABLE KEYS */;
 INSERT INTO `servicios` (`id_servicio`, `nombre_servicio`) VALUES
-(1, 'na'),
-(2, 'po');
+	(1, 'na');
+/*!40000 ALTER TABLE `servicios` ENABLE KEYS */;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `status`
---
-
+-- Volcando estructura para tabla ts2.status
 CREATE TABLE IF NOT EXISTS `status` (
   `id_status` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_status` varchar(50) DEFAULT NULL,
@@ -310,41 +269,29 @@ CREATE TABLE IF NOT EXISTS `status` (
   PRIMARY KEY (`id_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `status`
---
-
+-- Volcando datos para la tabla ts2.status: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `status` DISABLE KEYS */;
 INSERT INTO `status` (`id_status`, `nombre_status`, `descripcion`) VALUES
-(1, 'Activo', 'usuario activo en sus funciones'),
-(2, 'Inactivo', 'usuario inhabilitado');
+	(1, 'Activo', 'usuario activo en sus funciones'),
+	(2, 'Inactivo', 'usuario inhabilitado');
+/*!40000 ALTER TABLE `status` ENABLE KEYS */;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tipo_usuario`
---
-
+-- Volcando estructura para tabla ts2.tipo_usuario
 CREATE TABLE IF NOT EXISTS `tipo_usuario` (
   `id_tipousuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_tipo` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id_tipousuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `tipo_usuario`
---
-
+-- Volcando datos para la tabla ts2.tipo_usuario: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `tipo_usuario` DISABLE KEYS */;
 INSERT INTO `tipo_usuario` (`id_tipousuario`, `nombre_tipo`) VALUES
-(1, 'secretaria'),
-(2, 'trabajador'),
-(3, 'admin');
+	(1, 'secretaria'),
+	(2, 'trabajador'),
+	(3, 'admin');
+/*!40000 ALTER TABLE `tipo_usuario` ENABLE KEYS */;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuario`
---
-
+-- Volcando estructura para tabla ts2.usuario
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
@@ -356,104 +303,21 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`id_user`),
   KEY `FK_uservicio` (`id_servicio`),
   KEY `FK_utipousuario` (`id_tipousuario`),
-  KEY `FK_ustatus` (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  KEY `FK_ustatus` (`id_status`),
+  CONSTRAINT `FK_uservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
+  CONSTRAINT `FK_ustatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`),
+  CONSTRAINT `FK_utipousuario` FOREIGN KEY (`id_tipousuario`) REFERENCES `tipo_usuario` (`id_tipousuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `usuario`
---
-
+-- Volcando datos para la tabla ts2.usuario: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`id_user`, `name`, `user`, `id_status`, `password`, `id_tipousuario`, `id_servicio`) VALUES
-(1, 'Irene', 'secre', 1, '202cb962ac59075b964b07152d234b70', 1, 1),
-(2, 'Perez Nathalia', 'trabajador', 1, '202cb962ac59075b964b07152d234b70', 2, 1),
-(3, 'Alonso Jose', 'admin', 1, '202cb962ac59075b964b07152d234b70', 3, 2),
-(4, 'Alexis Medrano', 'Soroko', 1, '202cb962ac59075b964b07152d234b70', 1, 1);
+	(1, 'Garrido Irene', 'secre', 1, '202cb962ac59075b964b07152d234b70', 1, 1),
+	(2, 'Perez Nathalia', 'trabajador', 1, '202cb962ac59075b964b07152d234b70', 2, 1),
+	(3, 'Alonso Jose', 'admin', 1, '202cb962ac59075b964b07152d234b70', 3, 1),
+	(4, 'Gerardo Magaña López', 'Ger27', 1, 'e10adc3949ba59abbe56e057f20f883e', 1, 1);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `datos_complementarios`
---
-ALTER TABLE `datos_complementarios`
-  ADD CONSTRAINT `FK_dcconstancia` FOREIGN KEY (`id_constancia`) REFERENCES `constancias` (`id_constancia`),
-  ADD CONSTRAINT `FK_dcdatos` FOREIGN KEY (`id_datos`) REFERENCES `datos_iniciales` (`id_datos`),
-  ADD CONSTRAINT `FK_dcdirector` FOREIGN KEY (`id_director`) REFERENCES `director` (`id_director`),
-  ADD CONSTRAINT `FK_dcjefe` FOREIGN KEY (`id_jefe`) REFERENCES `jefe_servicio` (`id_jefe`),
-  ADD CONSTRAINT `FK_dcjefesocial` FOREIGN KEY (`id_jefesocial`) REFERENCES `jefe_trabajo_social` (`id_jefesocial`),
-  ADD CONSTRAINT `FK_dcmedico` FOREIGN KEY (`id_medico`) REFERENCES `medico_tratante` (`id_medico`),
-  ADD CONSTRAINT `FK_dcuser` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`),
-  ADD CONSTRAINT `Fk_dcservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`);
-
---
--- Filtros para la tabla `datos_const_alta`
---
-ALTER TABLE `datos_const_alta`
-  ADD CONSTRAINT `FK_dcadatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`);
-
---
--- Filtros para la tabla `datos_const_fallecimiento`
---
-ALTER TABLE `datos_const_fallecimiento`
-  ADD CONSTRAINT `FK_dcfdatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`);
-
---
--- Filtros para la tabla `datos_const_fallecimiento_casa`
---
-ALTER TABLE `datos_const_fallecimiento_casa`
-  ADD CONSTRAINT `FK_dcfcdatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`);
-
---
--- Filtros para la tabla `datos_const_ingreso`
---
-ALTER TABLE `datos_const_ingreso`
-  ADD CONSTRAINT `FK_dcidatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`);
-
---
--- Filtros para la tabla `datos_iniciales`
---
-ALTER TABLE `datos_iniciales`
-  ADD CONSTRAINT `FK_diestado` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`),
-  ADD CONSTRAINT `FK_diservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`);
-
---
--- Filtros para la tabla `director`
---
-ALTER TABLE `director`
-  ADD CONSTRAINT `FK_dservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
-  ADD CONSTRAINT `FK_dstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`);
-
---
--- Filtros para la tabla `jefe_servicio`
---
-ALTER TABLE `jefe_servicio`
-  ADD CONSTRAINT `FK_jsservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
-  ADD CONSTRAINT `FK_sstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`);
-
---
--- Filtros para la tabla `jefe_trabajo_social`
---
-ALTER TABLE `jefe_trabajo_social`
-  ADD CONSTRAINT `FK_jtsservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
-  ADD CONSTRAINT `FK_jtsstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`);
-
---
--- Filtros para la tabla `medico_tratante`
---
-ALTER TABLE `medico_tratante`
-  ADD CONSTRAINT `FK_mtservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
-  ADD CONSTRAINT `FK_mtstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`);
-
---
--- Filtros para la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `FK_uservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
-  ADD CONSTRAINT `FK_ustatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`),
-  ADD CONSTRAINT `FK_utipousuario` FOREIGN KEY (`id_tipousuario`) REFERENCES `tipo_usuario` (`id_tipousuario`);
-COMMIT;
-
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
