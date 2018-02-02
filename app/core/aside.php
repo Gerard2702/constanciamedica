@@ -61,7 +61,7 @@
             </ul>
         </li>
         <li id="precio">
-            <a href=""><i class="fa fa-usd"></i><span>Precio</span></a> 
+            <a href="../admin/adminprecios.php"><i class="fa fa-usd"></i><span>Precio</span></a> 
         </li>
 		<?php
 				break;
