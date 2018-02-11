@@ -21,3 +21,8 @@ label{
 .label{
 	font-size: 85% !important;
 }
+
+#divider{
+	border-bottom: 1px solid #eaeaea;
+	margin-bottom: 10px;
+}

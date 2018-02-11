@@ -16,21 +16,21 @@
         <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="../../assets/plugins/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/datatables.min.css"/>
- 
-        
         <!-- FIN PLUGINS -->
 
         <!-- ESTILOS  -->
         <link rel="stylesheet" href="../../assets/css/main.css">
         <link rel="stylesheet" href="../../assets/css/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
+        <!--<link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">-->
         <!-- FIN ESTILOS -->
         <script src="../../assets/js/modernizr-custom.js"></script>
         <script src="../../assets/js/core.js"></script>
-
-
+        
     </head>
     <body>
+        <!-- begin #page-loader -->
+    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+    <!-- end #page-loader -->
         <div id="ui" class="ui">
             <!--header start-->
             <header id="header" class="ui-header ui-header--blue text-white">

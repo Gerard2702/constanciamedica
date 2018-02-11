@@ -42,25 +42,25 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" id="nombre" name="nombre" type="text">
+                                            <input class="form-control" id="nombre" name="nombre" type="text" required="">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Usuario</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" id="usuario" name="usuario" type="text">
+                                            <input class="form-control" id="usuario" name="usuario" type="text" required="">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contraseña</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" id="pass" name="pass" type="password">
+                                            <input class="form-control" id="pass" name="pass" type="password" required="">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Tipo Usuario</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" name="tipouser" id="tipouser">
+                                            <select class="form-control" name="tipouser" id="tipouser" required="">
                                                  <?php 
                                                     if($rows4>0) {
                                                         while ($stmt4->fetch()) {?>
@@ -76,7 +76,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Servicio Asignado</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" name="servicio" id="servicio">
+                                            <select class="form-control" name="servicio" id="servicio" required="">
                                                 <?php 
                                                     if($rows2>0) {
                                                         while ($stmt2->fetch()) {?>
@@ -109,11 +109,4 @@
 <?php
     include("../core/footer.php");
  ?>
- <script>
- 	$('#mimenu li').removeClass('active');
- 	$('#mimenu li ul').removeClass('nav-sub--open');
- 	$('#mimenu li ul li').removeClass('active');
- 	$('#trabajadores').addClass('active');
- 	$('#trabajadores ul').addClass('nav-sub--open');
- 	$('#trabajadores ul #agregar').addClass('active');
- </script>
+ 

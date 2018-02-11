@@ -1,25 +1,29 @@
 <!--sidebar start-->
+<?php 
+
+?>
 <aside id="aside" class="ui-aside ui-aside--light">
     <ul class="nav" ui-nav id="mimenu">
         
         <?php switch ($_SESSION['tipousuario']) {
 			case '1':
-			# MENU SECRETARIA 
+			# MENU SECRETARIA
+             
 		?>
-        <li id="inicio"><a href=""><i class="fa fa-home"></i><span> INICIO </span></a></li>
-		<li id="crearsolicitud"><a href=""><i class="fa fa-file-text-o"></i><span>Crear Solicitud</span></a></li>
-        <li id="pendienteenvio"><a href=""><i class="fa fa-share-square-o"></i><span>Pendiente de Envio</span></a></li>
-        <li id="pendienterevision"><a href=""><i class="fa fa-inbox"></i><span>Pendiente de Revision</span></a></li>
+        <li id="inicio"><a href="../secretaria/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
+		<li id="crearsolicitud"><a href="../secretaria/crearsolicitud.php"><i class="fa fa-file-text-o"></i><span>Crear Solicitud</span></a></li>
+        <li id="pendienteenvio"><a href="../secretaria/pendienteenvio.php"><i class="fa fa-share-square-o"></i><span>Pendiente de Envio</span></a></li>
+        <li id="pendienterevision"><a href="../secretaria/pendienterevision.php"><i class="fa fa-inbox"></i><span>Pendiente de Revision</span></a></li>
 		<?php
 				break;
 			case '2':
 				# MENU TRABAJADOR
 		?>
-        <li><a href=""><i class="fa fa-home"></i><span> INICIO </span></a></li>
-		<li><a href=""><i class="fa fa-inbox"></i><span>Recibidos</span></a></li>
-        <li><a href=""><i class="fa fa-clock-o "></i><span>Pendiente</span></a></li>
-        <li><a href=""><i class="fa fa-check-square-o "></i><span>Finalizado</span></a>           </li>
-        <li><a href=""><i class="fa fa-pencil-square-o "></i><span>Modificación</span></a></li>
+        <li id="inicio"><a href="../trabajador/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
+		<li id="recibidos"><a href="../trabajador/recibidos.php"><i class="fa fa-inbox"></i><span>Recibidos</span></a></li>
+        <li id="pendientes"><a href="../trabajador/pendientes.php"><i class="fa fa-clock-o "></i><span>Pendiente</span></a></li>
+        <li id="finalizado"><a href="#"><i class="fa fa-check-square-o "></i><span>Finalizado</span></a>           </li>
+        <li id="modificacion"><a href="#"><i class="fa fa-pencil-square-o "></i><span>Modificación</span></a></li>
 		<?php		
 				break;
 			case '3':

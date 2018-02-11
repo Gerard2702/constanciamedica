@@ -34,13 +34,13 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Completo</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" id="nombre" name="nombre" type="text">
+                                            <input class="form-control" id="nombre" name="nombre" type="text" required="">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Servicio</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" name="services" id="services">
+                                            <select class="form-control" name="services" id="services" required="">
                                                 <?php 
                                                     if($rows2>0) {
                                                         while ($stmt2->fetch()) {?>

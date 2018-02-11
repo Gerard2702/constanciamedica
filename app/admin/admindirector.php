@@ -1,6 +1,6 @@
 <?php
     $title = "ADMINISTRAR DIRECTOR";
-    
+    $mndirector = "active";
     include("../core/header.php");
 
     include("../core/aside.php");
