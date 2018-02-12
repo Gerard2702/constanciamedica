@@ -1,5 +1,5 @@
 <?php
-    $title = "HOME";
+    $title = "RECIBIDOS";
     include("../core/header.php");
 
     include("../core/aside.php");

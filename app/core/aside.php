@@ -8,12 +8,29 @@
         <?php switch ($_SESSION['tipousuario']) {
 			case '1':
 			# MENU SECRETARIA
-             
+             include("../../config/database.php");
+             $sqlpendientes = "SELECT COUNT(*) as pendientesenvio FROM datos_iniciales WHERE id_estado=1 AND id_trabajador=?";
+             if($stmspendientes = $conn->prepare($sqlpendientes)){
+                $stmspendientes->bind_param('s',$_SESSION['id_usuario']);
+                $stmspendientes->execute();
+                $stmspendientes->bind_result($mispendientes);
+                $stmspendientes->fetch();
+                $stmspendientes->close();
+             }
+
+             $sqlrevision = "SELECT COUNT(*) as pendientesenvio FROM datos_iniciales WHERE id_estado=4";
+             if($stmtrevision = $conn->prepare($sqlrevision)){
+                $stmtrevision->execute();
+                $stmtrevision->bind_result($mispendientesrev);
+                $stmtrevision->fetch();
+                $stmtrevision->close();
+             }
+             $conn->close();
 		?>
         <li id="inicio"><a href="../secretaria/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
 		<li id="crearsolicitud"><a href="../secretaria/crearsolicitud.php"><i class="fa fa-file-text-o"></i><span>Crear Solicitud</span></a></li>
-        <li id="pendienteenvio"><a href="../secretaria/pendienteenvio.php"><i class="fa fa-share-square-o"></i><span>Pendiente de Envio</span></a></li>
-        <li id="pendienterevision"><a href="../secretaria/pendienterevision.php"><i class="fa fa-inbox"></i><span>Pendiente de Revision</span></a></li>
+        <li id="pendienteenvio"><a href="../secretaria/pendienteenvio.php"><i class="fa fa-share-square-o"></i><span>Pendiente de Envio<small class="label label-info"><?php echo $mispendientes; ?></small></span></a></li>
+        <li id="pendienterevision"><a href="../secretaria/pendienterevision.php"><i class="fa fa-inbox"></i><span>Pendiente de Revision<small class="label label-danger"><?php echo $mispendientesrev; ?></small></span></a></li>
 		<?php
 				break;
 			case '2':

@@ -1,11 +1,10 @@
 <?php
     $title = "CREAR SOLICITUD";
-   
+   	
     include("../core/header.php");
-
     include("../core/aside.php");
+    
     include("../../config/database.php");
-
     $sqlservicio = "SELECT id_servicio,nombre_servicio FROM servicios ORDER BY nombre_servicio ASC";
     if($stmt = $conn->prepare($sqlservicio)){
     	$stmt -> execute();
@@ -30,7 +29,7 @@
                             	<h4>Datos Soicitud</h4>
                             </div>
                             <div id="contenido">
-                            	<form role="form" method="POST" action="#">
+                            	<form role="form" method="POST" action="../class/secretaria/newsolicitud.php">
                             		<div class="row">
                             			<div class="col-md-4">
 	                            			<div class="form-group">
@@ -108,8 +107,8 @@
                                     </div>
                                     <div class="row">
                                     	<div class="col-md-12">
-	                                    	<button type="submit" class="btn btn-primary">Guardar</button>
-	                                    	<button type="submit" class="btn btn-primary">Guardar y enviar</button>
+	                                    	<button type="submit" name="guardar" class="btn btn-primary">Guardar</button>
+	                                    	<button type="submit" name="guardarenviar" class="btn btn-primary">Guardar y enviar</button>
                                     	</div>
                                     </div>	
                                 </form>

@@ -1,5 +1,5 @@
 <?php
-    $title = "CREAR SOLICITUD";
+    $title = "NUEVA CONSTANCIA";
    
     include("../core/header.php");
 

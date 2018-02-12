@@ -1,12 +1,13 @@
 <?php
-    $title = "HOME";
+    $title = "PENDIENTES DE ENVIO";
     include("../core/header.php");
 
     include("../core/aside.php");
     include("../../config/database.php");
 
-    $sqlpendientes = "SELECT datos_iniciales.id_datos,datos_iniciales.fecha,datos_iniciales.numero_recibo,datos_iniciales.afiliacion_dui,datos_iniciales.nombre_paciente,datos_iniciales.destinos,datos_iniciales.cantidad,servicios.nombre_servicio FROM datos_iniciales INNER JOIN servicios ON datos_iniciales.id_servicio=servicios.id_servicio WHERE datos_iniciales.id_estado=1";
+    $sqlpendientes = "SELECT datos_iniciales.id_datos,datos_iniciales.fecha,datos_iniciales.numero_recibo,datos_iniciales.afiliacion_dui,datos_iniciales.nombre_paciente,datos_iniciales.destinos,datos_iniciales.cantidad,servicios.nombre_servicio FROM datos_iniciales INNER JOIN servicios ON datos_iniciales.id_servicio=servicios.id_servicio WHERE datos_iniciales.id_estado=1 AND id_trabajador=?";
     if($stmt = $conn->prepare($sqlpendientes)){
+        $stmt -> bind_param('s',$_SESSION['id_usuario']);
     	$stmt -> execute();
     	$stmt -> store_result();
     	$rows = $stmt->num_rows;
@@ -23,7 +24,7 @@
         <div class="ui-container">
             <div class="row">
                 <div class="col-md-12 col-lg-12">
-                    <div class="panel">
+                    <div class="panel" id="mipanel">
                         <div class="panel-body">
                             <div id="titulo">
                             	<h4>Resultados</h4>
@@ -49,13 +50,13 @@
                                     ?>
                                     	<tr>
                                     		<td><?php echo $fechacreacion; ?></td>
-                                    		<td><?php echo $nrecibo; ?></td>
+                                    		<td id="numrecibo<?php echo $id_datos; ?>"><?php echo $nrecibo; ?></td>
                                     		<td><?php echo $nombrepaciente; ?></td>
                                     		<td><?php echo $afiliacion; ?></td>
                                     		<td><?php echo $destinos; ?></td>
                                     		<td><?php echo $cantidad; ?></td>
                                     		<td><?php echo $servicio; ?></td>
-                                    		<td><a href="javascript:;" class="btn btn-info btn-sm vertrabajador"  data-placement="left" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Ver o Editar"><i class="fa fa-eye"></i></a> <a href="javascript:;" class="btn btn-success btn-sm vertrabajador"  data-placement="left" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Enviar"><i class="fa fa-send"></i></a></td>
+                                    		<td><a href="javascript:;" class="btn btn-info btn-sm detalle"  data-placement="left" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Ver o Editar"><i class="fa fa-eye"></i></a> <a href="javascript:;" class="btn btn-success btn-sm enviaratrabajador"  data-placement="left" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Enviar a trabajador"><i class="fa fa-send"></i></a></td>
                                     	</tr>	
                                     <?php 
                                     		}
@@ -76,4 +77,89 @@
  ?>
  <script>
  	$('#pendienteenvio').addClass('active');
+
+    $(document).ready(function(){
+
+        $(".detalle").click(function(e){
+            e.preventDefault();
+            var id_solicitud = $(this).data('solicitud');
+            $.ajax({
+            url: "editarsolicitud.php",
+            type: 'POST',
+            data: { 
+                id_solicitud: id_solicitud
+            },
+            success: function (data) {
+                $("#conten-modal").html(data);
+                $("#myModal").modal('show'); 
+            },
+            error: function () {
+                alert("UN ERROR HA OCURRIDO");
+            }
+        });
+        });
+
+        $(".enviaratrabajador").click(function(e){
+            e.preventDefault();
+            var id_solicitud = $(this).data('solicitud');
+            var numrecibo = $("#numrecibo"+id_solicitud).text();
+            swal({
+              title: "Desea enviar la solicitud #"+numrecibo+"?",
+              text: "Una vez enviado no podra hacer modificaciones!",
+              icon: "warning",
+              buttons: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                $.ajax({
+                    url: "../class/secretaria/enviaratrabajador.php",
+                    type: 'POST',
+                    data: { 
+                        id_solicitud: id_solicitud
+                    },
+                    success: function (data) {
+                        swal({
+                            title: "Solicitud enviada con exito!",
+                            icon: "success",
+                        })
+                            .then((value) => {
+                              location.href ="pendienteenvio.php";
+                        });
+                        
+                    },
+                    error: function () {
+                        alert("UN ERROR HA OCURRIDO");
+                    }
+                });
+
+              } else {
+                swal("Your imaginary file is safe!");
+              }
+            });
+            
+        });
+
+    });
+
  </script>
+
+ <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Datos Solicitud</h4>
+            </div>
+            <div class="modal-body">
+                <div id="conten-modal">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

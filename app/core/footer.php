@@ -12,6 +12,7 @@
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/datatables.min.js"></script>
         <script src="../../assets/js/nicescroll.min.js"></script>
         <script src="../../assets/js/autosize.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- endinject -->
 
 

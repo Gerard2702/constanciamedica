@@ -9,7 +9,11 @@
 	/* verificar conexión */
 	if ($conn->connect_errno) {
     	echo "Falló la conexión a MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error;
+    	exit();
 	}
 
 	$conn->query("SET NAMES 'utf8'");
+		
+
+	
 ?>
