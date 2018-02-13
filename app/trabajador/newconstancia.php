@@ -392,6 +392,7 @@
 			}
         });
     });
+    
 	var id_tipoconstancia = $( ".cambiarconstancia option:selected" ).val();
     var nombre = $( ".cambiarconstancia option:selected" ).text();
     $("#constanciatitulo").html("Crear constancia de "+nombre);

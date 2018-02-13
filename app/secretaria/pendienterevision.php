@@ -55,7 +55,7 @@
                                     		<td><?php echo $destinos; ?></td>
                                     		<td><?php echo $cantidad; ?></td>
                                     		<td><?php echo $servicio; ?></td>
-                                    		<td><a href="../../assets/plugins/tcpdf/examples/example_001.php" target="_blank" class="btn btn-info btn-sm vertrabajador"  data-placement="left" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Revisar"><i class="fa fa-eye"></i></a> <a href="javascript:;" class="btn btn-danger btn-sm vertrabajador"  data-placement="left" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Enviar para Modificacion"><i class="fa fa-share"></i></a></td>
+                                    		<td><a href="infosolicitud.php?con=<?php echo $id_datos ?>" class="btn btn-info btn-sm btn-block vertrabajador"  data-placement="left" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Revisar"><i class="fa fa-eye"></i></a></td>
                                     	</tr>	
                                     <?php 
                                     		}
