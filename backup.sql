@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `datos_complementarios` (
   `id_jefe` int(11) DEFAULT NULL,
   `id_jefesocial` int(11) DEFAULT NULL,
   `id_director` int(11) DEFAULT NULL,
+  `estado` int(11) DEFAULT '0',
   PRIMARY KEY (`id_datosc`),
   KEY `FK_dcconstancia` (`id_constancia`),
   KEY `FK_dcdatos` (`id_datos`),
@@ -63,17 +64,18 @@ CREATE TABLE IF NOT EXISTS `datos_complementarios` (
   CONSTRAINT `FK_dcjefesocial` FOREIGN KEY (`id_jefesocial`) REFERENCES `jefe_trabajo_social` (`id_jefesocial`),
   CONSTRAINT `FK_dcmedico` FOREIGN KEY (`id_medico`) REFERENCES `medico_tratante` (`id_medico`),
   CONSTRAINT `Fk_dcservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.datos_complementarios: ~21 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.datos_complementarios: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `datos_complementarios` DISABLE KEYS */;
-INSERT INTO `datos_complementarios` (`id_datosc`, `id_constancia`, `id_datos`, `fecha_consulta`, `id_servicio`, `diagnostico`, `nombre_solicitante`, `parentesco`, `destino`, `fecha_extension`, `id_medico`, `id_jefe`, `id_jefesocial`, `id_director`) VALUES
-	(1, 2, 7, '2018-01-04', 7, 'Síndrome Convulsivo más Diabetes Mellitus tipo 2, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'CARLOS RODOLFO REGALADO', 'hijo de paciente', 'UNITED AIRLINES', '2018-01-08', 1, 1, 1, 1),
-	(2, 2, 7, '2018-01-04', 7, 'Síndrome Convulsivo más Diabetes Mellitus tipo 2, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'Sra. REINA M. REGALADO ', 'nuera de paciente', 'FRAMINGHAM HIGH SCHOOL, BOSTON MASSACHUSETTS DE LOS ESTADOS UNIDOS DE AMERICA', '2018-01-08', 1, 1, 1, 1),
-	(3, 2, 7, '2018-01-04', 7, 'Síndrome Convulsivo más Diabetes Mellitus tipo 2, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'Sra. BRENDA REYES', 'nieta de paciente', 'TARGET, LOS ANGELES CALIFORNIA DE LOS ESTADOS UNIDOS DE AMERICA', '2018-01-08', 1, 1, 1, 1),
-	(4, 3, 8, '2017-12-23', 7, 'ingresando en el Servicio de Medicina Tres el mismo día con igual diagnóstico. Según expediente clínico paciente con antecedentes médicos conocidos de Diabetes Mellitus más Hipertensión Arterial desde hace aproximadamente 3 años', 'Sra. MARVIN AZUCENA TORREZ RIVAS', 'compañera de vida de paciente', 'AFP CONFIA', '2018-01-17', 1, 1, 1, 1),
-	(5, 3, 9, '2014-01-04', 7, 'Lumbociatica Bilateral, con historia de 4 meses de dolor en región escapular izquierda, además de treinta días de dificultad para deambular, el día de su ingreso sufre caída desde su propia altura con imposibilidad para incorporarse, ingresando al Servicio de Neurocirugía el mismo día con diagnostico de Síndrome Medular más Paraparesia, intervenido quirúrgicamente el día 10 de de enero de 2014 realizándose Laminectomìa Descompresiva T3-T4 más Toma de Biopsia de Tumor T3-T4. de Lesión Tumoral Paravertebral T3-T4 que reportó Metástasis de Adenocarcinoma a Vertebra T4, el 27 de enero de 2014 se le tomò TAC de Tórax que concluyó Masa Pulmonar que refuerza con el contraste en Vèrtice Izquierdo y según nota de medico tratante paciente con Càncer Primario de Pulmón y con Metàstasis  de Pulmón a Columna, el día 28 de enero de 2014 se le realizó Endoscopía Superior que diagnosticó Ulcera Gigante penetrada en Ante Gástrico más Ulcera en Bulbo Duodenal más Ulcera en Cuerpo Gástrico. El día 29 de enero de 2014 fue trasladado al Servicio de Medicina 3 con diagnóstico de Metastasis de Adenocarcinoma en columna Torácica más Sangrado del Tubo Digestivo Superior. Según expediente clínico paciente con antecedentes médicos conocidos de Infarto Agudo al Miocardio en 2011', 'Sra. ANA GLADIS CRUZ FIGUEROA C/P ANA GLADIS FIGUEROA ', 'compañera de vida de paciente', 'AFP CONFIA', '2018-01-12', 1, 1, 1, 1),
-	(7, 1, 10, '2017-12-18', 7, 'Miastenia Gravis, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'Sr. ESTEBAN PINEDA VALCACERES ', 'esposo de paciente', 'CORTE SUPREMA DE JUSTICIA', '2018-01-15', 1, 1, 1, 1);
+INSERT INTO `datos_complementarios` (`id_datosc`, `id_constancia`, `id_datos`, `fecha_consulta`, `id_servicio`, `diagnostico`, `nombre_solicitante`, `parentesco`, `destino`, `fecha_extension`, `id_medico`, `id_jefe`, `id_jefesocial`, `id_director`, `estado`) VALUES
+	(1, 2, 7, '2018-01-04', 7, 'Síndrome Convulsivo más Diabetes Mellitus tipo 2, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'CARLOS RODOLFO REGALADO', 'hijo de paciente', 'UNITED AIRLINES', '2018-01-08', 1, 1, 1, 1, 1),
+	(2, 2, 7, '2018-01-04', 7, 'Síndrome Convulsivo más Diabetes Mellitus tipo 2, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'Sra. REINA M. REGALADO ', 'nuera de paciente', 'FRAMINGHAM HIGH SCHOOL, BOSTON MASSACHUSETTS DE LOS ESTADOS UNIDOS DE AMERICA', '2018-01-08', 1, 1, 1, 1, 0),
+	(3, 2, 7, '2018-01-04', 7, 'Síndrome Convulsivo más Diabetes Mellitus tipo 2, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'Sra. BRENDA REYES', 'nieta de paciente', 'TARGET, LOS ANGELES CALIFORNIA DE LOS ESTADOS UNIDOS DE AMERICA', '2018-01-08', 1, 1, 1, 1, 1),
+	(4, 3, 8, '2017-12-23', 7, 'ingresando en el Servicio de Medicina Tres el mismo día con igual diagnóstico. Según expediente clínico paciente con antecedentes médicos conocidos de Diabetes Mellitus más Hipertensión Arterial desde hace aproximadamente 3 años', 'Sra. MARVIN AZUCENA TORREZ RIVAS', 'compañera de vida de paciente', 'AFP CONFIA', '2018-01-17', 1, 1, 1, 1, 0),
+	(5, 3, 9, '2014-01-04', 7, 'Lumbociatica Bilateral, con historia de 4 meses de dolor en región escapular izquierda, además de treinta días de dificultad para deambular, el día de su ingreso sufre caída desde su propia altura con imposibilidad para incorporarse, ingresando al Servicio de Neurocirugía el mismo día con diagnostico de Síndrome Medular más Paraparesia, intervenido quirúrgicamente el día 10 de de enero de 2014 realizándose Laminectomìa Descompresiva T3-T4 más Toma de Biopsia de Tumor T3-T4. de Lesión Tumoral Paravertebral T3-T4 que reportó Metástasis de Adenocarcinoma a Vertebra T4, el 27 de enero de 2014 se le tomò TAC de Tórax que concluyó Masa Pulmonar que refuerza con el contraste en Vèrtice Izquierdo y según nota de medico tratante paciente con Càncer Primario de Pulmón y con Metàstasis  de Pulmón a Columna, el día 28 de enero de 2014 se le realizó Endoscopía Superior que diagnosticó Ulcera Gigante penetrada en Ante Gástrico más Ulcera en Bulbo Duodenal más Ulcera en Cuerpo Gástrico. El día 29 de enero de 2014 fue trasladado al Servicio de Medicina 3 con diagnóstico de Metastasis de Adenocarcinoma en columna Torácica más Sangrado del Tubo Digestivo Superior. Según expediente clínico paciente con antecedentes médicos conocidos de Infarto Agudo al Miocardio en 2011', 'Sra. ANA GLADIS CRUZ FIGUEROA C/P ANA GLADIS FIGUEROA ', 'compañera de vida de paciente', 'AFP CONFIA', '2018-01-12', 1, 1, 1, 1, 0),
+	(7, 1, 10, '2017-12-18', 7, 'Miastenia Gravis, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'Sr. ESTEBAN PINEDA VALCACERES ', 'esposo de paciente', 'CORTE SUPREMA DE JUSTICIA', '2018-01-15', 1, 1, 1, 1, 0),
+	(8, 2, 5, '2018-02-12', 6, 'asdasdasd', 'Juan Miguel', 'Padre', 'AFP CONFIA', '2018-02-13', NULL, NULL, NULL, NULL, 0);
 /*!40000 ALTER TABLE `datos_complementarios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ts2.datos_const_alta
@@ -104,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `datos_const_fallecimiento` (
   CONSTRAINT `FK_dcfdatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.datos_const_fallecimiento: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.datos_const_fallecimiento: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `datos_const_fallecimiento` DISABLE KEYS */;
 INSERT INTO `datos_const_fallecimiento` (`id_datoscf`, `id_datosc`, `fecha_defuncion`, `diagnostico`) VALUES
 	(1, 4, '2017-12-27', 'Infarto Agudo de Miocardio más Hipertensión Arterial  más Diabetes Mellitus Tipo 2 más Neumonía'),
@@ -136,14 +138,15 @@ CREATE TABLE IF NOT EXISTS `datos_const_ingreso` (
   PRIMARY KEY (`id_datosci`),
   KEY `FK_dcidatosc` (`id_datosc`),
   CONSTRAINT `FK_dcidatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.datos_const_ingreso: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.datos_const_ingreso: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `datos_const_ingreso` DISABLE KEYS */;
 INSERT INTO `datos_const_ingreso` (`id_datosci`, `id_datosc`, `diagnostico`) VALUES
 	(1, 1, 'Estatus Convulsivo + Neumonía Aspirativa en Ventilación Mecánica'),
 	(2, 2, 'Estatus Convulsivo + Neumonía Aspirativa en Ventilación Mecánica'),
-	(3, 3, 'Estatus Convulsivo + Neumonía Aspirativa en Ventilación Mecánica');
+	(3, 3, 'Estatus Convulsivo + Neumonía Aspirativa en Ventilación Mecánica'),
+	(4, 8, 'asdasdasd');
 /*!40000 ALTER TABLE `datos_const_ingreso` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ts2.datos_iniciales
@@ -170,9 +173,9 @@ CREATE TABLE IF NOT EXISTS `datos_iniciales` (
   CONSTRAINT `FK_datos_iniciales_usuario` FOREIGN KEY (`id_trabajador`) REFERENCES `usuario` (`id_user`),
   CONSTRAINT `FK_diestado` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`),
   CONSTRAINT `FK_diservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.datos_iniciales: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.datos_iniciales: ~25 rows (aproximadamente)
 /*!40000 ALTER TABLE `datos_iniciales` DISABLE KEYS */;
 INSERT INTO `datos_iniciales` (`id_datos`, `fecha`, `numero_recibo`, `afiliacion_dui`, `nombre_paciente`, `destinos`, `id_servicio`, `cantidad`, `fecha_presentado`, `fecha_cancelado`, `precio`, `id_estado`, `id_trabajador`, `fecha_recibido_revision`, `fecha_autorizacion_direccion`) VALUES
 	(1, '2018-02-04', 122, '15457845', 'Gerardo Lopez Melara Melara', 'AFP', 6, 1, '2018-02-04', '2018-02-04', 2.6, 1, 2, NULL, NULL),
@@ -184,7 +187,22 @@ INSERT INTO `datos_iniciales` (`id_datos`, `fecha`, `numero_recibo`, `afiliacion
 	(7, '2018-02-11', 11111, '089280204', 'RUBENIA REGALADO DE CALLES', 'UNITED AIRLINES,FRAMINGHAM HIGH SCHOOL, BOSTON MASSACHUSETTS DE LOS ESTADOS UNIDOS DE AMERICA', 7, 3, '2018-02-11', '2018-02-11', 2.6, 4, 4, NULL, NULL),
 	(8, '2018-02-11', 22222, '175 54 3525', 'RAMON ARTURO FLORES JOVEL', 'AFP CONFIA', 7, 2, '2018-02-11', '2018-02-11', 2.6, 3, 4, NULL, NULL),
 	(9, '2018-02-11', 33333, '165 45 1120', 'CARLOS ARTURO MENENDEZ C/P CARLOS ARTURO MELHADO MENENDEZ', 'AFP CONFIA', 7, 1, '2018-02-11', '2018-02-11', 2.6, 3, 4, NULL, NULL),
-	(10, '2018-02-11', 44444, '982 63 1081', 'ALMA VIRGINIA AVELAR DE PINEDA', 'CORTE SUPREMA DE JUSTICIA', 7, 1, '2018-02-11', '2018-02-11', 2.6, 3, 4, NULL, NULL);
+	(10, '2018-02-11', 44444, '982 63 1081', 'ALMA VIRGINIA AVELAR DE PINEDA', 'CORTE SUPREMA DE JUSTICIA', 7, 1, '2018-02-11', '2018-02-11', 2.6, 3, 4, NULL, NULL),
+	(11, '2018-02-12', NULL, '45874521', 'Gerardo Adolfo Orellana Perez', 'AFP', 5, 1, '2018-02-12', NULL, NULL, NULL, NULL, NULL, NULL),
+	(12, '2018-02-12', 666666, '124578451', 'Gerardo Adolfo Orellana Perez', 'AFP', 5, 1, '2018-02-12', '2018-02-12', NULL, NULL, NULL, NULL, NULL),
+	(13, '2018-02-13', 77777, '21212', 'Gerardo Adolfo Orellana Perez', 'AFP', 6, 2, '2018-02-12', '2018-02-13', NULL, NULL, NULL, NULL, NULL),
+	(14, '2018-02-12', 888, '4545', 'Gerardo Adolfo Orellana Perez', 'AFP', 8, 10, '2018-02-27', '2018-02-22', 13.75, 2, 1, NULL, NULL),
+	(15, '2018-02-12', 4545454, '4545', 'Gerardo Adolfo Orellana Perez', 'AFP', 7, 121212, '2018-02-13', '2018-02-13', 2.75, 2, 1, NULL, NULL),
+	(16, '2018-02-12', 1111, '78454521', 'Gerardo Adolfo Orellana Perez', 'AFP CONFIA', 3, 1, '2018-02-22', '2018-02-14', 2.75, 2, NULL, NULL, NULL),
+	(17, '2018-02-12', 123123, '2233114455', 'Alfonso Castro', 'BANCO AGRICOLA SA', 8, 1, '2018-02-12', '2018-02-28', 2.75, 2, 1, NULL, NULL),
+	(18, '2018-02-12', 99999, '145236569', 'Maria del Carmen', 'ASESUISA', 5, 1, '2018-02-12', '2018-02-12', 2.75, 2, 1, NULL, NULL),
+	(19, '2018-02-12', 101010, '5555555555', 'Maria dolores', 'ASESUISA SA DE SV', 7, 3, '2018-02-12', '2018-02-12', 2.75, 2, 1, NULL, NULL),
+	(20, '2018-02-12', 454545, '4545', 'Gerardo Adolfo Orellana Perez', '4545', 7, 4, '2018-02-28', '2018-02-07', 2.75, 2, 1, NULL, NULL),
+	(21, '2018-02-12', 4545, '5454', 'Gerardo Adolfo Orellana Perez', '4545', 7, 454545, '2018-02-12', '2018-02-13', 2.75, 2, 1, NULL, NULL),
+	(22, '2018-02-01', 4545, '4545', '4545', '44545', 6, 444, '2018-02-13', '2018-02-13', 2.75, 2, 1, NULL, NULL),
+	(23, '2018-02-12', 1231231, '1231231', 'Gerardo Adolfo Orellana Perez', '123123', 7, 1, '2018-02-12', '2018-02-12', 2.75, 2, 1, NULL, NULL),
+	(24, '2018-02-12', 1123123, '1231231', 'Alfonso Castro', '4545', 3, 1, '2018-02-12', '2018-02-12', 2.75, 2, 1, NULL, NULL),
+	(25, '2018-02-12', 123123123, '123123', 'Gerardo Adolfo Orellana Perez', 'AFP', 6, 1, '2018-02-13', '2018-02-13', 2.75, 1, 1, NULL, NULL);
 /*!40000 ALTER TABLE `datos_iniciales` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ts2.director
@@ -198,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `director` (
   KEY `FK_dstatus` (`id_status`),
   CONSTRAINT `FK_dservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
   CONSTRAINT `FK_dstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla ts2.director: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `director` DISABLE KEYS */;
@@ -278,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `medico_tratante` (
   CONSTRAINT `FK_mtstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.medico_tratante: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.medico_tratante: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `medico_tratante` DISABLE KEYS */;
 INSERT INTO `medico_tratante` (`id_medico`, `nombre`, `id_status`, `id_servicio`) VALUES
 	(1, 'juan', 1, 1),
