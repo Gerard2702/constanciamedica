@@ -130,7 +130,7 @@
 	                            </div>
 	                            <div id="contenido">
 	                            	<!-- $constancianum  contiene el id de la solicitud a imprimir-->
-	                            	<a class="btn btn-info" href="<?php echo $contancianum ?>"><i class="fa fa-print"></i> Imprimir Constancias</a>
+	                            	<a class="btn btn-info" href="constancias.php?contancianum=<?php echo $contancianum ?>"><i class="fa fa-print"></i> Imprimir Constancias</a>
 	                            	<div id="contenido" class="table-responsive">
 			                        	<table class="table table-striped table-condensed" id="mitable">
 			                                <thead class="thead-inverse">
@@ -156,7 +156,7 @@
 	                                                <td><?php echo $parentesco; ?></td>
 	                                                <td><?php echo $destinoc; ?></td>
 	                                                <td><?php echo $fecha_extension; ?></td>
-	                                                <td><a href="constancias.php?cal=<?php echo $id_datosc ?>&ti=<?php echo $tipoconstancia ?>" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($estadocon==1){ ?><a href="" class="btn btn-success btn-sm"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="" class="btn btn-default btn-sm"><i class="fa fa-error"> No Aprobado</i></a><?php } ?></td>
+	                                                <td><a href="" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($estadocon==1){ ?><a href="" class="btn btn-success btn-sm"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="" class="btn btn-default btn-sm"><i class="fa fa-error"> No Aprobado</i></a><?php } ?></td>
 	                                            </tr>   
 	                                        <?php 
 	                                                }
