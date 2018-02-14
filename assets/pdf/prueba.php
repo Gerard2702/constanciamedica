@@ -38,14 +38,12 @@ class PDF extends FPDF
         $this->MultiCell(0,5,'"Con una visión más humana al servicio integral de su salud"',0,"C");
         $this->SetFont('Arial','',11);
         $this->MultiCell(0,5,'"Alameda Juan Pablo II y 25  Avenida Norte Tel.  2591 4240"',0,"C");
-        $this->SetFont('Arial','B',10);
+        $this->SetFont('Arial','BU',10);
         $this->MultiCell(0,5,"email@isss.gob.sv",0,"C");
     }
 }
 
 // Creación del objeto de la clase heredada
-
-$paciente = "FRANCISCO JAVIER CARBALLO MENA";
 
 $paciente = "FRANCISCO JAVIER CARBALLO MENA";
 $afiliacion = "891 50 0127";

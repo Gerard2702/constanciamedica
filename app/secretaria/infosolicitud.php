@@ -156,7 +156,7 @@
 	                                                <td><?php echo $parentesco; ?></td>
 	                                                <td><?php echo $destinoc; ?></td>
 	                                                <td><?php echo $fecha_extension; ?></td>
-	                                                <td><a href="infosolicitud.php?con=<?php echo $id_datos ?>" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($estadocon==1){ ?><a href="" class="btn btn-success btn-sm"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="" class="btn btn-default btn-sm"><i class="fa fa-error"> No Aprobado</i></a><?php } ?></td>
+	                                                <td><a href="constancias.php?cal=<?php echo $id_datosc ?>&ti=<?php echo $tipoconstancia ?>" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($estadocon==1){ ?><a href="" class="btn btn-success btn-sm"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="" class="btn btn-default btn-sm"><i class="fa fa-error"> No Aprobado</i></a><?php } ?></td>
 	                                            </tr>   
 	                                        <?php 
 	                                                }
