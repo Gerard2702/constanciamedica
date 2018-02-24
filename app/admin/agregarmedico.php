@@ -33,7 +33,16 @@
                             	<form class="form-horizontal form-variance" method="POST" action="../class/admin/agregarmedico.php">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Completo</label>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-1">
+                                            <select class="form-control" name="titulo" id="titulo" required>
+                                                <option value="Dr.">Dr.</option>
+                                                <option value="Dra.">Dra.</option>
+                                                <option value=""></option>
+                                                <option value="Lcda.">Lcda.</option>
+                                                <option value="Lcdo">Lcdo.</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-5">
                                             <input class="form-control" id="nombre" name="nombre" type="text" required="">
                                         </div>
                                     </div>

@@ -2,7 +2,9 @@
 	include("../../../config/database.php");
 
 	if (!empty($_POST['nombre']) && $_POST['nombre'] != "") {
-		$name = $_POST['nombre'];
+		$titulo = $_POST['titulo'];
+		$nameprov = trim($_POST['nombre']);
+		$name = trim($titulo." ".$nameprov);
 	}
 
 	$servicio = $_POST['services'];	
