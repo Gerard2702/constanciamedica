@@ -93,7 +93,13 @@ require('conversor.php');
                     $pacienteA = strtoupper($nombre_pacienteA);
                     $destinoA1 = strtoupper($destinoA);
                     $solicitanteA = strtoupper($nombre_solicitanteA);
-                    $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.\n\n A solicitud de $solicitanteA ($parentescoA), y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";  
+                    if(empty($parentescoA)){
+                        $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.\n\n A solicitud de $solicitanteA ($parentescoA), y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";  
+                    }
+                    else{
+                        $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.\n\n A solicitud de $solicitanteA, y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";  
+                    }
+                    
 
                    //INICIO FIRMAS REQUERIDAS DE 4 ENCARGADOS
                     if(($rowsopc>0) && ($rowsopc2>0) && ($rowsopc3>0) && ($rowsopc4>0)){
@@ -282,7 +288,12 @@ require('conversor.php');
                     $pacienteI = strtoupper($nombre_pacienteI);
                     $destinoI1 = strtoupper($destinoI);
                     $solicitanteI = strtoupper($nombre_solicitanteI);
-                    $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.\n\nA solicitud de $solicitanteI ($parentescoI), y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.\n\n\n";
+                    if(empty($parentescoI)){
+                        $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.\n\nA solicitud de $solicitanteI, y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.\n\n\n";
+                    }else{
+                        $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.\n\nA solicitud de $solicitanteI ($parentescoI), y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.\n\n\n";
+                    }
+                    
 
                     //INICIO FIRMAS REQUERIDAS DE 4 ENCARGADOS
                     if(($rowsopc>0) && ($rowsopc2>0) && ($rowsopc3>0) && ($rowsopc4>0)){
@@ -477,7 +488,12 @@ require('conversor.php');
                     $pacienteF = strtoupper($nombre_pacienteF);
                     $destinoF1 = strtoupper($destinoF);
                     $solicitanteF = strtoupper($nombre_solicitanteF);
-                    $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.\n\nA solicitud de $solicitanteF ($parentescoF), y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
+                    if(empty($parentescoF)){
+                        $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.\n\nA solicitud de $solicitanteF, y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
+                    }else{
+                        $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.\n\nA solicitud de $solicitanteF ($parentescoF), y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
+                    }
+                    
 
                     //INICIO FIRMAS REQUERIDAS DE 4 ENCARGADOS
                     if(($rowsopc>0) && ($rowsopc2>0) && ($rowsopc3>0) && ($rowsopc4>0)){
@@ -678,7 +694,12 @@ require('conversor.php');
                     $pacienteFC = strtoupper($nombre_pacienteFC);
                     $destinoFC1 = strtoupper($destinoFC);
                     $solicitanteFC = strtoupper($nombre_solicitanteFC);
-                    $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.\n\nA solicitud de $solicitanteFC ($parentescoFC), y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
+                    if(empty($parentescoFC)){
+                        $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.\n\nA solicitud de $solicitanteFC, y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
+                    }else{
+                        $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.\n\nA solicitud de $solicitanteFC ($parentescoFC), y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
+                    }
+                    
 
                     //INICIO FIRMAS REQUERIDAS DE 4 ENCARGADOS
                     if(($rowsopc>0) && ($rowsopc2>0) && ($rowsopc3>0) && ($rowsopc4>0)){
