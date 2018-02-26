@@ -94,9 +94,6 @@
 ?>
 	<!--main content start-->
 	<div id="content" class="ui-content ui-content-aside-overlay">
-	    <div class="page-head-wrap">
-	        <h4 class="margin0">SOLICITUD CON NUMERO RECIBO: # <?php echo $nrecibo; ?></h4>  
-	    </div>
 	    <div class="ui-content-body">
 	        <div class="ui-container">
 	            <div class="row">
@@ -104,7 +101,7 @@
 	                    <div class="panel">
 	                        <div class="panel-body">
 	                            <div id="titulo">
-	                            	<h4>Datos Principales</h4>
+	                            	<h4>SOLICITUD CON NUMERO RECIBO: # <?php echo $nrecibo; ?></h4>
 	                            </div>
 	                            <div id="contenido">
 	                        		<div class="col-md-12">
@@ -130,7 +127,7 @@
 	                            </div>
 	                            <div id="contenido">
 	                            	<!-- $constancianum  contiene el id de la solicitud a imprimir-->
-	                            	<a class="btn btn-info" href="constancias.php?contancianum=<?php echo $contancianum ?>"><i class="fa fa-print"></i> Imprimir Constancias</a>
+	                            	<a class="btn btn-info" target="_blank" href="constancias.php?contancianum=<?php echo $contancianum ?>"><i class="fa fa-print"></i> Imprimir Constancias</a>
 	                            	<div id="contenido" class="table-responsive">
 			                        	<table class="table table-striped table-condensed" id="mitable">
 			                                <thead class="thead-inverse">
@@ -147,18 +144,20 @@
 			                                <tbody> 
 			                                <?php 
                                             if($rowscre>0){
+                                            	$cont=1;
                                                 while ($stmtcre->fetch()) {
+                                                	
 	                                        ?>
 	                                            <tr>
-	                                                <td><?php echo $tipoconstancia; ?></td>
+	                                                <td><?php echo $cont." - ".$tipoconstancia; ?></td>
 	                                                <td><?php echo $fecha_consulta; ?></td>
 	                                                <td><?php echo $solicitante; ?></td>
 	                                                <td><?php echo $parentesco; ?></td>
 	                                                <td><?php echo $destinoc; ?></td>
 	                                                <td><?php echo $fecha_extension; ?></td>
-	                                                <td><a href="" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($estadocon==1){ ?><a href="" class="btn btn-success btn-sm"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="" class="btn btn-default btn-sm"><i class="fa fa-error"> No Aprobado</i></a><?php } ?></td>
+	                                                <td><a href="" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($estadocon==1){ ?><a href="javascript:;" class="btn btn-success btn-sm estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="javascript:;" class="btn btn-default btn-sm estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa "> No Aprobado</i></a><?php } ?></td>
 	                                            </tr>   
-	                                        <?php 
+	                                        <?php 	$cont=$cont+1;
 	                                                }
 	                                            }
 	                                            $stmtcre->close();
@@ -167,7 +166,7 @@
 			                            </table>
 			                        </div>
 			                        <a class="btn btn-success" href="#">Enviar para modificacion</a>
-			                        <a class="btn btn-danger" href="#">Finalizar</a>  
+			                        <a class="btn btn-warning" href="#">Finalizar</a>  
 	                            </div>
 	                        </div>
 	                    </div>
@@ -182,3 +181,41 @@
    }
     
 ?>
+<script>
+	$(document).ready(function(){
+		$('.estado').click(function(e){
+			var estado = $(this).data('estado');
+			var id_constancia =  $(this).data('constancia')
+			var idestado = document.getElementById("estado");
+				$.ajax({
+	            url: "../class/secretaria/aprobar.php",
+	            type: 'POST',
+	            data: { 
+	                id_constancia: id_constancia,
+	                estado: estado
+	            },
+	            success: function (data) {
+	            	if(data=='true'){
+	            		if(estado==0){
+	            			$('#estado'+id_constancia).removeClass('btn-default');
+	            			$('#estado'+id_constancia).addClass('btn-success estado');
+	            			$('#estado'+id_constancia).data( 'estado', '1' );
+	            			$('#estado'+id_constancia+' i').addClass('fa-check');
+	            			$('#estado'+id_constancia+' i').html('Aprobado');
+	            		}
+	            		else if(estado==1){
+	            			$('#estado'+id_constancia).removeClass('btn-success');
+	            			$('#estado'+id_constancia).addClass('btn-default estado');
+	            			$('#estado'+id_constancia).data( 'estado', '0' );
+	            			$('#estado'+id_constancia+' i').removeClass('fa-check');
+	            			$('#estado'+id_constancia+' i').html('No Aprobado');
+	            		}
+	            	}
+	            },
+	            error: function () {
+	                alert("UN ERROR HA OCURRIDO");
+	            }
+			});	
+		})
+	})
+</script>

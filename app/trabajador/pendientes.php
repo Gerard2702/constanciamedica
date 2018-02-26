@@ -17,9 +17,6 @@
     $conn->close();
 ?>
 <div id="content" class="ui-content ui-content-aside-overlay">
-    <div class="page-head-wrap">
-        <h4 class="margin0">SOLICITUDES ACEPTADAS PENDIENTES DE CREACION DE CONSTANCIAS </h4>  
-    </div>
     <div class="ui-content-body">
         <div class="ui-container">
             <div class="row">
@@ -27,7 +24,7 @@
                     <div class="panel">
                         <div class="panel-body">
                             <div id="titulo">
-                            	<h4 id="serviciotitulo">MIS SOLICITUDES PENDIENTES</h4>
+                            	<h4 id="serviciotitulo">MIS SOLICITUDES PENDIENTES DE CREACION DE CONSTANCIAS</h4>
                             </div>
                             <div class="col-md-12" id="misrecibidos">
                                 <div id="contenido" class="table-responsive">
@@ -80,5 +77,22 @@
  ?>
  <script>
  	$('#pendientes').addClass('active');
-    
+    $('#mitable').DataTable({
+        //"pagingType": "full_numbers",
+        "paging": true,
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "No se encontraton registros",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros ",
+            "infoEmpty": "No se encontraton registros",
+            "infoFiltered": "(Filtrado de _MAX_ registros)",
+            "paginate": {
+                "first": "Primera",
+                "last": "Ultima",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "search": "Buscar: "
+        }
+    });
  </script>

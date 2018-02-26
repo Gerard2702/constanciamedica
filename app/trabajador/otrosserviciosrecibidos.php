@@ -36,13 +36,13 @@
         ?>
             <tr>
                 <td><?php echo $fechacreacion; ?></td>
-                <td><?php echo $nrecibo; ?></td>
+                <td id="numrecibo<?php echo $id_datos; ?>"><?php echo $nrecibo; ?></td>
                 <td><?php echo $nombrepaciente; ?></td>
                 <td><?php echo $afiliacion; ?></td>
                 <td><?php echo $destinos; ?></td>
                 <td><?php echo $cantidad; ?></td>
                 <td><?php echo $servicio; ?></td>
-                <td><a href="javascript:;" class="btn btn-info btn-sm verconstancia"  data-placement="left" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Ver detalle"><i class="fa fa-eye"></i></a> <a href="javascript:;" class="btn btn-success btn-sm" id="aceptarsolicitudotros" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Aceptar Solicitud"><i class="fa fa-check"></i></a></td>
+                <td><a href="javascript:;" class="btn btn-info btn-sm detalle"  data-placement="left" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Ver detalle"><i class="fa fa-eye"></i></a> <a href="javascript:;" class="btn btn-success btn-sm aceptarsolicitud" data-solicitud="<?php echo $id_datos ?>" data-toggle="tooltip" data-placement="left" title="Aceptar Solicitud"><i class="fa fa-check"></i></a></td>
             </tr>   
         <?php 
                 }
@@ -53,23 +53,77 @@
     </table>
 </div>
 <script>
-    $("#aceptarsolicitudotros").click(function(e) {
+    $(".aceptarsolicitud").click(function(e) {
             e.preventDefault();
             var solicitud = $(this).data('solicitud');
-            $.ajax({
-                url: "../class/trabajador/aceptarsolicitud.php",
-                type: 'POST',
-                data: { 
-                    solicitud: solicitud
-                },
-                success: function (data) {
-                    if(data=="true"){
-                        location.href ="infosolicitud.php?con="+solicitud;
+            var numrecibo = $("#numrecibo"+solicitud).text();
+            swal({
+              title: "Desea aceptar la solicitud #"+numrecibo+"?",
+              text: "",
+              icon: "info",
+              buttons: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {    
+                $.ajax({
+                    url: "../class/trabajador/aceptarsolicitud.php",
+                    type: 'POST',
+                    data: { 
+                        solicitud: solicitud
+                    },
+                    success: function (data) {
+                        if(data=="true"){
+                            location.href ="infosolicitud.php?con="+solicitud;
+                        }
+                    },
+                    error: function () {
+                        alert("UN ERROR HA OCURRIDO");
                     }
-                },
-                error: function () {
-                    alert("UN ERROR HA OCURRIDO");
-                }
+                });
+           } else {
+                
+              }
             });
+
+        });
+
+    $(".detalle").click(function(e){
+            e.preventDefault();
+            var id_solicitud = $(this).data('solicitud');
+            $.ajax({
+            url: "verdetalle.php",
+            type: 'POST',
+            data: { 
+                id_solicitud: id_solicitud
+            },
+            success: function (data) {
+                $("#conten-modal").html(data);
+                $("#myModal").modal('show'); 
+            },
+            error: function () {
+                alert("UN ERROR HA OCURRIDO");
+            }
+        });
         });
 </script>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Datos Solicitud</h4>
+            </div>
+            <div class="modal-body">
+                <div id="conten-modal">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
