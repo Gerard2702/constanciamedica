@@ -39,7 +39,6 @@
         <li id="inicio"><a href="../trabajador/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
 		<li id="recibidos"><a href="../trabajador/recibidos.php"><i class="fa fa-inbox"></i><span>Recibidos</span></a></li>
         <li id="pendientes"><a href="../trabajador/pendientes.php"><i class="fa fa-clock-o "></i><span>Pendiente</span></a></li>
-        <li id="finalizado"><a href="#"><i class="fa fa-check-square-o "></i><span>Finalizado</span></a>           </li>
         <li id="modificacion"><a href="#"><i class="fa fa-pencil-square-o "></i><span>Modificación</span></a></li>
 		<?php		
 				break;

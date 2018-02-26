@@ -40,6 +40,7 @@
 	   		$stmtcomp->execute();
 	   		$stmtcomp->store_result();
 	   		$rowscomp = $stmtcomp->num_rows;
+	   		$stmtcomp->close();
    		}
 
    		if($rowscomp!=1){
@@ -80,21 +81,18 @@
    			$stmtcons -> close();
    		}
 
-   		$sqlcreadas = "SELECT dat.id_datosc,dat.fecha_consulta,dat.nombre_solicitante,dat.parentesco,dat.destino,dat.fecha_extension,con.tipo_constancia FROM datos_complementarios dat INNER JOIN constancias con ON dat.id_constancia=con.id_constancia WHERE dat.id_datos=?";
+   		$sqlcreadas = "SELECT dat.id_datosc,dat.id_constancia,dat.fecha_consulta,dat.nombre_solicitante,dat.parentesco,dat.destino,dat.fecha_extension,con.tipo_constancia FROM datos_complementarios dat INNER JOIN constancias con ON dat.id_constancia=con.id_constancia WHERE dat.id_datos=? ORDER BY dat.id_datosc";
    		if($stmtcre = $conn->prepare($sqlcreadas)){
    			$stmtcre -> bind_param('i',$contancianum);
    			$stmtcre -> execute();
    			$stmtcre -> store_result();
 	    	$rowscre = $stmtcre->num_rows;
-   			$stmtcre -> bind_result($id_datosc,$fecha_consulta,$solicitante,$parentesco,$destinoc,$fecha_extension,$tipoconstancia);
+   			$stmtcre -> bind_result($id_datosc,$id_constancia,$fecha_consulta,$solicitante,$parentesco,$destinoc,$fecha_extension,$tipoconstancia);
    		}
-	    $conn->close();
+	    
 ?>
 	<!--main content start-->
 	<div id="content" class="ui-content ui-content-aside-overlay">
-	    <div class="page-head-wrap">
-	        <h4 class="margin0">SOLICITUD CON NUMERO RECIBO: # <?php echo $nrecibo; ?></h4>  
-	    </div>
 	    <div class="ui-content-body">
 	        <div class="ui-container">
 	            <div class="row">
@@ -102,7 +100,7 @@
 	                    <div class="panel">
 	                        <div class="panel-body">
 	                            <div id="titulo">
-	                            	<h4>Datos Principales</h4>
+	                            	<h4>SOLICITUD CON NUMERO RECIBO: # <?php echo $nrecibo; ?></h4>
 	                            </div>
 	                            <div id="contenido">
 	                        		<div class="col-md-12">
@@ -127,7 +125,7 @@
 	                            	<h4>Constancias creadas</h4> 
 	                            </div>
 	                            <div id="contenido">
-	                            	<a class="btn btn-success" href="newconstancia.php">Agregar Constancia</a>
+	                            	<a class="btn btn-info" href="newconstancia.php"><i class="fa fa-plus"></i> Agregar Constancia</a>
 	                            	<div id="contenido" class="table-responsive">
 			                        	<table class="table table-striped table-condensed" id="mitable">
 			                                <thead class="thead-inverse">
@@ -145,6 +143,52 @@
 			                                <?php 
                                             if($rowscre>0){
                                                 while ($stmtcre->fetch()) {
+                                                	$id_tipo=0;
+                                                	switch ($id_constancia) {
+                                                		case '1':
+                                                			$sqltipo = "SELECT id_datosca FROM datos_const_alta WHERE id_datosc=?";
+                                                			if($stmttipo = $conn->prepare($sqltipo)){
+                                                				$stmttipo->bind_param('i',$id_datosc);
+                                                				$stmttipo->execute();
+                                                				$stmttipo->bind_result($id_tipo);
+                                                				$stmttipo->fetch();
+                                                				$stmttipo->close();
+                                                			}
+                                                			break;
+                                                		case '2':
+                                                			$sqltipo = "SELECT id_datosci FROM datos_const_ingreso WHERE id_datosc=?";
+                                                			if($stmttipo = $conn->prepare($sqltipo)){
+                                                				$stmttipo->bind_param('i',$id_datosc);
+                                                				$stmttipo->execute();
+                                                				$stmttipo->bind_result($id_tipo);
+                                                				$stmttipo->fetch();
+                                                				$stmttipo->close();
+                                                			}
+                                                			break;
+                                                		case '3':
+                                                			$sqltipo = "SELECT id_datoscf FROM datos_const_fallecimiento WHERE id_datosc=?";
+                                                			if($stmttipo = $conn->prepare($sqltipo)){
+                                                				$stmttipo->bind_param('i',$id_datosc);
+                                                				$stmttipo->execute();
+                                                				$stmttipo->bind_result($id_tipo);
+                                                				$stmttipo->fetch();
+                                                				$stmttipo->close();
+                                                			}
+                                                			break;
+                                            			case '4':
+                                            				$sqltipo = "SELECT id_datoscfc FROM datos_const_fallecimiento_casa WHERE id_datosc=?";
+                                                			if($stmttipo = $conn->prepare($sqltipo)){
+                                                				$stmttipo->bind_param('i',$id_datosc);
+                                                				$stmttipo->execute();
+                                                				$stmttipo->bind_result($id_tipo);
+                                                				$stmttipo->fetch();
+                                                				$stmttipo->close();
+                                                			}
+                                            				break;
+                                                		default:
+                                                			# code...
+                                                			break;
+                                                	}
 	                                        ?>
 	                                            <tr>
 	                                                <td><?php echo $tipoconstancia; ?></td>
@@ -153,7 +197,7 @@
 	                                                <td><?php echo $parentesco; ?></td>
 	                                                <td><?php echo $destinoc; ?></td>
 	                                                <td><?php echo $fecha_extension; ?></td>
-	                                                <td><a href="infosolicitud.php?con=<?php echo $id_datos ?>" class="btn btn-info btn-sm crearconstancias" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <a href="infosolicitud.php?con=<?php echo $id_datos ?>" class="btn btn-success btn-sm crearconstancias" data-toggle="tooltip" data-placement="left" title="Editar"><i class="fa fa-edit"></i></a></td>
+	                                                <td><a href="editconstancia.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo ?>" class="btn btn-success btn-sm " data-toggle="tooltip" data-placement="left" title="Ver o editar"><i class="fa fa-edit"></i></a> <a href="javascript:;" class="btn btn-danger btn-sm eliminar"  data-placement="left" data-constancia="<?php echo $id_datosc ?>" data-tipo="<?php echo $id_constancia; ?>" data-alt="<?php echo $id_tipo; ?>"data-toggle="tooltip" data-placement="left" title="Eliminar"><i class="fa fa-times"></i></a></td>
 	                                            </tr>   
 	                                        <?php 
 	                                                }
@@ -163,7 +207,8 @@
 			                                </tbody>
 			                            </table>
 			                        </div>
-			                        <a class="btn btn-success" href="">Finalizar</a> <a class="btn btn-success" href="">Finalizar y enviar a Revisión</a>
+			                        	<a  href="javascript:;" type="submit" class="btn btn-success" name="finalizar" id="finalizar" data-solicitud="<?php echo $id_datos ?>">Finalizar</a>
+			                        </form>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -174,7 +219,104 @@
 	</div>
 <?php
 	include("../core/footer.php");
+	$conn->close();
 	}
    }
     
 ?>
+
+<script>
+$(document).ready(function(){
+	$("#finalizar").click(function(e) {
+        e.preventDefault();
+        var solicitud = $(this).data('solicitud');
+        var numrecibo = <?php echo $nrecibo; ?>;
+        swal({
+          title: "Desea finalizar y enviar la solicitud #"+numrecibo+"?",
+          text: "Verifique que todas las constancias hayan sido creadas!",
+          icon: "warning",
+          buttons: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {    
+            $.ajax({
+                url: "../class/trabajador/finalizar.php",
+                type: 'POST',
+                data: { 
+                    solicitud: solicitud
+                },
+                success: function (data) {
+                    if(data=="true"){
+                        swal({
+                        title: "Solicitud enviada exito!",
+                        icon: "success",
+	                    }).then((value) => {
+	                          location.href ="pendientes.php";
+	                    }); 
+                    }
+                    else{
+                    	swal({
+                        title: "Un Error ha ocurrido!",
+                        icon: "error",
+	                    }).then((value) => {
+	                          location.href ="infosolicitud.php?con=<?php echo $id_datos ?>";
+	                    });
+                    }
+                },
+                error: function () {
+                    alert("UN ERROR HA OCURRIDO");
+                }
+            });
+       } else {
+            
+          }
+        });
+
+    });
+
+    $(".eliminar").click(function(e){
+    	
+        e.preventDefault();
+        var id_constancia= $(this).data('constancia');
+        var id_tipo = $(this).data('tipo');
+        var alt = $(this).data('alt');
+        swal({
+          title: "Desea eliminar la constancia?",
+          text: "",
+          icon: "warning",
+          buttons: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            $.ajax({
+                url: "../class/trabajador/eliminarconstancia.php",
+                type: 'POST',
+                data: { 
+                    id_constancia: id_constancia,id_tipo: id_tipo,alt: alt
+                },success: function (data) {
+                	if(data=="true"){
+                		swal({
+                        title: "Constancia eliminada con exito!",
+                        icon: "success",
+	                    }).then((value) => {
+	                          location.href ="infosolicitud.php?con=<?php echo $id_datos ?>";
+	                    }); 
+                	}
+                	else{
+                		swal({
+                        title: "Un Error ha ocurrido!",
+                        icon: "error",
+	                    }).then((value) => {
+	                          location.href ="infosolicitud.php?con=<?php echo $id_datos ?>";
+	                    });
+                	}
+                    
+                },error: function () {
+                    alert("UN ERROR HA OCURRIDO");
+                }
+            });
+          } else {}
+        });     
+    });
+})
+</script>
