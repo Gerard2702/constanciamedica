@@ -26,7 +26,7 @@
                             	<h4>SOLICITUDES PENDIENTES DE REVISION</h4>
                             </div>
                             <div id="contenido" class="table-responsive">
-                            	<table class="table table-striped table-condensed" id="mitable">
+                            	<table class="table table-hover table-condensed" id="mitable">
                                     <thead class="thead-inverse">
                                         <tr>
                                             <th class="col-md-1 text-center">Fecha</th>
@@ -73,22 +73,5 @@
  ?>
  <script>
  	$('#pendienterevision').addClass('active');
-    $('#mitable').DataTable({
-        //"pagingType": "full_numbers",
-        "paging": true,
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ registros por página",
-            "zeroRecords": "No se encontraton registros",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros ",
-            "infoEmpty": "No se encontraton registros",
-            "infoFiltered": "(Filtrado de _MAX_ registros)",
-            "paginate": {
-                "first": "Primera",
-                "last": "Ultima",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            },
-            "search": "Buscar: "
-        }
-    });
+
  </script>

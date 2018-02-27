@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-md-12" id="misrecibidos">
                                 <div id="contenido" class="table-responsive">
-                                    <table class="table table-striped table-condensed" id="mitable">
+                                    <table class="table table-hover table-condensed" id="mitable">
                                         <thead class="thead-inverse">
                                             <tr>
                                                 <th class="col-md-1 text-center">Fecha</th>

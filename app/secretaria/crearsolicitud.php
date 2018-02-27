@@ -16,9 +16,6 @@
 ?>
  <!--main content start-->
 <div id="content" class="ui-content ui-content-aside-overlay">
-    <div class="page-head-wrap">
-        <h4 class="margin0">CREAR SOLICITUD</h4>  
-    </div>
     <div class="ui-content-body">
         <div class="ui-container">
             <div class="row">
@@ -34,13 +31,13 @@
                             			<div class="col-md-4">
 	                            			<div class="form-group">
 	                                        	<label>Fecha</label>
-	                                        	<input class="form-control" type="date" placeholder="fecha" name="fecha" required="">
+	                                        	<input class="form-control fecha" type="text" placeholder="fecha" name="fecha" required="" data-date-end-date="0d">  
 	                                    	</div>
                             			</div>
 	                                    <div class="col-md-4 col-md-offset-1">
 	                                    	<div class="form-group">
 	                                        	<label>N# Recibo</label>
-	                                        	<input class="form-control" type="number" placeholder="Numero de Recibo" name="recibo" required="">
+	                                        	<input class="form-control" type="number" placeholder="Numero de Recibo" name="recibo" required="" pattern="[0-9]{10}" title="Debe contener 10 digitos">
 	                                    	</div>
 	                                    </div>
                             		</div>
@@ -48,13 +45,13 @@
                             			<div class="col-md-4">
 	                                    	<div class="form-group">
 	                                        	<label>N# Afiliacion/DUI</label>
-	                                        	<input class="form-control" type="number" placeholder="Numero de Afiliacion/DUI" name="afiliacion" required="">
+	                                        	<input class="form-control" type="number" placeholder="Numero de Afiliacion/DUI" name="afiliacion" required="" pattern="[0-9]{9}" title="Debe contener 9 digitos sin guiones o espacios">
 	                                    	</div>
 	                                    </div>
 	                                    <div class="col-md-4 col-md-offset-1">
 	                                    	<div class="form-group">
 	                                        	<label>Nombre del paciente</label>
-	                                        	<input class="form-control" type="text" placeholder="Nombre del paciente" name="nombrepaciente" required="">
+	                                        	<input class="form-control" type="text" placeholder="Nombre del paciente" name="nombrepaciente" required="" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,100}" title="Solo debe contener letras mayusculas o minusculas y al menos 3 caracteres">
 	                                    	</div>
 	                                    </div>
                             		</div>
@@ -70,7 +67,8 @@
                             			<div class="col-md-4">
 	                                    	<div class="form-group">
 	                                        	<label>Servicio</label>
-	                                        	<select class="form-control" name="servicio">
+	                                        	<select class="form-control miselect" name="servicio">
+	                                        		<option value="" ></option>
 	                                        		<?php 
 	                                        			if($rows > 0){
 	                                        				while ($stmt->fetch()) {
@@ -95,13 +93,13 @@
                                     	<div class="col-md-4 ">
 	                                    	<div class="form-group">
 	                                        	<label>Fecha que se presento</label>
-	                                        	<input class="form-control" type="date" placeholder="" name="fechapresento" required="">
+	                                        	<input class="form-control fecha" type="text" placeholder="Fecha que se presento" name="fechapresento" required="" data-date-end-date="0d">
 	                                    	</div>
 	                                    </div>
 	                                    <div class="col-md-4 col-md-offset-1">
 	                                    	<div class="form-group">
 	                                        	<label>Fecha cancelado solicitud</label>
-	                                        	<input class="form-control" type="date" placeholder="" name="fechacancelado" required="">
+	                                        	<input class="form-control fecha" type="text" placeholder="Fecha cancelado solicitud" name="fechacancelado" required="" data-date-end-date="0d">
 	                                    	</div>
 	                                    </div>
                                     </div>
@@ -126,4 +124,16 @@
  ?>
  <script>
  	$('#crearsolicitud').addClass('active');
+	$('.fecha').datepicker({
+		    todayBtn: "linked",
+		    clearBtn: true,
+		    language: "es",
+		    autoclose: true,
+		    todayHighlight: true,
+		    disableTouchKeyboard: true,
+		});
+
+	$('.miselect').select2({
+	  placeholder: 'Seleccione un servicio'
+	});
  </script>

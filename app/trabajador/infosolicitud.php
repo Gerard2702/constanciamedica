@@ -207,7 +207,7 @@
 			                                </tbody>
 			                            </table>
 			                        </div>
-			                        	<a  href="javascript:;" type="submit" class="btn btn-success" name="finalizar" id="finalizar" data-solicitud="<?php echo $id_datos ?>">Finalizar</a>
+			                        	<a  href="javascript:;" type="submit" class="btn btn-default" name="finalizar" id="finalizar" data-solicitud="<?php echo $id_datos ?>">Finalizar</a>
 			                        </form>
 	                            </div>
 	                        </div>
@@ -235,10 +235,10 @@ $(document).ready(function(){
           title: "Desea finalizar y enviar la solicitud #"+numrecibo+"?",
           text: "Verifique que todas las constancias hayan sido creadas!",
           icon: "warning",
-          buttons: true,
+          buttons: ["Cancelar", "Finalizar"],
         })
-        .then((willDelete) => {
-          if (willDelete) {    
+        .then((finalizar) => {
+          if (finalizar) {    
             $.ajax({
                 url: "../class/trabajador/finalizar.php",
                 type: 'POST',
