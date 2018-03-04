@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
   CONSTRAINT `FK_comentarios_datos_iniciales` FOREIGN KEY (`id_datos`) REFERENCES `datos_iniciales` (`id_datos`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.comentarios: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.comentarios: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `comentarios` DISABLE KEYS */;
 INSERT INTO `comentarios` (`id_comentario`, `id_datos`, `comentario`) VALUES
 	(4, 2, 'hola'),
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `datos_const_alta` (
   CONSTRAINT `FK_dcadatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.datos_const_alta: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.datos_const_alta: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `datos_const_alta` DISABLE KEYS */;
 INSERT INTO `datos_const_alta` (`id_datosca`, `id_datosc`, `fecha_de_alta`, `diagnostico`) VALUES
 	(1, 1, '2017-12-29', 'Síndrome de Guillan Barré'),
@@ -207,7 +207,7 @@ INSERT INTO `datos_iniciales` (`id_datos`, `fecha`, `numero_recibo`, `afiliacion
 	(5, '2018-02-25', 2147483647, '175562116', 'LUIS EDGARDO GUTIERREZ TOBAR', 'REGISTRO NACIONAL DE PERSONAS NATURALES', 7, 1, '2018-02-25', '2018-02-25', 2.75, 1, 1, NULL, NULL),
 	(6, '2018-02-26', 1234564123, '123456789', 'ALFONSO CASTRO', 'AFP CONFIA', 7, 1, '2018-02-26', '2018-02-26', 2.75, 2, 1, NULL, NULL),
 	(7, '2018-02-26', 2147483647, '123232323', 'MIGUEL LOPEZ', 'CORTE SUPREMA DE JUSTICIA', 7, 1, '2018-02-26', '2018-02-26', 2.75, 1, 1, NULL, NULL),
-	(8, '2018-02-27', 1222122332, '111212212', 'Gerardo Adolfo Orellana Perez', 'AFP CONFIA', 7, 2, '2018-02-27', '2018-02-27', 2.75, 4, 2, NULL, NULL),
+	(8, '2018-02-27', 1222122332, '111212212', 'GERARDO ADOLFO ORELLANA PEREZ', 'AFP CONFIA', 7, 2, '2018-02-27', '2018-02-27', 2.75, 2, 1, NULL, NULL),
 	(9, '2018-02-23', 1111323223, '121232323', 'GERARD', 'SSD', 5, 1, '2018-02-26', '2018-02-26', 2.75, 2, 1, NULL, NULL),
 	(10, '2018-03-04', 1232121231, '111111111', 'GERARDO PARKER', 'LOMA LINDA', 3, 1, '2018-03-04', '2018-03-04', 2.75, 2, 1, NULL, NULL);
 /*!40000 ALTER TABLE `datos_iniciales` ENABLE KEYS */;
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `director` (
   CONSTRAINT `FK_dstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.director: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.director: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `director` DISABLE KEYS */;
 INSERT INTO `director` (`id_director`, `nombre`, `id_status`, `id_servicio`) VALUES
 	(3, 'Dr. Manuel de Jesús Villalobos Parada', 1, 1);
@@ -239,7 +239,7 @@ CREATE TABLE IF NOT EXISTS `estado` (
   PRIMARY KEY (`id_estado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.estado: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.estado: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `estado` DISABLE KEYS */;
 INSERT INTO `estado` (`id_estado`, `nombre_estado`, `descripcion`) VALUES
 	(1, 'pendiente de envio', NULL),
@@ -283,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `jefe_trabajo_social` (
   CONSTRAINT `FK_jtsstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.jefe_trabajo_social: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.jefe_trabajo_social: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `jefe_trabajo_social` DISABLE KEYS */;
 INSERT INTO `jefe_trabajo_social` (`id_jefesocial`, `nombre`, `id_status`, `id_servicio`) VALUES
 	(3, 'Lcda. Rina Villeda de Loucel', 1, 1);
@@ -302,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `medico_tratante` (
   CONSTRAINT `FK_mtstatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.medico_tratante: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.medico_tratante: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `medico_tratante` DISABLE KEYS */;
 INSERT INTO `medico_tratante` (`id_medico`, `nombre`, `id_status`, `id_servicio`) VALUES
 	(3, 'Dr. Guillermo Antonio Marroquín Aguilar', 1, 1),
@@ -317,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `precio_constancias` (
   PRIMARY KEY (`id_precio`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.precio_constancias: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.precio_constancias: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `precio_constancias` DISABLE KEYS */;
 INSERT INTO `precio_constancias` (`id_precio`, `precio`) VALUES
 	(1, 2.75);
