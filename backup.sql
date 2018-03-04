@@ -21,14 +21,19 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
   `id_comentario` int(11) NOT NULL AUTO_INCREMENT,
   `id_datos` int(11) NOT NULL,
   `comentario` varchar(3000) NOT NULL,
-  PRIMARY KEY (`id_comentario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id_comentario`),
+  KEY `FK_comentarios_datos_iniciales` (`id_datos`),
+  CONSTRAINT `FK_comentarios_datos_iniciales` FOREIGN KEY (`id_datos`) REFERENCES `datos_iniciales` (`id_datos`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.comentarios: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.comentarios: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `comentarios` DISABLE KEYS */;
 INSERT INTO `comentarios` (`id_comentario`, `id_datos`, `comentario`) VALUES
 	(4, 2, 'hola'),
-	(5, 1, 'hola 2');
+	(5, 1, 'hola 2'),
+	(6, 1, 'Esta mal el nombre del solicitante, falta agregar el medico tratante. '),
+	(7, 4, 'Solo tenia que crear 2 constancias, elimine la constancia 2'),
+	(8, 4, 'Agrege otra constancia ');
 /*!40000 ALTER TABLE `comentarios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ts2.constancias
@@ -87,9 +92,9 @@ INSERT INTO `datos_complementarios` (`id_datosc`, `id_constancia`, `id_datos`, `
 	(1, 1, 1, '2017-12-18', 7, 'Miastenia Gravis, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'SR. ESTEBAN PINEDA VALCACERES', 'esposo de paciente', 'CORTE SUPREMA DE JUSTICIA', '2018-01-15', 3, 2, 3, 3, 1),
 	(2, 1, 2, '2017-12-18', 7, 'Angina Inestable, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'SR. ROBERTO DE JESUS GUTIERREZ BALDIZON', 'hijo', 'BANCO CITI', '2018-01-05', 4, 2, 3, 3, 0),
 	(3, 3, 3, '2018-01-04', 7, 'Lumbociatica Bilateral, con historia de 4 meses de dolor en región escapular izquierda, además de treinta días de dificultad para deambular, el día de su ingreso sufre caída desde su propia altura con imposibilidad para incorporarse, ingresando al Servicio de Neurocirugía el mismo día con diagnòstico de Síndrome Medular más Paraparesia, intervenido quirúrgicamente el día 10 de de enero de 2014 realizándose Laminectomìa Descompresiva T3-T4 más Toma de Biopsia de Tumor T3-T4. de Lesión Tumoral Paravertebral T3-T4 que reportó Metástasis de Adenocarcinoma a Vertebra T4, el 27 de enero de 2014 se le tomò TAC de Tórax que concluyó Masa Pulmonar que refuerza con el contraste en Vèrtice Izquierdo y según nota de medico tratante paciente con Càncer Primario de Pulmón y con Metàstasis  de Pulmón a Columna, el día 28 de enero de 2014 se le realizó Endoscopía Superior que diagnosticó Ulcera Gigante penetrada en Ante Gástrico más Ulcera en Bulbo Duodenal más Ulcera en Cuerpo Gástrico. El día 29 de enero de 2014 fue trasladado al Servicio de Medicina 3 con diagnóstico de Metastasis de Adenocarcinoma en columna Torácica más Sangrado del Tubo Digestivo Superior. Según expediente clínico paciente con antecedentes médicos conocidos de Infarto Agudo al Miocardio en 2011', 'Sra. ANA GLADIS CRUZ FIGUEROA C/P ANA GLADIS FIGUEROA ', 'compañera de vida de paciente', 'AFP CONFIA', '2018-01-12', 5, 2, 3, 3, 0),
-	(4, 3, 4, '2017-12-15', 7, 'Bronconeumonía más Diabetes Mellitus Insulinodependiente con Complicaciones Renales, ingresando en el Servicio de Medicina Tres el mismo día con diagnóstico Insuficiencia Renal Crónica. Según expediente clínico paciente con antecedentes medicos conocidos de Diabetes Mellitus desde 1995 más Hipertensión Arterial con periodo de evolución desconocido', 'Sra. CINTHIA TALIA VARELA DE CARBALLO ', 'esposa de paciente', 'FONDO SOCIAL PARA LA VIVIENDA', '2018-01-15', 4, 2, 3, 3, 0),
-	(5, 3, 4, '2017-12-15', 7, 'Bronconeumonía más Diabetes Mellitus Insulinodependiente con Complicaciones Renales, ingresando en el Servicio de Medicina Tres el mismo día con diagnóstico Insuficiencia Renal Crónica. Según expediente clínico paciente con antecedentes medicos conocidos de Diabetes Mellitus desde 1995 màs Hipertensión Arterial con periodo de evolución desconocido', 'Sra. CINTHIA TALIA VARELA DE CARBALLO ', 'esposa de paciente', 'AFP CRECER', '2018-01-15', 4, 2, 3, 3, 0),
-	(6, 3, 4, '2018-01-15', 7, 'Bronconeumonía más Diabetes Mellitus Insulinodependiente con Complicaciones Renales, ingresando en el Servicio de Medicina Tres el mismo día con diagnóstico Insuficiencia Renal Crónica. Según expediente clínico paciente con antecedentes medicos conocidos de Diabetes Mellitus desde 1995 màs Hipertensión Arterial con periodo de evolución desconocido', 'Sra. SANDRA ISABEL CARBALLO DE BARRIOS ', 'hermana de paciente', 'ASESUISA', '2018-01-15', 4, 2, 3, 3, 0),
+	(4, 3, 4, '2017-12-15', 7, 'Bronconeumonía más Diabetes Mellitus Insulinodependiente con Complicaciones Renales, ingresando en el Servicio de Medicina Tres el mismo día con diagnóstico Insuficiencia Renal Crónica. Según expediente clínico paciente con antecedentes medicos conocidos de Diabetes Mellitus desde 1995 más Hipertensión Arterial con periodo de evolución desconocido', 'SRA. CINTHIA TALIA VARELA DE CARBALLO ', 'esposa de paciente', 'FONDO SOCIAL PARA LA VIVIENDA', '2018-01-15', 4, 2, 3, 3, 0),
+	(5, 3, 4, '2017-12-15', 7, 'Bronconeumonía más Diabetes Mellitus Insulinodependiente con Complicaciones Renales, ingresando en el Servicio de Medicina Tres el mismo día con diagnóstico Insuficiencia Renal Crónica. Según expediente clínico paciente con antecedentes medicos conocidos de Diabetes Mellitus desde 1995 màs Hipertensión Arterial con periodo de evolución desconocido', 'SRA. CINTHIA TALIA VARELA DE CARBALLO ', 'esposa de paciente', 'AFP CRECER', '2018-01-15', 4, 2, 3, 3, 0),
+	(6, 3, 4, '2018-01-15', 7, 'Bronconeumonía más Diabetes Mellitus Insulinodependiente con Complicaciones Renales, ingresando en el Servicio de Medicina Tres el mismo día con diagnóstico Insuficiencia Renal Crónica. Según expediente clínico paciente con antecedentes medicos conocidos de Diabetes Mellitus desde 1995 màs Hipertensión Arterial con periodo de evolución desconocido', 'SRA. SANDRA ISABEL CARBALLO DE BARRIOS ', 'hermana de paciente', 'ASESUISA', '2018-01-15', 4, 2, 3, 3, 0),
 	(7, 2, 5, '2017-12-14', 7, 'Hemorragia Gastrointestinal, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'Sr. LUIS JAVIER GUTIERREZ RUIZ ', 'hijo de paciente', 'REGISTRO NACIONAL DE PERSONAS NATURALES', '2018-01-05', 3, 2, 3, 3, 0),
 	(8, 1, 8, '2018-02-27', 7, 'Falso Positivo 2 ', 'ANA VILMA DE ESCOBAR', 'Madre de paciente', 'AFP', '2018-02-27', 3, 2, 3, 3, 0);
 /*!40000 ALTER TABLE `datos_complementarios` ENABLE KEYS */;
@@ -128,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `datos_const_fallecimiento` (
 /*!40000 ALTER TABLE `datos_const_fallecimiento` DISABLE KEYS */;
 INSERT INTO `datos_const_fallecimiento` (`id_datoscf`, `id_datosc`, `fecha_defuncion`, `diagnostico`) VALUES
 	(1, 3, '2018-02-21', 'Sangrado de Tubo Digestivo Superior más Ulcera Duodenal más Cáncer de Pulmón'),
-	(2, 4, '2017-12-15', 'Neumonía Comunitaria más Enfermedad Renal Crónica mas Diabetes Mellitus'),
+	(2, 4, '2018-03-04', 'Neumonía Comunitaria más Enfermedad Renal Crónica mas Diabetes Mellitus 2'),
 	(3, 5, '2017-12-15', 'Neumonía Comunitaria más Enfermedad Renal Crónica mas Diabetes Mellitus'),
 	(4, 6, '2017-12-15', 'Neumonía Comunitaria más Enfermedad Renal Crónica mas Diabetes Mellitus');
 /*!40000 ALTER TABLE `datos_const_fallecimiento` ENABLE KEYS */;
@@ -195,16 +200,16 @@ CREATE TABLE IF NOT EXISTS `datos_iniciales` (
 -- Volcando datos para la tabla ts2.datos_iniciales: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `datos_iniciales` DISABLE KEYS */;
 INSERT INTO `datos_iniciales` (`id_datos`, `fecha`, `numero_recibo`, `afiliacion_dui`, `nombre_paciente`, `destinos`, `id_servicio`, `cantidad`, `fecha_presentado`, `fecha_cancelado`, `precio`, `id_estado`, `id_trabajador`, `fecha_recibido_revision`, `fecha_autorizacion_direccion`) VALUES
-	(1, '2018-02-25', 1111, '982631081', 'ALMA VIRGINIA AVELAR DE PINEDA', 'CORTE SUPREMA DE JUSTICIA', 7, 1, '2018-02-25', '2018-02-25', 2.75, 5, 2, NULL, NULL),
-	(2, '2018-02-25', 2222, '378592877', 'ROBERTO DE JESUS GUTIERREZ BALDIZON', 'BANCO CITI', 7, 1, '2018-02-25', '2018-02-25', 2.75, 5, 2, NULL, NULL),
-	(3, '2018-02-25', 3333, '165451120', 'CARLOS ARTURO MENENDEZ C/P CARLOS ARTURO MELHADO MENENDEZ', 'AFP CONFIA', 7, 1, '2018-02-21', '2018-02-25', 2.75, 4, 2, NULL, NULL),
-	(4, '2018-02-25', 44444, '198777768', 'FRANCISCO JAVIER CARBALLO MENA', 'ASESUISA, AFP CRECER, FONDO SOCIAL PARA LA VIVIENDA', 7, 3, '2018-02-25', '2018-02-25', 2.75, 4, 2, NULL, NULL),
-	(5, '2018-02-25', 5566, '175562116', 'LUIS EDGARDO GUTIERREZ TOBAR', 'REGISTRO NACIONAL DE PERSONAS NATURALES', 7, 1, '2018-02-25', '2018-02-25', 2.75, 4, 2, NULL, NULL),
-	(6, '2018-02-26', 123456, '1234567891', 'Alfonso Castro', 'AFP CONFIA', 7, 1, '2018-02-26', '2018-02-26', 2.75, 4, 2, NULL, NULL),
-	(7, '2018-02-26', 2312323, '232323', '31232', 'CORTE SUPREMA DE JUSTICIA', 7, 1, '2018-02-26', '2018-02-26', 2.75, 3, 2, NULL, NULL),
-	(8, '2018-02-27', 1222122332, '111212212', 'Gerardo Adolfo Orellana Perez', 'AFP CONFIA', 7, 2, '2018-02-27', '2018-02-27', 2.75, 3, 2, NULL, NULL),
-	(9, '2018-02-23', 1111323223, '121232323', 'GERARD', 'SSD', 5, 1, '2018-02-26', '2018-02-26', 2.75, 1, 1, NULL, NULL),
-	(10, '2018-03-04', 1232121231, '111111111', 'GERARDO PARKER', 'LOMA LINDA', 3, 1, '2018-03-04', '2018-03-04', 2.75, 1, 1, NULL, NULL);
+	(1, '2018-02-25', 1111111111, '982631081', 'ALMA VIRGINIA AVELAR DE PINEDA', 'CORTE SUPREMA DE JUSTICIA', 7, 1, '2018-02-25', '2018-02-25', 2.75, 5, 2, NULL, NULL),
+	(2, '2018-02-25', 2147483647, '378592877', 'ROBERTO DE JESUS GUTIERREZ BALDIZON', 'BANCO CITI', 7, 1, '2018-02-25', '2018-02-25', 2.75, 2, 1, NULL, NULL),
+	(3, '2018-02-25', 2147483647, '165451120', 'CARLOS ARTURO MENENDEZ', 'AFP CONFIA', 7, 1, '2018-02-21', '2018-02-25', 2.75, 1, 1, NULL, NULL),
+	(4, '2018-02-25', 2147483647, '198777768', 'FRANCISCO JAVIER CARBALLO MENA', 'ASESUISA, AFP CRECER, FONDO SOCIAL PARA LA VIVIENDA', 7, 3, '2018-02-25', '2018-02-25', 2.75, 4, 2, NULL, NULL),
+	(5, '2018-02-25', 2147483647, '175562116', 'LUIS EDGARDO GUTIERREZ TOBAR', 'REGISTRO NACIONAL DE PERSONAS NATURALES', 7, 1, '2018-02-25', '2018-02-25', 2.75, 1, 1, NULL, NULL),
+	(6, '2018-02-26', 1234564123, '123456789', 'ALFONSO CASTRO', 'AFP CONFIA', 7, 1, '2018-02-26', '2018-02-26', 2.75, 2, 1, NULL, NULL),
+	(7, '2018-02-26', 2147483647, '123232323', 'MIGUEL LOPEZ', 'CORTE SUPREMA DE JUSTICIA', 7, 1, '2018-02-26', '2018-02-26', 2.75, 1, 1, NULL, NULL),
+	(8, '2018-02-27', 1222122332, '111212212', 'Gerardo Adolfo Orellana Perez', 'AFP CONFIA', 7, 2, '2018-02-27', '2018-02-27', 2.75, 4, 2, NULL, NULL),
+	(9, '2018-02-23', 1111323223, '121232323', 'GERARD', 'SSD', 5, 1, '2018-02-26', '2018-02-26', 2.75, 2, 1, NULL, NULL),
+	(10, '2018-03-04', 1232121231, '111111111', 'GERARDO PARKER', 'LOMA LINDA', 3, 1, '2018-03-04', '2018-03-04', 2.75, 2, 1, NULL, NULL);
 /*!40000 ALTER TABLE `datos_iniciales` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ts2.director

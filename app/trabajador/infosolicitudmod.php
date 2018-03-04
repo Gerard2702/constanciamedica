@@ -133,7 +133,7 @@
                                     $i=1;
                                     while ($stmtcomen->fetch()) { ?>
                                       <p><?php echo $i." - ".$comentarios; ?></p>
-                                    <?php }
+                                    <?php $i=$i+1; }
                                   }
                                  ?>
                               </div>
@@ -163,6 +163,7 @@
 			                                <tbody> 
 			                                <?php 
                                             if($rowscre>0){
+                                              $cont=1;
                                                 while ($stmtcre->fetch()) {
                                                 	$id_tipo=0;
                                                 	switch ($id_constancia) {
@@ -212,15 +213,16 @@
                                                 	}
 	                                        ?>
 	                                            <tr>
-	                                                <td><?php echo $tipoconstancia; ?></td>
+	                                                <td><?php echo $cont." - ".$tipoconstancia; ?></td>
 	                                                <td><?php echo $fecha_consulta; ?></td>
 	                                                <td><?php echo $solicitante; ?></td>
 	                                                <td><?php echo $parentesco; ?></td>
 	                                                <td><?php echo $destinoc; ?></td>
 	                                                <td><?php echo $fecha_extension; ?></td>
-	                                                <td><a href="editsolicitud.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo ?>" class="btn btn-success btn-sm " data-toggle="tooltip" data-placement="left" title="Ver o editar"><i class="fa fa-edit"></i></a> <a href="javascript:;" class="btn btn-danger btn-sm eliminar"  data-placement="left" data-constancia="<?php echo $id_datosc ?>" data-tipo="<?php echo $id_constancia; ?>" data-alt="<?php echo $id_tipo; ?>"data-toggle="tooltip" data-placement="left" title="Eliminar"><i class="fa fa-times"></i></a></td>
+	                                                <td><a href="editsolicitud.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo; ?>" class="btn btn-success btn-sm " data-toggle="tooltip" data-placement="left" title="Ver o editar"><i class="fa fa-edit"></i></a> <a href="javascript:;" class="btn btn-danger btn-sm eliminar"  data-placement="left" data-constancia="<?php echo $id_datosc; ?>" data-tipo="<?php echo $id_constancia; ?>" data-alt="<?php echo $id_tipo; ?>"data-toggle="tooltip" data-placement="left" title="Eliminar"><i class="fa fa-times"></i></a></td>
 	                                            </tr>   
 	                                        <?php 
+                                                  $cont=$cont+1;
 	                                                }
 	                                            }
 	                                            $stmtcre->close();

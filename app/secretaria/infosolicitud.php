@@ -233,7 +233,40 @@
                 
               }
             });
-		})
+		});
+
+		$('.frmcomentario').submit(function(e){
+			e.preventDefault();
+			var comentario = $('#comentarioinput').val();
+			$.ajax({
+	            url: "../class/trabajador/editarsolicitud.php",
+	            type: 'POST',
+	            data: { 
+	                comentario: comentario
+	            },
+	            success: function (data) {
+	            	if(data=='true'){
+	            		swal({
+                            title: "Solicitud enviada para modificación!",
+                            icon: "success",
+                        }).then((value) => {
+                              location.href ="pendienterevision.php";
+                        });	
+	            	}
+	            	else{
+	            		swal({
+                            title: "Un error ha ocurrido!",
+                            icon: "error",
+                        }).then((value) => {
+                              location.reload(true);
+                        });
+	            	}
+	            },
+	            error: function () {
+	                alert("UN ERROR HA OCURRIDO");
+	            }
+			});	
+		});
 
 	})
 </script>
@@ -248,12 +281,12 @@
             </div>
             <div class="modal-body">
                 <div id="conten-modal">
-                    <form action="../class/trabajador/editarsolicitud.php" method="POST">
+                    <form class="frmcomentario" action="" method="post">
                     	<div class="row">
                 			<div class="col-md-12">
                     			<div class="form-group">
                                 	<label>Comentario</label>
-                                	<textarea class="form-control input-sm" name="comentario" id="" cols="30" rows="3" required=""></textarea>
+                                	<textarea class="form-control input-sm" name="comentario" id="comentarioinput" cols="30" rows="3" required=""></textarea>
                                 	<?php $_SESSION['id_datosmodificarsolicitud'] = $id_datos; ?>
                             	</div>
                 			</div>
@@ -274,3 +307,6 @@
         </div>
     </div>
 </div>
+<script>
+	
+</script>
