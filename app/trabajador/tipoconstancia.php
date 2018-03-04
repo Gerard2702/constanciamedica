@@ -6,8 +6,8 @@
 	<div class="row">
 		<div class="col-md-6 ">
 	    	<div class="form-group">
-	        	<label>Permaneciendo ingresado hasta dia/mes/año</label>
-	        	<input class="form-control" type="date" placeholder="" name="permaneciofecha" required="">
+	        	<label>Permaneciendo ingresado hasta el Año/Mes/Dia</label>
+	        	<input class="form-control input-sm fecha" type="text" placeholder="Permanecio ingresado hasta el ..." name="permaneciofecha" required="">
 	    	</div>
 	    </div>
 	</div>
@@ -38,8 +38,8 @@
 	<div class="row">
 		<div class="col-md-6 ">
 	    	<div class="form-group">
-	        	<label>Permaneciendo ingresado hasta dia/mes/año</label>
-	        	<input class="form-control" type="date" placeholder="" name="permaneciofecha" required="">
+	        	<label>Permaneciendo ingresado hasta el Año/Mes/Dia</label>
+	        	<input class="form-control input-sm fecha" type="text" placeholder="Permanecio ingresado hasta el ..." name="permaneciofecha" required="">
 	    	</div>
 	    </div>
 	</div>
@@ -58,14 +58,14 @@
 	<div class="row">
 		<div class="col-md-6 ">
 	    	<div class="form-group">
-	        	<label>Permaneciendo hasta fecha de alta dia/mes/año</label>
-	        	<input class="form-control" type="date" placeholder="" name="permaneciofecha" required="">
+	        	<label>Permaneciendo hasta fecha de alta Año/Mes/Dia</label>
+	        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="">
 	    	</div>
 	    </div>
 	    <div class="col-md-5 col-md-offset-1 ">
 	    	<div class="form-group">
-	        	<label>Partida de defuncion extendida dia/mes/año</label>
-	        	<input class="form-control" type="date" placeholder="" name="partidafecha" required="">
+	        	<label>Partida de defuncion extendida Año/Mes/Dia</label>
+	        	<input class="form-control input-sm fecha" type="text" placeholder="" name="partidafecha" required="">
 	    	</div>
 	    </div>
 	</div>
@@ -73,13 +73,13 @@
 		<div class="col-md-6 ">
 	    	<div class="form-group">
 	        	<label>Lugar de extension de partida</label>
-	        	<input class="form-control" type="text" placeholder="" name="lugarextension" required="">
+	        	<input class="form-control input-sm" type="text" placeholder="" name="lugarextension" required="" autocomplete="off">
 	    	</div>
 	    </div>
 	    <div class="col-md-5 col-md-offset-1 ">
 	    	<div class="form-group">
-	        	<label>Fallecimiento en domicilio dia/mes/año</label>
-	        	<input class="form-control" type="date" placeholder="" name="domiciliofecha" required="">
+	        	<label>Fallecimiento en domicilio Año/Mes/Dia</label>
+	        	<input class="form-control input-sm fecha" type="text" placeholder="" name="domiciliofecha" required="">
 	    	</div>
 	    </div>
 	</div>
@@ -91,3 +91,14 @@
 	}
 
  ?>
+ <script>
+ 	$('.fecha').datepicker({
+		    todayBtn: "linked",
+		    format: 'yyyy/mm/dd',
+		    clearBtn: true,
+		    language: "es",
+		    autoclose: true,
+		    todayHighlight: true,
+		    disableTouchKeyboard: true,
+	});
+ </script>

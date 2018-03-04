@@ -207,7 +207,7 @@
 			                                </tbody>
 			                            </table>
 			                        </div>
-			                        	<a  href="javascript:;" type="submit" class="btn btn-default" name="finalizar" id="finalizar" data-solicitud="<?php echo $id_datos ?>">Finalizar</a>
+			                        	<a  href="javascript:;" type="submit" class="btn btn-success" name="finalizar" id="finalizar" data-solicitud="<?php echo $id_datos ?>">Finalizar</a>
 			                        </form>
 	                            </div>
 	                        </div>

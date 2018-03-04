@@ -28,13 +28,13 @@
 			<div class="col-md-5">
     			<div class="form-group">
                 	<label>Fecha</label>
-                	<input class="form-control input-sm" type="date" placeholder="fecha" name="fecha" required="" value="<?php echo $fechacreacion; ?>">
+                	<input class="form-control input-sm fecha" type="text" placeholder="fecha" name="fecha" required="" data-date-end-date="0d" autocomplete="off" value="<?php echo $fechacreacion; ?>">
             	</div>
 			</div>
             <div class="col-md-5 col-md-offset-1">
             	<div class="form-group">
                 	<label>N# Recibo</label>
-                	<input class="form-control input-sm" type="number" placeholder="Numero de Recibo" name="recibo" required="" value="<?php echo $nrecibo; ?>">
+                	<input class="form-control input-sm" type="text" placeholder="Numero de Recibo" name="recibo" required="" pattern="[0-9]{10}" title="Debe contener 10 digitos" autocomplete="off" value="<?php echo $nrecibo; ?>">
                 	<input type="text" name="id_solicitud" readonly="" hidden="" value="<?php echo $id_datos; ?>">
             	</div>
             </div>
@@ -43,13 +43,13 @@
 			<div class="col-md-5">
             	<div class="form-group">
                 	<label>N# Afiliacion/DUI</label>
-                	<input class="form-control input-sm" type="number" placeholder="Numero de Afiliacion/DUI" name="afiliacion" required="" value="<?php echo $afiliacion; ?>">
+                	<input class="form-control input-sm" type="text" placeholder="Numero de Afiliacion/DUI" name="afiliacion" required="" pattern="[0-9]{9}" title="Debe contener 9 digitos sin guiones o espacios" autocomplete="off" value="<?php echo $afiliacion; ?>">
             	</div>
             </div>
             <div class="col-md-5 col-md-offset-1">
             	<div class="form-group">
                 	<label>Nombre del paciente</label>
-                	<input class="form-control input-sm" type="text" placeholder="Nombre del paciente" name="nombrepaciente" required="" value="<?php echo $nombrepaciente; ?>">
+                	<input class="form-control input-sm" type="text" placeholder="Nombre del paciente" name="nombrepaciente" required="" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,100}" title="Solo debe contener letras mayusculas o minusculas y al menos 3 caracteres" autocomplete="off" value="<?php echo $nombrepaciente; ?>">
             	</div>
             </div>
 		</div>
@@ -57,7 +57,7 @@
 			<div class="col-md-5">
             	<div class="form-group">
                 	<label>Constancia a presentar en</label>
-                	<input class="form-control input-sm" type="text" placeholder="Constancia a presentar en" name="lugarpresentar" required="" value="<?php echo $destinos; ?>">
+                	<input class="form-control input-sm" type="text" placeholder="Constancia a presentar en" name="lugarpresentar" required="" autocomplete="off" value="<?php echo $destinos; ?>">
             	</div>
         	</div>
 		</div>
@@ -88,7 +88,7 @@
             <div class="col-md-5 col-md-offset-1">
             	<div class="form-group">
                 	<label>Cantidad</label>
-                	<input class="form-control input-sm" type="number" placeholder="Cantidad de constancias" name="cantidad" required="" value="<?php echo $cantidad; ?>">
+                	<input class="form-control input-sm" type="number" placeholder="Cantidad de constancias" name="cantidad" required="" autocomplete="off" value="<?php echo $cantidad; ?>">
             	</div>
             </div>
 		</div>
@@ -96,13 +96,13 @@
         	<div class="col-md-5 ">
             	<div class="form-group">
                 	<label>Fecha que se presento</label>
-                	<input class="form-control input-sm" type="date" placeholder="" name="fechapresento" required="" value="<?php echo $fechapresento; ?>">
+                	<input class="form-control input-sm fecha" type="text" placeholder="Fecha que se presento" name="fechapresento" required="" data-date-end-date="0d" autocomplete="off" value="<?php echo $fechapresento; ?>">
             	</div>
             </div>
             <div class="col-md-5 col-md-offset-1">
             	<div class="form-group">
                 	<label>Fecha cancelado solicitud</label>
-                	<input class="form-control input-sm" type="date" placeholder="" name="fechacancelado" required="" value="<?php echo $fechacancelo ?>">
+                	<input class="form-control input-sm fecha" type="text" placeholder="Fecha cancelado solicitud" name="fechacancelado" required="" data-date-end-date="0d" autocomplete="off" value="<?php echo $fechacancelo; ?>">
             	</div>
             </div>
         </div>
@@ -113,5 +113,20 @@
         </div>	
     </form>
 </div>
+<script>
+    $('.fecha').datepicker({
+            todayBtn: "linked",
+            format: 'yyyy/mm/dd',
+            clearBtn: true,
+            language: "es",
+            autoclose: true,
+            todayHighlight: true,
+            disableTouchKeyboard: true,
+        });
+
+    $('.miselect').select2({
+      
+    });
+</script>
 
 

@@ -74,7 +74,6 @@
 
     $conn->close();
 ?>
- <!--main content start-->
 <div id="content" class="ui-content ui-content-aside-overlay">
     <div class="ui-content-body">
         <div class="ui-container">
@@ -103,11 +102,9 @@
 			            </div>
 			        </form>
 			    </div>
-			</div>
-        	
+			</div>	
             <div class="row">
                 <div class="col-md-12 col-lg-12">
-
                     <div class="panel">
                         <div class="panel-body">
                             <div id="titulo">
@@ -134,8 +131,8 @@
                             		<div class="row">
                             			<div class="col-md-6">
 	                                    	<div class="form-group">
-	                                        	<label>Consulto el dia/mes/Año</label>
-	                                        	<input class="form-control input-sm" type="date" placeholder="" name="consultafecha" required="">
+	                                        	<label>Consulto el Año/Mes/Dia</label>
+	                                        	<input class="form-control input-sm fecha" type="text" placeholder="Consulto el ..." name="consultafecha" required="">
 	                                    	</div>
                                     	</div>
                                     	<div class="col-md-3 col-md-offset-1">
@@ -175,8 +172,8 @@
                                     	<div class="row">
 											<div class="col-md-6 ">
 										    	<div class="form-group">
-										        	<label>Permaneciendo ingresado hasta</label>
-										        	<input class="form-control input-sm" type="date" placeholder="" name="permaneciofecha" required="">
+										        	<label>Permaneciendo ingresado hasta el Año/Mes/Dia</label>
+										        	<input class="form-control input-sm fecha" type="text" placeholder="Permanecio ingresado hasta el ..." name="permaneciofecha" required="">
 										    	</div>
 										    </div>
 										</div>
@@ -194,13 +191,13 @@
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
 	                                        	<label>Nombre del solicitante</label>
-	                                        	<input class="form-control input-sm" type="text" placeholder="" name="nombresolicitante" >
+	                                        	<input class="form-control input-sm" type="text" placeholder="" name="nombresolicitante" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,100}" title="Solo debe contener letras mayusculas o minusculas y al menos 3 caracteres" autocomplete="off">
 	                                    	</div>
 	                                    </div>
 	                                    <div class="col-md-3 col-md-offset-1 ">
 	                                    	<div class="form-group">
 	                                        	<label>Parentesco</label>
-	                                        	<input class="form-control input-sm" type="text" placeholder="" name="parentesco" >
+	                                        	<input class="form-control input-sm" type="text" placeholder="" name="parentesco" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,100}" title="Solo debe contener letras mayusculas o minusculas y al menos 3 caracteres" autocomplete="off">
 	                                    	</div>
 	                                    </div>
                                     </div>
@@ -208,7 +205,7 @@
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
 	                                        	<label>Para ser presentada en</label>
-	                                        	<input class="form-control input-sm" type="text" placeholder="" name="presentar">
+	                                        	<input class="form-control input-sm" type="text" placeholder="" name="presentar" autocomplete="off">
 	                                    	</div>
 	                                    </div>
                                     </div>
@@ -216,7 +213,7 @@
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
 	                                        	<label>Fecha de extensión de constancia</label>
-	                                        	<input class="form-control input-sm" type="date" placeholder="" name="fechaextension" >
+	                                        	<input class="form-control input-sm fecha" type="text" placeholder="Fecha de extension de constancia" name="fechaextension" >
 	                                    	</div>
 	                                    </div>
                                     </div>
@@ -397,4 +394,14 @@
     var nombre = $( ".cambiarconstancia option:selected" ).text();
     $("#constanciatitulo").html("Crear constancia de "+nombre);
     $("#tipoconstanciainput").val(id_tipoconstancia);
+
+    $('.fecha').datepicker({
+		    todayBtn: "linked",
+		    format: 'yyyy/mm/dd',
+		    clearBtn: true,
+		    language: "es",
+		    autoclose: true,
+		    todayHighlight: true,
+		    disableTouchKeyboard: true,
+	});
  </script>
