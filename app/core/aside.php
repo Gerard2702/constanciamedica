@@ -31,6 +31,7 @@
 		<li id="crearsolicitud"><a href="../secretaria/crearsolicitud.php"><i class="fa fa-file-text-o"></i><span>Crear Solicitud</span></a></li>
         <li id="pendienteenvio"><a href="../secretaria/pendienteenvio.php"><i class="fa fa-share-square-o"></i><span>Pendiente de Envio<small class="label label-info"><?php echo $mispendientes; ?></small></span></a></li>
         <li id="pendienterevision"><a href="../secretaria/pendienterevision.php"><i class="fa fa-inbox"></i><span>Pendiente de Revision<small class="label label-danger"><?php echo $mispendientesrev; ?></small></span></a></li>
+        <li id="buscarsolicitud"><a href="../secretaria/buscarsolicitud.php"><i class="fa fa-search"></i><span>Buscar Solicitud</span></a></li>
 		<?php
 				break;
 			case '2':
