@@ -94,7 +94,7 @@
  <script>
  	$('.fecha').datepicker({
 		    todayBtn: "linked",
-		    format: 'yyyy/mm/dd',
+		    format: 'yyyy-mm-dd',
 		    clearBtn: true,
 		    language: "es",
 		    autoclose: true,

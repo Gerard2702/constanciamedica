@@ -67,7 +67,7 @@
                             			<div class="col-md-4">
 	                                    	<div class="form-group">
 	                                        	<label>Servicio</label>
-	                                        	<select class="form-control miselect" name="servicio">
+	                                        	<select class="form-control miselect" name="servicio" required="">
 	                                        		<option value="" ></option>
 	                                        		<?php 
 	                                        			if($rows > 0){
@@ -126,7 +126,7 @@
  	$('#crearsolicitud').addClass('active');
 	$('.fecha').datepicker({
 		    todayBtn: "linked",
-		    format: 'yyyy/mm/dd',
+		    format: 'yyyy-mm-dd',
 		    clearBtn: true,
 		    language: "es",
 		    autoclose: true,

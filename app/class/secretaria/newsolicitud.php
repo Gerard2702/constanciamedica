@@ -6,8 +6,8 @@ $conn->autocommit(false);
 $fecha = $_POST['fecha'];
 $recibo = $_POST['recibo'];
 $afiliacion = $_POST['afiliacion'];
-$nombrepaciente = $_POST['nombrepaciente'];
-$lugarpresentar = $_POST['lugarpresentar'];
+$nombrepaciente = strtoupper($_POST['nombrepaciente']);
+$lugarpresentar = strtoupper($_POST['lugarpresentar']);
 $servicio = $_POST['servicio'];
 $cantidad = $_POST['cantidad'];
 $fechapresento = $_POST['fechapresento'];
@@ -40,14 +40,16 @@ try {
 	$stmt->bind_param('sssssiissdii',$fecha,$recibo,$afiliacion,$nombrepaciente,$lugarpresentar,$servicio,$cantidad,$fechapresento,$fechacancelo,$preciocon,$id_estado,$id_user);
 	$stmt->execute();
 	$conn->commit();
+	$stmt->close();
+	$conn->close();
 	header("Location:../../secretaria/crearsolicitud.php");
 	
 } catch (Exception $e) {
 	$conn->rollback();
 	echo $e;
-} finally{
+} /*finally{
 	$stmt->close();
 	$conn->close();
-}
+}*/
 
  ?>

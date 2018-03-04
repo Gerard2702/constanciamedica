@@ -41,6 +41,7 @@
 		$stmt->bind_param('i',$id_constancia);
 		$stmt->execute();
 		$rows = $stmt->affected_rows;
+
 		if($rows==1){
 			echo "true";
 		}
@@ -48,13 +49,16 @@
 			echo "error";
 		}
 		$conn->commit();
-	} catch (Exception $e) {
-		$conn->rollback();
-		echo $e;
-	} finally{
 		$stmt->close();
 		$stmtalt->close();
 		$conn->close();
-	}
+	} catch (Exception $e) {
+		$conn->rollback();
+		echo $e;
+	} /*finally{
+		$stmt->close();
+		$stmtalt->close();
+		$conn->close();
+	}*/
 
  ?>

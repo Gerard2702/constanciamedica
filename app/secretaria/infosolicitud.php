@@ -165,7 +165,7 @@
 			                                </tbody>
 			                            </table>
 			                        </div>
-			                        <a class="btn btn-success" href="#">Enviar para modificacion</a>
+			                        <a class="btn btn-success modificar" href="javascript:;" data-constancia="<?php echo $id_datos; ?>">Enviar para modificacion</a>
 			                        <a class="btn btn-warning" href="#">Finalizar</a>  
 	                            </div>
 	                        </div>
@@ -217,5 +217,60 @@
 	            }
 			});	
 		})
+
+		$('.modificar').click(function(){
+			var id_constancia =  $(this).data('constancia');
+			swal({
+              title: "Desea enviar la solicitud para modificación?",
+              text: "",
+              icon: "warning",
+              buttons: true,
+            })
+            .then((enviar) => {
+              if (enviar) {
+                $('#myModal').modal();
+              } else {
+                
+              }
+            });
+		})
+
 	})
 </script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Especificaciones</h4>
+            </div>
+            <div class="modal-body">
+                <div id="conten-modal">
+                    <form action="../class/trabajador/editarsolicitud.php" method="POST">
+                    	<div class="row">
+                			<div class="col-md-12">
+                    			<div class="form-group">
+                                	<label>Comentario</label>
+                                	<textarea class="form-control input-sm" name="comentario" id="" cols="30" rows="3" required=""></textarea>
+                                	<?php $_SESSION['id_datosmodificarsolicitud'] = $id_datos; ?>
+                            	</div>
+                			</div>
+                		</div>
+                		<div class="row">
+                			<div class="col-md-12">
+                    			<div class="form-group">
+                                	<button type="submit" class="btn btn-primary">Enviar para modificar</button>
+                            	</div>
+                			</div>
+                		</div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

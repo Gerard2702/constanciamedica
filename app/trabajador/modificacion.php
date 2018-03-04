@@ -5,13 +5,13 @@
     include("../core/aside.php");
     include("../../config/database.php");
 
-    $sqlrecibidas = "SELECT datos_iniciales.id_datos,datos_iniciales.fecha,datos_iniciales.numero_recibo,datos_iniciales.afiliacion_dui,datos_iniciales.nombre_paciente,datos_iniciales.destinos,datos_iniciales.cantidad,servicios.nombre_servicio FROM datos_iniciales INNER JOIN servicios ON datos_iniciales.id_servicio=servicios.id_servicio WHERE datos_iniciales.id_estado=3 AND id_trabajador=?";
+    $sqlrecibidas = "SELECT datos_iniciales.id_datos,datos_iniciales.fecha,datos_iniciales.numero_recibo,datos_iniciales.afiliacion_dui,datos_iniciales.nombre_paciente,datos_iniciales.destinos,datos_iniciales.cantidad,servicios.nombre_servicio FROM datos_iniciales INNER JOIN servicios ON datos_iniciales.id_servicio=servicios.id_servicio WHERE datos_iniciales.id_estado=5 AND id_trabajador=?";
     if($stmt = $conn->prepare($sqlrecibidas)){
         $stmt -> bind_param('s',$_SESSION['id_usuario']);
-    	$stmt -> execute();
-    	$stmt -> store_result();
-    	$rows = $stmt->num_rows;
-    	$stmt -> bind_result($id_datos,$fechacreacion,$nrecibo,$afiliacion,$nombrepaciente,$destinos,$cantidad,$servicio);
+        $stmt -> execute();
+        $stmt -> store_result();
+        $rows = $stmt->num_rows;
+        $stmt -> bind_result($id_datos,$fechacreacion,$nrecibo,$afiliacion,$nombrepaciente,$destinos,$cantidad,$servicio);
     }
 
     $conn->close();
@@ -24,7 +24,7 @@
                     <div class="panel">
                         <div class="panel-body">
                             <div id="titulo">
-                            	<h4 id="serviciotitulo">MIS SOLICITUDES PENDIENTES DE CREACION DE CONSTANCIAS</h4>
+                                <h4 id="serviciotitulo">SOLICITUDES PENDIENTES DE EDICION</h4>
                             </div>
                             <div class="col-md-12" id="misrecibidos">
                                 <div id="contenido" class="table-responsive">
@@ -54,7 +54,7 @@
                                                 <td><?php echo $destinos; ?></td>
                                                 <td><?php echo $cantidad; ?></td>
                                                 <td><?php echo $servicio; ?></td>
-                                                <td><a href="infosolicitud.php?con=<?php echo $id_datos ?>" class="btn btn-primary btn-block btn-sm crearconstancias" data-toggle="tooltip" data-placement="left" title="Crear Constancias"><i class="fa fa-edit"></i></a></td>
+                                                <td><a href="infosolicitudmod.php?con=<?php echo $id_datos ?>" class="btn btn-success btn-block btn-sm crearconstancias" data-toggle="tooltip" data-placement="left" title="Modificar"><i class="fa fa-edit"></i></a></td>
                                             </tr>   
                                         <?php 
                                                 }
@@ -76,6 +76,6 @@
     include("../core/footer.php");
  ?>
  <script>
- 	$('#pendientes').addClass('active');
+    $('#modificacion').addClass('active');
     
  </script>

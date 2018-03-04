@@ -115,7 +115,7 @@
                             			<div class="col-md-6">
 	                                    	<div class="form-group">
 	                                        	<label>Consulto el dia/mes/Año</label>
-	                                        	<input class="form-control input-sm" type="date" placeholder="" name="consultafecha" required="" value='<?php echo $fecha_consulta; ?>'>
+	                                        	<input class="form-control input-sm fecha" type="text" placeholder="" name="consultafecha" required="" value='<?php echo $fecha_consulta; ?>'>
 	                                    	</div>
                                     	</div>
                                     	<div class="col-md-3 col-md-offset-1">
@@ -162,7 +162,7 @@
 										    	$stmtalt -> execute();
 										    	$stmtalt -> store_result();
 										    	$rowsalt = $stmtalt->num_rows;
-										    	$stmtalt -> bind_result($id_alta,$id_datosc,$fecha_de_alta,$diagnosticofinal);
+										    	$stmtalt -> bind_result($id_alt,$id_datosc,$fecha_de_alta,$diagnosticofinal);
 										    	$stmtalt -> fetch();
 										    	$stmtalt -> close();
 										    }
@@ -172,8 +172,8 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permaneciendo ingresado hasta</label>
-									        	<input class="form-control input-sm" type="date" placeholder="" name="permaneciofecha" required="" value='<?php echo $fecha_de_alta ?>'>
-									        	<input type="hidden" readonly="" value="<?php echo $id_alt?>" name='alt'>
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value='<?php echo $fecha_de_alta ?>'>
+									        	<input type="hidden" readonly="" value="<?php echo $id_alt; ?>" name='alt'>
 									    	</div>
 									    </div>
 									</div>
@@ -204,7 +204,7 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permanecio ingresado a la fecha con diagnostico</label>
-									        	<textarea class="form-control" name="diagnosticoingreso" id="" cols="30" rows="3"><?php echo $diagnosticofinal; ?></textarea>
+									        	<textarea class="form-control input-sm" name="diagnosticoingreso" id="" cols="30" rows="3"><?php echo $diagnosticofinal; ?></textarea>
 									        	<input type="text" readonly="" hidden="" value="<?php echo $id_alt; ?>" name='alt'>
 									    	</div>
 									    </div>
@@ -228,7 +228,7 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permaneciendo ingresado hasta dia/mes/año</label>
-									        	<input class="form-control" type="date" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_defuncion; ?>">
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_defuncion; ?>">
 									        	<input type="text" readonly="" hidden="" value="<?php echo $id_alt; ?>" name='alt'>
 									    	</div>
 									    </div>
@@ -237,7 +237,7 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Fallecimiento por</label>
-									        	<textarea class="form-control" name="fallecimientopor" id="" cols="30" rows="3"><?php echo $diagnosticofinal; ?></textarea>
+									        	<textarea class="form-control input-sm" name="fallecimientopor" id="" cols="30" rows="3"><?php echo $diagnosticofinal; ?></textarea>
 									    	</div>
 									    </div>
 									</div>
@@ -260,14 +260,14 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permaneciendo hasta fecha de alta dia/mes/año</label>
-									        	<input class="form-control" type="date" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_de_alta; ?>">
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_de_alta; ?>">
 									        	<input type="text" readonly="" hidden="" value="<?php echo $id_alt; ?>" name='alt'>
 									    	</div>
 									    </div>
 									    <div class="col-md-5 col-md-offset-1 ">
 									    	<div class="form-group">
 									        	<label>Partida de defuncion extendida dia/mes/año</label>
-									        	<input class="form-control" type="date" placeholder="" name="partidafecha" required="" value="<?php echo $fecha_defun_ext; ?>">
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="partidafecha" required="" value="<?php echo $fecha_defun_ext; ?>">
 									    	</div>
 									    </div>
 									</div>
@@ -275,13 +275,13 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Lugar de extension de partida</label>
-									        	<input class="form-control" type="text" placeholder="" name="lugarextension" required="" value="<?php echo $lugar_de_extension; ?>">
+									        	<input class="form-control input-sm" type="text" placeholder="" name="lugarextension" required="" value="<?php echo $lugar_de_extension; ?>">
 									    	</div>
 									    </div>
 									    <div class="col-md-5 col-md-offset-1 ">
 									    	<div class="form-group">
 									        	<label>Fallecimiento en domicilio dia/mes/año</label>
-									        	<input class="form-control" type="date" placeholder="" name="domiciliofecha" required="" value="<?php echo $fecha_fallecimiento ?>">
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="domiciliofecha" required="" value="<?php echo $fecha_fallecimiento ?>">
 									    	</div>
 									    </div>
 									</div>
@@ -319,7 +319,7 @@
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
 	                                        	<label>Fecha de extensión de constancia</label>
-	                                        	<input class="form-control input-sm" type="date" placeholder="" name="fechaextension" value='<?php echo $fecha_extension; ?>'>
+	                                        	<input class="form-control input-sm fecha" type="text" placeholder="" name="fechaextension" value='<?php echo $fecha_extension; ?>'>
 	                                    	</div>
 	                                    </div>
                                     </div>
@@ -515,4 +515,14 @@
 			}
         });
     });
+
+    $('.fecha').datepicker({
+		    todayBtn: "linked",
+		    format: 'yyyy-mm-dd',
+		    clearBtn: true,
+		    language: "es",
+		    autoclose: true,
+		    todayHighlight: true,
+		    disableTouchKeyboard: true,
+	});
  </script>

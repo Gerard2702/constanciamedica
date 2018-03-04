@@ -26,13 +26,15 @@ try {
 		echo "false";
 	}
 	$conn->commit();
+	$stmt->close();
+	$conn->close();
 	
 } catch (Exception $e) {
 	$conn->rollback();
 	echo $e;
-} finally{
+} /*finally{
 	$stmt->close();
 	$conn->close();
-}
+}*/
 
  ?>

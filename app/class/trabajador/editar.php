@@ -7,9 +7,9 @@
 	$consultafecha = $_POST['consultafecha'];
 	$servicio = $_POST['servicio'];
 	$diagnosticoini = $_POST['diagnosticoini'];
-	$nombresolicitante = $_POST['nombresolicitante'];
+	$nombresolicitante = strtoupper($_POST['nombresolicitante']);
 	$parentesco = $_POST['parentesco'];
-	$presentar = $_POST['presentar'];
+	$presentar = strtoupper($_POST['presentar']);
 	$fechaextension = $_POST['fechaextension'];
 	$tipoconstanciainput = $_POST['tipoconstanciainput'];
 
@@ -45,6 +45,9 @@
 				$stmt2->bind_param('ssi',$permaneciofecha,$diagnosticofinal,$alt);
 				$stmt2->execute();
 				$conn->commit();
+				$stmt->close();
+				$stmt2->close();
+				$conn->close();
 				header( "Location:../../trabajador/infosolicitud.php?con=$constancianum");
 				break;
 			case '2':
@@ -56,6 +59,9 @@
 				$stmt2->bind_param('si',$diagnosticoingreso,$alt);
 				$stmt2->execute();
 				$conn->commit();
+				$stmt->close();
+				$stmt2->close();
+				$conn->close();
 				header( "Location:../../trabajador/infosolicitud.php?con=$constancianum");
 				break;
 			case '3':
@@ -68,6 +74,9 @@
 				$stmt2->bind_param('ssi',$permaneciofecha,$fallecimientopor,$alt);
 				$stmt2->execute();
 				$conn->commit();
+				$stmt->close();
+				$stmt2->close();
+				$conn->close();
 				header( "Location:../../trabajador/infosolicitud.php?con=$constancianum");
 				break;
 			case '4':
@@ -82,6 +91,9 @@
 				$stmt2->bind_param('ssssi',$permaneciofecha,$partidafecha,$lugarextension,$domiciliofecha,$alt);
 				$stmt2->execute();
 				$conn->commit();
+				$stmt->close();
+				$stmt2->close();
+				$conn->close();
 				header( "Location:../../trabajador/infosolicitud.php?con=$constancianum"); 
 				break;
 			default:
@@ -91,10 +103,10 @@
 	} catch (Exception $e) {
 		$conn->rollback();
 		echo "false";
-	} finally {
+	} /*finally {
 		$stmt->close();
 		$stmt2->close();
 		$conn->close();
 	}
-	
+	*/
  ?>
