@@ -905,7 +905,7 @@ require('conversor.php');
                     $pdf->AddPage();
                     $pdf->AddFont('trebuc');
                     $pdf->SetFont('trebuc','',12);            
-                    $pdf->MultiCell(0,5,$textoA[$i]."\n\n\n\n",0,'J');
+                    $pdf->MultiCell(0,5,$textoA[$i]."\n\n\n\n\n\n",0,'J');
 
                     if($cantfirmasA[$i]==4){
                         ${"dataA40".$i}[] = explode(",",$firmasA[$i]);
@@ -955,7 +955,7 @@ require('conversor.php');
                     $pdf->AddPage();
                     $pdf->AddFont('trebuc');
                     $pdf->SetFont('trebuc','',12);            
-                    $pdf->MultiCell(0,5,$textoI[$j]."\n\n\n\n",0,'J');
+                    $pdf->MultiCell(0,5,$textoI[$j]."\n\n\n\n\n\n",0,'J');
                     
                     if($cantfirmasI[$j]==4){
                         ${"dataI40".$j}[] = explode(",",$firmasI[$j]);
@@ -1005,7 +1005,7 @@ require('conversor.php');
                     $pdf->AddPage();
                     $pdf->AddFont('trebuc');
                     $pdf->SetFont('trebuc','',12);            
-                    $pdf->MultiCell(0,5,$textoF[$k]."\n\n\n\n",0,'J');
+                    $pdf->MultiCell(0,5,$textoF[$k]."\n\n\n\n\n\n",0,'J');
 
                     if($cantfirmasF[$k]==4){
                         ${"dataF40".$k}[] = explode(",",$firmasF[$k]);
@@ -1055,7 +1055,7 @@ require('conversor.php');
                     $pdf->AddPage();
                     $pdf->AddFont('trebuc');
                     $pdf->SetFont('trebuc','',12);            
-                    $pdf->MultiCell(0,5,$textoFC[$l]."\n\n\n\n",0,'J');
+                    $pdf->MultiCell(0,5,$textoFC[$l]."\n\n\n\n\n\n",0,'J');
 
                     if($cantfirmasFC[$l]==4){
                         ${"dataFC40".$l}[] = explode(",",$firmasFC[$l]);

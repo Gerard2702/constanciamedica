@@ -8,10 +8,9 @@
 
     if(!empty($_POST['nombre'])){
 
-    	//$nombre = strtoupper($_POST['nombre']);
     	$nombre = $_POST['nombre'];
 
-    	$sql = "SELECT di.afiliacion_dui,di.nombre_paciente,di.destinos,sv.nombre_servicio,et.nombre_status FROM datos_iniciales di JOIN servicios sv ON di.id_servicio=sv.id_servicio JOIN status et ON di.id_estado=et.id_status WHERE di.nombre_paciente LIKE CONCAT('%',?,'%')";
+    	$sql = "SELECT di.afiliacion_dui,di.nombre_paciente,di.destinos,sv.nombre_servicio,et.nombre_estado FROM datos_iniciales di JOIN servicios sv ON di.id_servicio=sv.id_servicio JOIN estado et ON di.id_estado=et.id_estado WHERE di.nombre_paciente LIKE CONCAT('%',?,'%')";
     	if($stm = $conn->prepare($sql)){
                 $stm -> bind_param('s',$nombre);
                 $stm -> execute();
@@ -25,7 +24,7 @@
 
     	$numero_recibo = $_POST['recibo'];
 
-    	$sql = "SELECT di.afiliacion_dui,di.nombre_paciente,di.destinos,sv.nombre_servicio,et.nombre_status FROM datos_iniciales di JOIN servicios sv ON di.id_servicio=sv.id_servicio JOIN status et ON di.id_estado=et.id_status WHERE di.numero_recibo=?";
+    	$sql = "SELECT di.afiliacion_dui,di.nombre_paciente,di.destinos,sv.nombre_servicio,et.nombre_estado FROM datos_iniciales di JOIN servicios sv ON di.id_servicio=sv.id_servicio JOIN estado et ON di.id_estado=et.id_estado WHERE di.numero_recibo=?";
     	if($stm = $conn->prepare($sql)){
                 $stm -> bind_param('i',$numero_recibo);
                 $stm -> execute();
@@ -39,7 +38,7 @@
 
     	$fechas = $_POST['fecha'];
 
-    	$sql = "SELECT di.afiliacion_dui,di.nombre_paciente,di.destinos,sv.nombre_servicio,et.nombre_status FROM datos_iniciales di JOIN servicios sv ON di.id_servicio=sv.id_servicio JOIN status et ON di.id_estado=et.id_status WHERE di.fecha=?";
+    	$sql = "SELECT di.afiliacion_dui,di.nombre_paciente,di.destinos,sv.nombre_servicio,et.nombre_estado FROM datos_iniciales di JOIN servicios sv ON di.id_servicio=sv.id_servicio JOIN estado et ON di.id_estado=et.id_estado WHERE di.fecha=?";
     	if($stm = $conn->prepare($sql)){
                 $stm -> bind_param('s',$fechas);
                 $stm -> execute();
@@ -106,7 +105,7 @@
 		                                        </tr>
 		                                    </thead>
 		                                    <tbody>  		                                                                      	
-		                                        <?php		                                        	                                         
+		                                        <?php	                                                	                                        	                                         
 		                                            if($rows>0) {
 		                                                while ($stm->fetch()) {
 		                                        ?>
