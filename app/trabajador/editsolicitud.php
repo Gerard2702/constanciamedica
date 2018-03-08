@@ -93,7 +93,7 @@
                             	<h4 id="constanciatitulo"></h4>
                             </div>
                             <div id="contenido">
-                            	<form method="POST" action="../class/trabajador/editar2.php">
+                            	<form method="POST" action="../class/trabajador/editarmod.php">
                             		<div class="row">
 	                                    <div class="col-md-6">
 	                                    	<div class="form-group">
@@ -337,7 +337,7 @@
                                                         <input class="checkmedico"	type="checkbox" name="checkmedico">
                                                         <?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm medico" name="medico" required="">
+                                                    <select class="form-control input-sm medico" name="medico">
                                                     	<option value="" disabled selected>Seleccione medico tratante</option>
 	                                        			<?php 
 					                            			if($rows2 > 0){
@@ -370,7 +370,7 @@
                                                         <input class="checkjefe" type="checkbox" name="checkjefe">
                                                         <?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm jefe" name="jefe" required="">
+                                                    <select class="form-control input-sm jefe" name="jefe">
 	                                        			<option value="" disabled selected>Seleccione un jefe de servicio</option>
 	                                        			<?php 
 					                            			if($rowsjefeservicio > 0){
@@ -405,7 +405,7 @@
 														<input class="checkjefesocial" type="checkbox" name="checkjefesocial">
 														<?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm jefesocial" name="jefesocial" required="">
+                                                    <select class="form-control input-sm jefesocial" name="jefesocial">
 	                                        			<option value="" disabled selected>Seleccione un jefe de trabajo social</option>
 	                                        			<?php 
 					                            			if($rowsjefesocial > 0){
@@ -438,7 +438,7 @@
 														<input class="checkdirector" type="checkbox" name="checkdirector">
 														<?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm director" name="director" required="">
+                                                    <select class="form-control input-sm director" name="director">
 	                                        			<option value="" disabled selected>Seleccione un director</option>
 	                                        			<?php 
 					                            			if($rowsdirector > 0){

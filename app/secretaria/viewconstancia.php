@@ -98,16 +98,13 @@
 	                                    <div class="col-md-6">
 	                                    	<div class="form-group">
 	                                        	<label>Nombre del paciente</label>
-	                                        	<input class="form-control input-sm" type="text" placeholder="Nombre del paciente" name="nombrepaciente" required="" value="<?php echo $nombrepaciente ?>" readonly="readonly">
-	                                        	<input type="text" hidden="" name="constancianum" value="<?php echo $id_datos ?>" readonly="readonly">
-	                                        	<input type="text" hidden="" name="tipoconstanciainput" id="tipoconstanciainput" value="<?php echo $id_tipoconstancia; ?>" readonly="readonly">
-	                                        	<input type="text" hidden="" name="datosc" id="datosc" value="<?php echo $id_datosc; ?>" readonly="readonly">
+	                                        	<input class="form-control input-sm" type="text" placeholder="Nombre del paciente" name="nombrepaciente" required="" value="<?php echo $nombrepaciente ?>" disabled>
 	                                    	</div>
 	                                    </div>
 	                                    <div class="col-md-3 col-md-offset-1">
 	                                    	<div class="form-group">
 	                                        	<label>N# Afiliacion/DUI</label>
-	                                        	<input class="form-control input-sm" type="number" placeholder="Numero de Afiliacion/DUI" name="afiliacion" required="" value="<?php echo $afiliacion ?>" readonly="readonly">
+	                                        	<input class="form-control input-sm" type="number" placeholder="Numero de Afiliacion/DUI" name="afiliacion" required="" value="<?php echo $afiliacion ?>" disabled>
 	                                    	</div>
 	                                    </div>
                             		</div>
@@ -115,13 +112,13 @@
                             			<div class="col-md-6">
 	                                    	<div class="form-group">
 	                                        	<label>Consulto el dia/mes/Año</label>
-	                                        	<input class="form-control input-sm fecha" type="text" placeholder="" name="consultafecha" required="" value='<?php echo $fecha_consulta; ?>'>
+	                                        	<input class="form-control input-sm fecha" type="text" placeholder="" name="consultafecha" required="" value='<?php echo $fecha_consulta; ?>' disabled>
 	                                    	</div>
                                     	</div>
                                     	<div class="col-md-3 col-md-offset-1">
 	                                    	<div class="form-group">
 	                                        	<label>En el Servicio de</label>
-	                                        	<select class="form-control input-sm" name="servicio" readonly>
+	                                        	<select class="form-control input-sm" name="servicio" disabled>
 	                                        		<?php 
 	                                        			if($rows > 0){
 	                                        				while ($stmt->fetch()) {
@@ -146,7 +143,7 @@
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
 	                                        	<label>Con diagnostico</label>
-	                                        	<textarea class="form-control input-sm" name="diagnosticoini" id="" cols="30" rows="3"><?php echo $diagnosticoini; ?></textarea>
+	                                        	<textarea class="form-control input-sm" name="diagnosticoini" id="" cols="30" rows="3" disabled><?php echo $diagnosticoini; ?></textarea>
 	                                    	</div>
 	                                    </div>
                                     </div>
@@ -172,8 +169,7 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permaneciendo ingresado hasta</label>
-									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value='<?php echo $fecha_de_alta ?>'>
-									        	<input type="hidden" readonly="" value="<?php echo $id_alt; ?>" name='alt'>
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value='<?php echo $fecha_de_alta ?>' disabled>
 									    	</div>
 									    </div>
 									</div>
@@ -181,7 +177,7 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Con diagnostico</label>
-									        	<textarea class="form-control input-sm" name="diagnosticofinal" id="" cols="30" rows="3"><?php echo $diagnosticofinal; ?></textarea>
+									        	<textarea class="form-control input-sm" name="diagnosticofinal" id="" cols="30" rows="3" disabled><?php echo $diagnosticofinal; ?></textarea>
 									    	</div>
 									    </div>
 									</div>	
@@ -204,8 +200,7 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permanecio ingresado a la fecha con diagnostico</label>
-									        	<textarea class="form-control input-sm" name="diagnosticoingreso" id="" cols="30" rows="3"><?php echo $diagnosticofinal; ?></textarea>
-									        	<input type="text" readonly="" hidden="" value="<?php echo $id_alt; ?>" name='alt'>
+									        	<textarea class="form-control input-sm" name="diagnosticoingreso" id="" cols="30" rows="3" disabled><?php echo $diagnosticofinal; ?></textarea>
 									    	</div>
 									    </div>
 									</div>
@@ -228,8 +223,7 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permaneciendo ingresado hasta dia/mes/año</label>
-									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_defuncion; ?>">
-									        	<input type="text" readonly="" hidden="" value="<?php echo $id_alt; ?>" name='alt'>
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_defuncion; ?>" disabled>
 									    	</div>
 									    </div>
 									</div>
@@ -237,7 +231,7 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Fallecimiento por</label>
-									        	<textarea class="form-control input-sm" name="fallecimientopor" id="" cols="30" rows="3"><?php echo $diagnosticofinal; ?></textarea>
+									        	<textarea class="form-control input-sm" name="fallecimientopor" id="" cols="30" rows="3" disabled><?php echo $diagnosticofinal; ?></textarea>
 									    	</div>
 									    </div>
 									</div>
@@ -260,14 +254,13 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permaneciendo hasta fecha de alta dia/mes/año</label>
-									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_de_alta; ?>">
-									        	<input type="text" readonly="" hidden="" value="<?php echo $id_alt; ?>" name='alt'>
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_de_alta; ?>" disabled>
 									    	</div>
 									    </div>
 									    <div class="col-md-5 col-md-offset-1 ">
 									    	<div class="form-group">
 									        	<label>Partida de defuncion extendida dia/mes/año</label>
-									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="partidafecha" required="" value="<?php echo $fecha_defun_ext; ?>">
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="partidafecha" required="" value="<?php echo $fecha_defun_ext; ?>" disabled>
 									    	</div>
 									    </div>
 									</div>
@@ -275,13 +268,13 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Lugar de extension de partida</label>
-									        	<input class="form-control input-sm" type="text" placeholder="" name="lugarextension" required="" value="<?php echo $lugar_de_extension; ?>">
+									        	<input class="form-control input-sm" type="text" placeholder="" name="lugarextension" required="" value="<?php echo $lugar_de_extension; ?>" disabled>
 									    	</div>
 									    </div>
 									    <div class="col-md-5 col-md-offset-1 ">
 									    	<div class="form-group">
 									        	<label>Fallecimiento en domicilio dia/mes/año</label>
-									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="domiciliofecha" required="" value="<?php echo $fecha_fallecimiento ?>">
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="domiciliofecha" required="" value="<?php echo $fecha_fallecimiento ?>" disabled>
 									    	</div>
 									    </div>
 									</div>
@@ -297,13 +290,13 @@
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
 	                                        	<label>Nombre del solicitante</label>
-	                                        	<input class="form-control input-sm" type="text" placeholder="" name="nombresolicitante" value='<?php echo $nombresolicitante; ?>'>
+	                                        	<input class="form-control input-sm" type="text" placeholder="" name="nombresolicitante" value='<?php echo $nombresolicitante; ?>' disabled>
 	                                    	</div>
 	                                    </div>
 	                                    <div class="col-md-3 col-md-offset-1 ">
 	                                    	<div class="form-group">
 	                                        	<label>Parentesco</label>
-	                                        	<input class="form-control input-sm" type="text" placeholder="" name="parentesco" value='<?php echo $parentesco; ?>'>
+	                                        	<input class="form-control input-sm" type="text" placeholder="" name="parentesco" value='<?php echo $parentesco; ?>' disabled>
 	                                    	</div>
 	                                    </div>
                                     </div>
@@ -311,7 +304,7 @@
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
 	                                        	<label>Para ser presentada en</label>
-	                                        	<input class="form-control input-sm" type="text" placeholder="" name="presentar" value='<?php echo $destino; ?>'>
+	                                        	<input class="form-control input-sm" type="text" placeholder="" name="presentar" value='<?php echo $destino; ?>' disabled>
 	                                    	</div>
 	                                    </div>
                                     </div>
@@ -319,12 +312,11 @@
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
 	                                        	<label>Fecha de extensión de constancia</label>
-	                                        	<input class="form-control input-sm fecha" type="text" placeholder="" name="fechaextension" value='<?php echo $fecha_extension; ?>'>
+	                                        	<input class="form-control input-sm fecha" type="text" placeholder="" name="fechaextension" value='<?php echo $fecha_extension; ?>' disabled>
 	                                    	</div>
 	                                    </div>
                                     </div>
                                     <div id="divider"></div>
-                                    <p><strong>Seleccione solo las entidades que necesite</strong></p>
                                     <div class="row">
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
@@ -332,13 +324,13 @@
 	                                        	<div class="input-group mb-10">
                                                     <span class="input-group-addon">
                                                     	<?php if($medico!=null){?>
-                                                        <input class="checkmedico"	type="checkbox" checked name="checkmedico">
+                                                        <input class="checkmedico"	type="checkbox" checked name="checkmedico" disabled>
                                                         <?php } else { ?>
-                                                        <input class="checkmedico"	type="checkbox" name="checkmedico">
+                                                        <input class="checkmedico"	type="checkbox" name="checkmedico" disabled>
                                                         <?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm medico" name="medico">
-                                                    	<option value="" disabled selected>Seleccione medico tratante</option>
+                                                    <select class="form-control input-sm medico" name="medico" disabled>
+                                                    	<option value="" disabled selected></option>
 	                                        			<?php 
 					                            			if($rows2 > 0){
 					                            				while ($stmt2->fetch()) {
@@ -365,13 +357,13 @@
 	                                        	<div class="input-group mb-10">
                                                     <span class="input-group-addon">
                                                     	<?php if($jefe!=null){?>
-                                                        <input class="checkjefe" type="checkbox" checked name="checkjefe">
+                                                        <input class="checkjefe" type="checkbox" checked name="checkjefe" disabled>
                                                         <?php } else { ?>
-                                                        <input class="checkjefe" type="checkbox" name="checkjefe">
+                                                        <input class="checkjefe" type="checkbox" name="checkjefe" disabled>
                                                         <?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm jefe" name="jefe">
-	                                        			<option value="" disabled selected>Seleccione un jefe de servicio</option>
+                                                    <select class="form-control input-sm jefe" name="jefe" disabled>
+	                                        			<option value="" disabled selected></option>
 	                                        			<?php 
 					                            			if($rowsjefeservicio > 0){
 					                            				while ($stmtjefeservicio->fetch()) {
@@ -400,13 +392,13 @@
 	                                        	<div class="input-group mb-10">
                                                     <span class="input-group-addon">
                                                         <?php if($jefesocial!=null){?>
-                                                        <input class="checkjefesocial" type="checkbox" checked name="checkjefesocial">
+                                                        <input class="checkjefesocial" type="checkbox" checked name="checkjefesocial" disabled>
 														<?php } else { ?>
-														<input class="checkjefesocial" type="checkbox" name="checkjefesocial">
+														<input class="checkjefesocial" type="checkbox" name="checkjefesocial" disabled>
 														<?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm jefesocial" name="jefesocial">
-	                                        			<option value="" disabled selected>Seleccione un jefe de trabajo social</option>
+                                                    <select class="form-control input-sm jefesocial" name="jefesocial" disabled>
+	                                        			<option value="" disabled selected></option>
 	                                        			<?php 
 					                            			if($rowsjefesocial > 0){
 					                            				while ($stmtjefesocial->fetch()) {
@@ -433,13 +425,13 @@
 	                                        	<div class="input-group mb-10">
                                                     <span class="input-group-addon">
                                                     	<?php if($director!=null){?>
-                                                    	<input class="checkdirector" type="checkbox" checked name="checkdirector">
+                                                    	<input class="checkdirector" type="checkbox" checked name="checkdirector" disabled>
 														<?php } else { ?>
-														<input class="checkdirector" type="checkbox" name="checkdirector">
+														<input class="checkdirector" type="checkbox" name="checkdirector" disabled>
 														<?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm director" name="director">
-	                                        			<option value="" disabled selected>Seleccione un director</option>
+                                                    <select class="form-control input-sm director" name="director" disabled>
+	                                        			<option value="" disabled selected></option>
 	                                        			<?php 
 					                            			if($rowsdirector > 0){
 					                            				while ($stmtdirector->fetch()) {
@@ -460,11 +452,6 @@
 	                                    	</div>
 	                                    </div>
                                     </div>
-                                    <div class="row">
-                                    	<div class="col-md-12">
-	                                    	<button type="submit" class="btn btn-primary">Editar</button>
-                                    	</div>
-                                    </div>	
                                 </form>
                             </div>
                         </div>
@@ -480,49 +467,5 @@
 
  ?>
  <script>
-    $(document).ready(function(){
-        
-        $(".checkmedico").change(function(){  
-        	if( $('.checkmedico').prop('checked') ) {
-				$(".medico").prop('required',true);
-			}
-			else{
-				$(".medico").prop('required',false);
-			}
-        });
-        $(".checkjefe").change(function(){  
-        	if( $('.checkjefe').prop('checked') ) {
-				$(".jefe").prop('required',true);
-			}
-			else{
-				$(".jefe").prop('required',false);
-			}
-        });
-        $(".checkjefesocial").change(function(){  
-        	if( $('.checkjefesocial').prop('checked') ) {
-				$(".jefesocial").prop('required',true);
-			}
-			else{
-				$(".jefesocial").prop('required',false);
-			}
-        });
-        $(".checkdirector").change(function(){  
-        	if( $('.checkdirector').prop('checked') ) {
-				$(".director").prop('required',true);
-			}
-			else{
-				$(".director").prop('required',false);
-			}
-        });
-    });
-
-    $('.fecha').datepicker({
-		    todayBtn: "linked",
-		    format: 'yyyy-mm-dd',
-		    clearBtn: true,
-		    language: "es",
-		    autoclose: true,
-		    todayHighlight: true,
-		    disableTouchKeyboard: true,
-	});
+  
  </script>

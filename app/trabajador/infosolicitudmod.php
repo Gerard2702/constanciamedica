@@ -1,6 +1,8 @@
 <?php
     $title = "SOLICITUD";
-
+    if(!isset($_SERVER['HTTP_REFERER'])){
+      header('Location:index.php');
+    }
     include("../core/header.php");
 
     include("../core/aside.php");
@@ -81,13 +83,13 @@
    			$stmtcons -> close();
    		}
 
-   		$sqlcreadas = "SELECT dat.id_datosc,dat.id_constancia,dat.fecha_consulta,dat.nombre_solicitante,dat.parentesco,dat.destino,dat.fecha_extension,con.tipo_constancia FROM datos_complementarios dat INNER JOIN constancias con ON dat.id_constancia=con.id_constancia WHERE dat.id_datos=? ORDER BY dat.id_datosc";
+   		$sqlcreadas = "SELECT dat.id_datosc,dat.id_constancia,dat.fecha_consulta,dat.nombre_solicitante,dat.parentesco,dat.destino,dat.fecha_extension,con.tipo_constancia,dat.estado FROM datos_complementarios dat INNER JOIN constancias con ON dat.id_constancia=con.id_constancia WHERE dat.id_datos=? ORDER BY dat.id_datosc";
    		if($stmtcre = $conn->prepare($sqlcreadas)){
    			$stmtcre -> bind_param('i',$contancianum);
    			$stmtcre -> execute();
    			$stmtcre -> store_result();
 	    	$rowscre = $stmtcre->num_rows;
-   			$stmtcre -> bind_result($id_datosc,$id_constancia,$fecha_consulta,$solicitante,$parentesco,$destinoc,$fecha_extension,$tipoconstancia);
+   			$stmtcre -> bind_result($id_datosc,$id_constancia,$fecha_consulta,$solicitante,$parentesco,$destinoc,$fecha_extension,$tipoconstancia,$estado);
    		}
 
       $sqlcomentarios = 'SELECT comentario FROM comentarios WHERE id_datos=?';
@@ -146,7 +148,7 @@
 	                            	<h4>Constancias creadas</h4> 
 	                            </div>
 	                            <div id="contenido">
-	                            	<a class="btn btn-info" href="newconstancia.php"><i class="fa fa-plus"></i> Agregar Constancia</a>
+	                            	<a class="btn btn-info" href="newconstanciamod.php"><i class="fa fa-plus"></i> Agregar Constancia</a>
 	                            	<div id="contenido" class="table-responsive">
 			                        	<table class="table table-striped table-condensed" id="mitable">
 			                                <thead class="thead-inverse">
@@ -219,7 +221,7 @@
 	                                                <td><?php echo $parentesco; ?></td>
 	                                                <td><?php echo $destinoc; ?></td>
 	                                                <td><?php echo $fecha_extension; ?></td>
-	                                                <td><a href="editsolicitud.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo; ?>" class="btn btn-success btn-sm " data-toggle="tooltip" data-placement="left" title="Ver o editar"><i class="fa fa-edit"></i></a> <a href="javascript:;" class="btn btn-danger btn-sm eliminar"  data-placement="left" data-constancia="<?php echo $id_datosc; ?>" data-tipo="<?php echo $id_constancia; ?>" data-alt="<?php echo $id_tipo; ?>"data-toggle="tooltip" data-placement="left" title="Eliminar"><i class="fa fa-times"></i></a></td>
+	                                                <td><a <?php if ($estado==0){ ?> href="editsolicitud.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo; ?>" class="btn btn-success btn-sm" <?php } else { ?> class='btn btn-default btn-sm' <?php } ?> data-toggle="tooltip" data-placement="left" title="Ver o editar"><i class="fa fa-edit"></i></a> <a href="javascript:;" <?php if($estado==0){ ?> class="btn btn-danger btn-sm eliminar" <?php } else { ?> class="btn btn-default btn-sm" <?php } ?> data-placement="left" data-constancia="<?php echo $id_datosc; ?>" data-tipo="<?php echo $id_constancia; ?>" data-alt="<?php echo $id_tipo; ?>"data-toggle="tooltip" data-placement="left" title="Eliminar"><i class="fa fa-times"></i></a></td>
 	                                            </tr>   
 	                                        <?php 
                                                   $cont=$cont+1;

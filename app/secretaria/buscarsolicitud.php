@@ -73,14 +73,14 @@
                                             <input class="form-control" id="nombre" placeholder="Nombre Paciente" name="nombre" type="text" autofocus>
                                         </div>
                                         <label class="col-sm-1 control-label">Número Recibo</label>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-4">
                                             <input class="form-control" type="number" placeholder="Numero de Recibo" name="recibo" >
                                         </div>
                                         <label class="col-sm-1 control-label">Fecha</label>
                                         <div class="col-sm-2">
                                             <input class="form-control fecha" type="text" placeholder="Fecha" id="fecha" name="fecha" data-date-end-date="0d">
                                         </div>
-                                    	<div class="col-sm-1 col-sm-offset-2">
+                                    	<div class="col-sm-1">
                                     		<button type="submit" id="search" name="search" class="btn btn-primary">Buscar</button>
                                     	</div>
                                     </div> 

@@ -1,6 +1,8 @@
 <?php
     $title = "SOLICITUD";
-
+    if(!isset($_SERVER['HTTP_REFERER'])){
+   		header('Location:index.php');
+   	}
     include("../core/header.php");
 
     include("../core/aside.php");
@@ -82,15 +84,14 @@
    			$stmtcons -> close();
    		}
 
-   		$sqlcreadas = "SELECT dat.id_datosc,dat.fecha_consulta,dat.nombre_solicitante,dat.parentesco,dat.destino,dat.fecha_extension,con.tipo_constancia,dat.estado FROM datos_complementarios dat INNER JOIN constancias con ON dat.id_constancia=con.id_constancia WHERE dat.id_datos=?";
+   		$sqlcreadas = "SELECT dat.id_datosc,dat.id_constancia,dat.fecha_consulta,dat.nombre_solicitante,dat.parentesco,dat.destino,dat.fecha_extension,con.tipo_constancia,dat.estado FROM datos_complementarios dat INNER JOIN constancias con ON dat.id_constancia=con.id_constancia WHERE dat.id_datos=?";
    		if($stmtcre = $conn->prepare($sqlcreadas)){
    			$stmtcre -> bind_param('i',$contancianum);
    			$stmtcre -> execute();
    			$stmtcre -> store_result();
 	    	$rowscre = $stmtcre->num_rows;
-   			$stmtcre -> bind_result($id_datosc,$fecha_consulta,$solicitante,$parentesco,$destinoc,$fecha_extension,$tipoconstancia,$estadocon);
+   			$stmtcre -> bind_result($id_datosc,$id_constancia,$fecha_consulta,$solicitante,$parentesco,$destinoc,$fecha_extension,$tipoconstancia,$estadocon);
    		}
-	    $conn->close();
 ?>
 	<!--main content start-->
 	<div id="content" class="ui-content ui-content-aside-overlay">
@@ -146,7 +147,52 @@
                                             if($rowscre>0){
                                             	$cont=1;
                                                 while ($stmtcre->fetch()) {
-                                                	
+                                                	$id_tipo=0;
+                                                	switch ($id_constancia) {
+                                                		case '1':
+                                                			$sqltipo = "SELECT id_datosca FROM datos_const_alta WHERE id_datosc=?";
+                                                			if($stmttipo = $conn->prepare($sqltipo)){
+                                                				$stmttipo->bind_param('i',$id_datosc);
+                                                				$stmttipo->execute();
+                                                				$stmttipo->bind_result($id_tipo);
+                                                				$stmttipo->fetch();
+                                                				$stmttipo->close();
+                                                			}
+                                                			break;
+                                                		case '2':
+                                                			$sqltipo = "SELECT id_datosci FROM datos_const_ingreso WHERE id_datosc=?";
+                                                			if($stmttipo = $conn->prepare($sqltipo)){
+                                                				$stmttipo->bind_param('i',$id_datosc);
+                                                				$stmttipo->execute();
+                                                				$stmttipo->bind_result($id_tipo);
+                                                				$stmttipo->fetch();
+                                                				$stmttipo->close();
+                                                			}
+                                                			break;
+                                                		case '3':
+                                                			$sqltipo = "SELECT id_datoscf FROM datos_const_fallecimiento WHERE id_datosc=?";
+                                                			if($stmttipo = $conn->prepare($sqltipo)){
+                                                				$stmttipo->bind_param('i',$id_datosc);
+                                                				$stmttipo->execute();
+                                                				$stmttipo->bind_result($id_tipo);
+                                                				$stmttipo->fetch();
+                                                				$stmttipo->close();
+                                                			}
+                                                			break;
+                                            			case '4':
+                                            				$sqltipo = "SELECT id_datoscfc FROM datos_const_fallecimiento_casa WHERE id_datosc=?";
+                                                			if($stmttipo = $conn->prepare($sqltipo)){
+                                                				$stmttipo->bind_param('i',$id_datosc);
+                                                				$stmttipo->execute();
+                                                				$stmttipo->bind_result($id_tipo);
+                                                				$stmttipo->fetch();
+                                                				$stmttipo->close();
+                                                			}
+                                            				break;
+                                                		default:
+                                                			# code...
+                                                			break;
+                                                	}	
 	                                        ?>
 	                                            <tr>
 	                                                <td><?php echo $cont." - ".$tipoconstancia; ?></td>
@@ -155,7 +201,7 @@
 	                                                <td><?php echo $parentesco; ?></td>
 	                                                <td><?php echo $destinoc; ?></td>
 	                                                <td><?php echo $fecha_extension; ?></td>
-	                                                <td><a href="" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($estadocon==1){ ?><a href="javascript:;" class="btn btn-success btn-sm estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="javascript:;" class="btn btn-default btn-sm estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa "> No Aprobado</i></a><?php } ?></td>
+	                                                <td><a href="viewconstancia.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo ?>" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($estadocon==1){ ?><a href="javascript:;" class="btn btn-success btn-sm estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="javascript:;" class="btn btn-default btn-sm estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa "> No Aprobado</i></a><?php } ?></td>
 	                                            </tr>   
 	                                        <?php 	$cont=$cont+1;
 	                                                }
@@ -177,6 +223,7 @@
 	</div>
 <?php
 	include("../core/footer.php");
+	 $conn->close();
 	}
    }
     

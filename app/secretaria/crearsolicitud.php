@@ -142,7 +142,4 @@
 		
 	});
 
-	$('.miform').submit(function(){
-			alert('hola');
-	});
  </script>

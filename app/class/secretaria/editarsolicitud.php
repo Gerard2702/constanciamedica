@@ -17,7 +17,6 @@ $fechacancelo = $_POST['fechacancelado'];
 $contancianum = $_POST['id_solicitud'];
 
 try {
-
 	$sqlup = "UPDATE datos_iniciales SET fecha=?, numero_recibo=?, afiliacion_dui=?, nombre_paciente=?, destinos=?, id_servicio=?, cantidad=?, fecha_presentado=?, fecha_cancelado=? WHERE id_datos=?";
 	$stmt = $conn->prepare($sqlup);
 	$stmt->bind_param('sssssiisss',$fecha,$recibo,$afiliacion,$nombrepaciente,$lugarpresentar,$servicio,$cantidad,$fechapresento,$fechacancelo,$contancianum);
