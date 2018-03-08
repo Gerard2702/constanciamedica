@@ -1085,7 +1085,7 @@ require('conversor.php');
                         $pdf->ImprovedTable(${"dataFC34".$l});
                     }elseif ($cantfirmasFC[$l]==2) {
                         ${"dataFC20".$l}[] = explode(",",$firmasFC[$l]);
-                        ${"dataFC2".$l}[] = explode(",",$firmasFC2[$l]);
+                        ${"dataFC22".$l}[] = explode(",",$firmasFC2[$l]);
 
                         $pdf->ImprovedTable(${"dataFC20".$l});
                         $pdf->MultiCell(0,5,"",0,'J');
