@@ -649,7 +649,7 @@ require('conversor.php');
                     }
                     $sqlopc2 = "SELECT js.nombre FROM jefe_Servicio js WHERE id_jefe=?";
                     if($stmopc2 = $conn->prepare($sqlopc2)){
-                        $stmopc2 -> bind_param('i',$idjefeservicioFc);
+                        $stmopc2 -> bind_param('i',$idjefeservicioFC);
                         $stmopc2 -> execute();
                         $stmopc2 -> store_result();
                         $rowsopc2 = $stmopc2->num_rows;
@@ -729,7 +729,7 @@ require('conversor.php');
                             $firmasFC[] = "$nombremedico, ";
                             $firmasFC2[] = "Médico Tratante, ";
                             $firmasFC3[] = "$nombrejefesocial,$nombredirector";
-                            $firmasFc4[] = "Jefe Trabajo Social,Director Hospital General";
+                            $firmasFC4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
                     if(($rowsopc>0) && ($rowsopc2>0) && ($rowsopc4>0)){
@@ -1085,7 +1085,7 @@ require('conversor.php');
                         $pdf->ImprovedTable(${"dataFC34".$l});
                     }elseif ($cantfirmasFC[$l]==2) {
                         ${"dataFC20".$l}[] = explode(",",$firmasFC[$l]);
-                        ${"dataFC2".$l}[] = explode(",",$firmasFC2[$l]);
+                        ${"dataFC22".$l}[] = explode(",",$firmasFC2[$l]);
 
                         $pdf->ImprovedTable(${"dataFC20".$l});
                         $pdf->MultiCell(0,5,"",0,'J');
