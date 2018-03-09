@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
   PRIMARY KEY (`id_comentario`),
   KEY `FK_comentarios_datos_iniciales` (`id_datos`),
   CONSTRAINT `FK_comentarios_datos_iniciales` FOREIGN KEY (`id_datos`) REFERENCES `datos_iniciales` (`id_datos`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.comentarios: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.comentarios: ~9 rows (aproximadamente)
 /*!40000 ALTER TABLE `comentarios` DISABLE KEYS */;
 INSERT INTO `comentarios` (`id_comentario`, `id_datos`, `comentario`) VALUES
 	(4, 2, 'hola'),
@@ -40,7 +40,8 @@ INSERT INTO `comentarios` (`id_comentario`, `id_datos`, `comentario`) VALUES
 	(12, 4, 'Prueba de envío para modificación'),
 	(13, 4, 'Modificar nombre solicitante constancia 2'),
 	(14, 8, 'Se deben agregar todas las firmas'),
-	(15, 4, 'Agregar Firmas');
+	(15, 4, 'Agregar Firmas'),
+	(16, 8, 'Agregar otra constancia y quitar firma del jefe social a las dos constancias');
 /*!40000 ALTER TABLE `comentarios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ts2.constancias
@@ -91,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `datos_complementarios` (
   CONSTRAINT `FK_dcjefesocial` FOREIGN KEY (`id_jefesocial`) REFERENCES `jefe_trabajo_social` (`id_jefesocial`),
   CONSTRAINT `FK_dcmedico` FOREIGN KEY (`id_medico`) REFERENCES `medico_tratante` (`id_medico`),
   CONSTRAINT `Fk_dcservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla ts2.datos_complementarios: ~9 rows (aproximadamente)
 /*!40000 ALTER TABLE `datos_complementarios` DISABLE KEYS */;
@@ -104,7 +105,8 @@ INSERT INTO `datos_complementarios` (`id_datosc`, `id_constancia`, `id_datos`, `
 	(6, 3, 4, '2018-01-15', 7, 'Bronconeumonía más Diabetes Mellitus Insulinodependiente con Complicaciones Renales, ingresando en el Servicio de Medicina Tres el mismo día con diagnóstico Insuficiencia Renal Crónica. Según expediente clínico paciente con antecedentes medicos conocidos de Diabetes Mellitus desde 1995 màs Hipertensión Arterial con periodo de evolución desconocido', 'SRA. SANDRA ISABEL CARBALLO DE BARRIOS ', 'hermana de paciente', 'ASESUISA', '2018-01-15', 4, 2, 3, 3, 0),
 	(7, 2, 5, '2017-12-14', 7, 'Hemorragia Gastrointestinal, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'Sr. LUIS JAVIER GUTIERREZ RUIZ ', 'hijo de paciente', 'REGISTRO NACIONAL DE PERSONAS NATURALES', '2018-01-05', 3, 2, 3, 3, 0),
 	(9, 4, 1, '2018-03-07', 7, 'Dolor de cabeza 2', 'CARLOS CARLOS PEREZ', 'Padre de paciente', 'AFP CONFIA', '2018-03-07', 5, 2, 3, 3, 0),
-	(11, 4, 8, '2018-03-07', 7, 'dolor de cabeza', 'MARIA DOLOREZ', 'Madre de paciente', 'AFP', '2018-03-07', 5, 2, 3, 3, 0);
+	(11, 4, 8, '2018-03-07', 7, 'dolor de cabeza', 'MARIA DOLOREZ', 'Madre de paciente', 'AFP', '2018-03-07', 5, 2, NULL, 3, 0),
+	(12, 1, 8, '2018-03-09', 7, 'Dolor de dientes', 'MARIA PONCE', 'Madre de paciente', 'BANCO AGRICOLA', '2018-03-09', 3, 2, NULL, 3, 0);
 /*!40000 ALTER TABLE `datos_complementarios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ts2.datos_const_alta
@@ -116,13 +118,14 @@ CREATE TABLE IF NOT EXISTS `datos_const_alta` (
   PRIMARY KEY (`id_datosca`),
   KEY `FK_dcadatosc` (`id_datosc`),
   CONSTRAINT `FK_dcadatosc` FOREIGN KEY (`id_datosc`) REFERENCES `datos_complementarios` (`id_datosc`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla ts2.datos_const_alta: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `datos_const_alta` DISABLE KEYS */;
 INSERT INTO `datos_const_alta` (`id_datosca`, `id_datosc`, `fecha_de_alta`, `diagnostico`) VALUES
 	(1, 1, '2017-12-29', 'Síndrome de Guillan Barré'),
-	(2, 2, '2018-03-04', 'Enfermedad del tronco coronario y múltiples vasos 3');
+	(2, 2, '2018-03-04', 'Enfermedad del tronco coronario y múltiples vasos 3'),
+	(3, 12, '2018-03-09', 'Dolor de dientes');
 /*!40000 ALTER TABLE `datos_const_alta` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ts2.datos_const_fallecimiento
@@ -374,14 +377,16 @@ CREATE TABLE IF NOT EXISTS `tipo_usuario` (
   `id_tipousuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_tipo` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id_tipousuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.tipo_usuario: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.tipo_usuario: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `tipo_usuario` DISABLE KEYS */;
 INSERT INTO `tipo_usuario` (`id_tipousuario`, `nombre_tipo`) VALUES
 	(1, 'secretaria'),
 	(2, 'trabajador'),
-	(3, 'admin');
+	(3, 'admin'),
+	(4, 'jefe servicio'),
+	(5, 'jefe social');
 /*!40000 ALTER TABLE `tipo_usuario` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ts2.usuario
@@ -400,15 +405,17 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   CONSTRAINT `FK_uservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`),
   CONSTRAINT `FK_ustatus` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`),
   CONSTRAINT `FK_utipousuario` FOREIGN KEY (`id_tipousuario`) REFERENCES `tipo_usuario` (`id_tipousuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.usuario: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.usuario: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`id_user`, `name`, `user`, `id_status`, `password`, `id_tipousuario`, `id_servicio`) VALUES
 	(1, 'Garrido Irene', 'secre', 1, '202cb962ac59075b964b07152d234b70', 1, 1),
 	(2, 'Perez Nathalia', 'trabajador', 1, '202cb962ac59075b964b07152d234b70', 2, 6),
 	(3, 'Alonso Jose', 'admin', 1, '202cb962ac59075b964b07152d234b70', 3, 1),
-	(4, 'Gerardo Magaña López', 'tra2', 1, '202cb962ac59075b964b07152d234b70', 2, 7);
+	(4, 'Gerardo Magaña López', 'tra2', 1, '202cb962ac59075b964b07152d234b70', 2, 7),
+	(5, 'Armando Portillo ', 'jefe', 1, '202cb962ac59075b964b07152d234b70', 4, NULL),
+	(6, 'Juan Jose', 'jefesocial', 1, '202cb962ac59075b964b07152d234b70', 5, NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
