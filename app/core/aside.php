@@ -86,6 +86,19 @@
         </li>
 		<?php
 				break;
+            case '4':
+        ?>
+        <li id="inicio"><a href="../jefe/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
+        <li id="revision"><a href="../jefe/revision.php"><i class="fa fa-inbox"></i><span>Revisión</span></a></li>
+        <?php 
+                break;
+            case '5':
+        ?>
+        <li id="inicio"><a href="../jefesocial/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
+        <li id="revision"><a href="../jefesocial/revision.php"><i class="fa fa-inbox"></i><span>Revisión</span></a></li>
+        <?php
+                # code...
+                break;
 			default:
 				# code...
 				break;

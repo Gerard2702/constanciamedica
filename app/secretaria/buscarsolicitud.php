@@ -46,7 +46,6 @@
                 $rows = $stm->num_rows;
                 $stm -> bind_result($afiliacion,$nombre_paciente,$destinos,$servicio,$estado);                
             }
-    	
     }
 
  ?>

@@ -3,7 +3,7 @@
 	$usuario = $_POST['usuario'];
 	$pass = md5($_POST['clave']);
 	include("../../config/database.php");
-	$sql = "SELECT usuario.id_user,usuario.name,usuario.user,usuario.password,usuario.id_tipousuario,usuario.id_servicio,servicios.nombre_servicio FROM usuario INNER JOIN servicios ON usuario.id_servicio=servicios.id_servicio WHERE user=?";
+	$sql = "SELECT usuario.id_user,usuario.name,usuario.user,usuario.password,usuario.id_tipousuario,usuario.id_servicio,servicios.nombre_servicio FROM usuario LEFT JOIN servicios ON usuario.id_servicio=servicios.id_servicio WHERE user=?";
 	if($stmt = $conn->prepare($sql)){
 		$stmt->bind_param("s", $usuario);
 		$stmt->execute();
@@ -33,6 +33,12 @@
         		case '3':
         			header("Location:../admin/");
         			break;
+                case '4':
+                    header("Location:../jefe/");
+                    break;
+                case '5':
+                    header("Location:../jefesocial/");
+                    break;
         		default:
         			break;
         	}      	
