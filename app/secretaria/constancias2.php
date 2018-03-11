@@ -1,7 +1,8 @@
-<?php 
-require_once('../../assets/plugins/tcpdf/examples/tcpdf_include.php');
+<?php
+require('../../assets/plugins/fpdf/fpdf.php');
 include("../../config/database.php");
 require('conversor.php');
+
 
  $textoA = array();
  $textoI = array();
@@ -93,10 +94,10 @@ require('conversor.php');
                     $destinoA1 = strtoupper($destinoA);
                     $solicitanteA = strtoupper($nombre_solicitanteA);
                     if(empty($parentescoA)){
-                        $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.\n\n\nA solicitud de $solicitanteA ($parentescoA), y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";  
+                        $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.\n\nA solicitud de $solicitanteA ($parentescoA), y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";  
                     }
                     else{
-                        $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.\n\n\nA solicitud de $solicitanteA, y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";  
+                        $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.\n\nA solicitud de $solicitanteA, y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";  
                     }
                     
 
@@ -288,9 +289,9 @@ require('conversor.php');
                     $destinoI1 = strtoupper($destinoI);
                     $solicitanteI = strtoupper($nombre_solicitanteI);
                     if(empty($parentescoI)){
-                        $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.\n\n\nA solicitud de $solicitanteI, y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.\n\nA solicitud de $solicitanteI, y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.\n\n\n";
                     }else{
-                        $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.\n\n\nA solicitud de $solicitanteI ($parentescoI), y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.\n\nA solicitud de $solicitanteI ($parentescoI), y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.\n\n\n";
                     }
                     
 
@@ -488,9 +489,9 @@ require('conversor.php');
                     $destinoF1 = strtoupper($destinoF);
                     $solicitanteF = strtoupper($nombre_solicitanteF);
                     if(empty($parentescoF)){
-                        $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.\n\n\nA solicitud de $solicitanteF, y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.\n\nA solicitud de $solicitanteF, y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
                     }else{
-                        $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.\n\n\nA solicitud de $solicitanteF ($parentescoF), y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.\n\nA solicitud de $solicitanteF ($parentescoF), y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
                     }
                     
 
@@ -694,9 +695,9 @@ require('conversor.php');
                     $destinoFC1 = strtoupper($destinoFC);
                     $solicitanteFC = strtoupper($nombre_solicitanteFC);
                     if(empty($parentescoFC)){
-                        $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.\n\n\nA solicitud de $solicitanteFC, y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.\n\nA solicitud de $solicitanteFC, y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
                     }else{
-                        $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.\n\n\nA solicitud de $solicitanteFC ($parentescoFC), y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.\n\nA solicitud de $solicitanteFC ($parentescoFC), y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
                     }
                     
 
@@ -831,48 +832,53 @@ require('conversor.php');
             }
             $stmfallcasa->close();
 
-            class MYPDF extends TCPDF {
 
-			    //Page header
-			    public function Header() {
 
-			    	$id_soli = $_GET['contancianum'];
-			    	// Set font
-			        $this->SetFont('arialblack', 'B', 12);			        
-			        $this->Image('../../assets/pdf/img/logoseguro.jpg',30, 5, 25, 25);			        
-			        // Título
-			        $this->Cell(30);
-			        $this->MultiCell(0,5,"INSTITUTO SALVADOREÑO"."\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".$id_soli,0,'L');
-			        //$this->MultiCell(0,5,$id_soli,0,'R');
-			        $this->Cell(30);
-			        $this->MultiCell(0,5,"DEL SEGURO SOCIAL",0,'L');
-			        $this->Cell(30);
-			        $this->MultiCell(0,5,"HOSPITAL GENERAL",0,'L');
-			        $this->SetFontSize(10);
-			        $this->Cell(30);
-			        $this->MultiCell(0,4,"Alameda Juan Pablo II y 25 Av. Norte",0,'L');
-			        $this->Cell(30);
-			        $this->MultiCell(0,4,"San Salvador, El Salvador C. A. Tel 25914178",0,'L');
-			    }
+            class PDF extends FPDF
+            {
+                // Cabecera de página
+                function Header()
+                {
+                    // Logo
+                    $this->Image('../../assets/pdf/img/logoseguro.jpg',30, 8, 25, 25);
+                    // Arial bold 15
+                    $this->SetFont('Arial','B',12);
+                    // Movernos a la derecha
+                    $this->Cell(30);
+                    // Título
+                    $this->MultiCell(0,5,"INSTITUTO SALVADOREÑO");
+                    $this->Cell(30);
+                    $this->MultiCell(0,5,"DEL SEGURO SOCIAL");
+                    $this->Cell(30);
+                    $this->MultiCell(0,5,"HOSPITAL GENERAL");
+                    $this->SetFontSize(10);
+                    $this->Cell(30);
+                    $this->MultiCell(0,4,"Alameda Juan Pablo II y 25 Av. Norte");
+                    $this->Cell(30);
+                    $this->MultiCell(0,4,"San Salvador, El Salvador C. A. Tel 25914178");
+                    // Salto de línea
+                    $this->Ln(10);
+                }
 
-			    // Page footer
-			    public function Footer() {
-			        // Position at 20 mm from bottom
-			        $this->SetY(-20);
-			        // Set font
-			        $this->Image('../../assets/pdf/img/footer.png',null, null, 170, 1);
-			        $this->SetFont('arialblack','B',12);
-			        $this->MultiCell(0,5,'"Con una visión más humana al servicio integral de su salud"',0,"C");
-			        $this->SetFont('arialnarrow','',12);
-			        $this->MultiCell(0,5,'"Alameda Juan Pablo II y 25  Avenida Norte Tel.  2591 4240"',0,"C");
-			        $this->SetFont('arialnarrowb','BU',10);
-			        $this->MultiCell(0,5,"email@isss.gob.sv",0,"C");
-			    }
+                // Pie de página
+                function Footer()
+                {
+                    // Posición: a 2 cm del final
+                    $this->SetY(-20);
+                    $this->Image('../../assets/pdf/img/footer.png',null, null, 150, 1);
+                    $this->SetFont('Arial','B',12);
+                    // Número de página
+                    $this->MultiCell(0,5,'"Con una visión más humana al servicio integral de su salud"',0,"C");
+                    $this->SetFont('Arial','',11);
+                    $this->MultiCell(0,5,'"Alameda Juan Pablo II y 25  Avenida Norte Tel.  2591 4240"',0,"C");
+                    $this->SetFont('Arial','BU',10);
+                    $this->MultiCell(0,5,"email@isss.gob.sv",0,"C");
+                }
 
-			    function ImprovedTable($data)
+                function ImprovedTable($data)
                 {
                     // Anchuras de las columnas
-                    $w = array(80, 90);           
+                    $w = array(75, 85);           
                     // Datos                    
                     foreach($data as $row)
                     {
@@ -883,42 +889,22 @@ require('conversor.php');
                     // Línea de cierre
                     $this->Cell(array_sum($w),0,'','C');
                 }
-			}
+                
+            }
 
-			// create new PDF document
-			$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-			// set margins
-			$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-			$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-			$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-			// set auto page breaks
-			$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-			// set image scale factor
-			$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-			// set some language-dependent strings (optional)
-			if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-				require_once(dirname(__FILE__).'/lang/eng.php');
-				$pdf->setLanguageArray($l);
-			}
-
-
-			$Ac = count($textoA);
+            $Ac = count($textoA);
             $Ic = count($textoI);
             $Fc = count($textoF);
             $FCc = count($textoFC);            
 
-            $pdf->SetFont("trebuchet", '', 12);
+            $pdf = new PDF();
+            $pdf->SetMargins(30,10,30);
             if($Ac>0){
                 for($i=0;$i<$Ac;$i++){
                     $pdf->AddPage();                    
-                    $pdf->setCellHeightRatio(1.5); 
-                    $pdf->SetFontSize(12);                                               
-                    $pdf->MultiCell(0,5,$textoA[$i],0,'J');                    
-                    $pdf->Ln(30);
+                    $pdf->AddFont('trebuc');
+                    $pdf->SetFont('trebuc','',12);                               
+                    $pdf->MultiCell(165,5,$textoA[$i]."\n\n\n\n\n\n",0,'J');
 
                     if($cantfirmasA[$i]==4){
                         ${"dataA40".$i}[] = explode(",",$firmasA[$i]);
@@ -926,408 +912,149 @@ require('conversor.php');
                         ${"dataA43".$i}[] = explode(",",$firmasA3[$i]);
                         ${"dataA44".$i}[] = explode(",",$firmasA4[$i]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=197.15){
-                        	$pdf->ImprovedTable(${"dataA40".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA42".$i});
-	                        $pdf->Ln(20);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataA43".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA44".$i});
-                        }elseif($pdf->GetY()<=228.745 && $pdf->GetY()>197.15){
-                        	$pdf->ImprovedTable(${"dataA40".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA42".$i});
-	                        $pdf->AddPage();
-	                        $pdf->SetFontSize(10);
-	                        $pdf->Ln(30);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataA43".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA44".$i});
-                        }else{
-                        	$pdf->AddPage();	                        
-	                        $pdf->Ln(30);
-                        	$pdf->ImprovedTable(${"dataA40".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA42".$i});
-	                        $pdf->Ln(20);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataA43".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA44".$i});
-                        }                        
+                        $pdf->ImprovedTable(${"dataA40".$i});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataA42".$i});
+                        $pdf->MultiCell(160,5,"\n\n\n\n\n\n",0,'J');                    
+                        $pdf->ImprovedTable(${"dataA43".$i});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataA44".$i});
                     }elseif ($cantfirmasA[$i]==3) {
                         ${"dataA30".$i}[] = explode(",",$firmasA[$i]);
                         ${"dataA32".$i}[] = explode(",",$firmasA2[$i]);
                         ${"dataA33".$i}[] = explode(",",$firmasA3[$i]);
                         ${"dataA34".$i}[] = explode(",",$firmasA4[$i]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=197.15){
-                        	$pdf->ImprovedTable(${"dataA30".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA32".$i});
-	                        $pdf->Ln(20);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataA33".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA34".$i});
-                        }elseif($pdf->GetY()<=228.745 && $pdf->GetY()>197.15){
-                        	$pdf->ImprovedTable(${"dataA30".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA32".$i});
-	                        $pdf->AddPage();	                        
-	                        $pdf->Ln(30);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataA33".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA34".$i});
-                        }else{
-                        	$pdf->AddPage();
-                        	$pdf->Ln(30);
-                        	$pdf->ImprovedTable(${"dataA30".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA32".$i});
-	                        $pdf->Ln(20);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataA33".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA34".$i});
-                        }                        
-                    }elseif ($cantfirmasA[$i]==2) {//19                    	
+                        $pdf->ImprovedTable(${"dataA30".$i});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataA32".$i});
+                        $pdf->MultiCell(160,5,"\n\n\n\n\n\n",0,'J');                    
+                        $pdf->ImprovedTable(${"dataA33".$i});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataA34".$i});
+                    }elseif ($cantfirmasA[$i]==2) {
                         ${"dataA20".$i}[] = explode(",",$firmasA[$i]);
                         ${"dataA22".$i}[] = explode(",",$firmasA2[$i]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=228.745){
-                        	$pdf->ImprovedTable(${"dataA20".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA22".$i});
-                        }else{
-                        	$pdf->AddPage();
-                        	$pdf->Ln(30);
-                        	$pdf->ImprovedTable(${"dataA20".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA22".$i});
-                        }                        
+                        $pdf->ImprovedTable($${"dataA20".$i});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable($${"dataA22".$i});
                     }else{
                         ${"dataA10".$i}[] = explode(",",$firmasA[$i]);
                         ${"dataA12".$i}[] = explode(",",$firmasA2[$i]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=228.745){
-                        	$pdf->ImprovedTable(${"dataA10".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA12".$i});
-                        }else{
-                        	$pdf->AddPage();
-                        	$pdf->Ln(30);
-                        	$pdf->ImprovedTable(${"dataA10".$i});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataA12".$i});
-                        }
+                        $pdf->ImprovedTable($${"dataA10".$i});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable($${"dataA12".$i});
                     }
                 }    
             }
             if($Ic>0){
                 for($j=0;$j<$Ic;$j++){
-                    $pdf->AddPage();                       
-                    $pdf->setCellHeightRatio(1.5);
-                    $pdf->SetFontSize(12);      
-                    $pdf->MultiCell(0,5,$textoI[$j],0,'J');  
-                    $pdf->Ln(30);
-
+                    $pdf->AddPage();
+                    $pdf->AddFont('trebuc');
+                    $pdf->SetFont('trebuc','',12);            
+                    $pdf->MultiCell(160,5,$textoI[$j]."\n\n\n\n\n\n",0,'J');
+                    
                     if($cantfirmasI[$j]==4){
                         ${"dataI40".$j}[] = explode(",",$firmasI[$j]);
                         ${"dataI42".$j}[] = explode(",",$firmasI2[$j]);
                         ${"dataI43".$j}[] = explode(",",$firmasI3[$j]);
                         ${"dataI44".$j}[] = explode(",",$firmasI4[$j]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=197.15){
-                        	$pdf->ImprovedTable(${"dataI40".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI42".$j});
-	                        $pdf->Ln(20);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataI43".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI44".$j});
-                        }elseif($pdf->GetY()<=228.745 && $pdf->GetY()>197.15){
-                        	$pdf->ImprovedTable(${"dataI40".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI42".$j});
-	                        $pdf->AddPage();
-	                        $pdf->SetFontSize(10);
-	                        $pdf->Ln(30);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataI43".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI44".$j});
-                        }else{
-                        	$pdf->AddPage();	                        
-	                        $pdf->Ln(30);
-                        	$pdf->ImprovedTable(${"dataI40".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI42".$j});
-	                        $pdf->Ln(20);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataI43".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI44".$j});
-                        }                        
+                        $pdf->ImprovedTable(${"dataI40".$j});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataI42".$j});
+                        $pdf->MultiCell(160,5,"\n\n\n\n\n\n",0,'J');                    
+                        $pdf->ImprovedTable(${"dataI43".$j});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataI44".$j});
                     }elseif ($cantfirmasI[$j]==3) {
                         ${"dataI30".$j}[] = explode(",",$firmasI[$j]);
                         ${"dataI32".$j}[] = explode(",",$firmasI2[$j]);
                         ${"dataI33".$j}[] = explode(",",$firmasI3[$j]);
                         ${"dataI34".$j}[] = explode(",",$firmasI4[$j]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=197.15){
-                        	$pdf->ImprovedTable(${"dataI30".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI32".$j});
-	                        $pdf->Ln(20);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataI33".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI34".$j});
-                        }elseif($pdf->GetY()<=228.745 && $pdf->GetY()>197.15){
-                        	$pdf->ImprovedTable(${"dataI30".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI32".$j});
-	                        $pdf->AddPage();	                        
-	                        $pdf->Ln(30);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataI33".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI34".$j});
-                        }else{
-                        	$pdf->AddPage();
-                        	$pdf->Ln(30);
-                        	$pdf->ImprovedTable(${"dataI30".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI32".$j});
-	                        $pdf->Ln(20);
-	                        $pdf->SetFontSize(10);
-	                        $pdf->ImprovedTable(${"dataI33".$j});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataI34".$j});
-                        }
+                        $pdf->ImprovedTable(${"dataI30".$j});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataI32".$j});
+                        $pdf->MultiCell(160,5,"\n\n\n\n\n\n",0,'J');                    
+                        $pdf->ImprovedTable(${"dataI33".$j});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataI34".$j});
                     }elseif ($cantfirmasI[$j]==2) {
                         ${"dataI20".$j}[] = explode(",",$firmasI[$j]);
                         ${"dataI22".$j}[] = explode(",",$firmasI2[$j]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=228.745){
-                                $pdf->ImprovedTable(${"dataI20".$j});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataI22".$j});
-                        }else{
-                                $pdf->AddPage();
-                                $pdf->Ln(30);
-                                $pdf->ImprovedTable(${"dataI20".$j});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataI22".$j});
-                        }
+                        $pdf->ImprovedTable(${"dataI20".$j});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataI22".$j});
                     }else{
                         ${"dataI10".$j}[] = explode(",",$firmasI[$j]);
                         ${"dataI12".$j}[] = explode(",",$firmasI2[$j]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=228.745){
-                                $pdf->ImprovedTable(${"dataI10".$j});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataI12".$j});
-                        }else{
-                                $pdf->AddPage();
-                                $pdf->Ln(30);
-                                $pdf->ImprovedTable(${"dataI10".$j});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataI12".$j});
-                        }
+                        $pdf->ImprovedTable(${"dataI10".$j});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataI12".$j});
                     }
                 }    
             }
             if($Fc>0){
                 for($k=0;$k<$Fc;$k++){
-                    $pdf->AddPage();    
-                    $pdf->setCellHeightRatio(1.5); 
-                    $pdf->SetFontSize(12);                       
-                    $pdf->MultiCell(0,5,$textoF[$k],0,'J');
-                    $pdf->Ln(30);                   //23 ----> 247.15                    
-                    
+                    $pdf->AddPage();
+                    $pdf->AddFont('trebuc');
+                    $pdf->SetFont('trebuc','',12);            
+                    $pdf->MultiCell(160,6.5,$textoF[$k]."\n\n\n\n\n\n",0,'J');
 
                     if($cantfirmasF[$k]==4){
                         ${"dataF40".$k}[] = explode(",",$firmasF[$k]);
                         ${"dataF42".$k}[] = explode(",",$firmasF2[$k]);
                         ${"dataF43".$k}[] = explode(",",$firmasF3[$k]);
                         ${"dataF44".$k}[] = explode(",",$firmasF4[$k]);
-                       
-                        $pdf->SetFontSize(10);                        
-                       if($pdf->GetY()<=197.15){
-                        	$pdf->ImprovedTable(${"dataF40".$k});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataF42".$k});
-	                        $pdf->SetFontSize(10);
-	                        $pdf->Ln(20);
-	                        $pdf->ImprovedTable(${"dataF43".$k});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataF44".$k});
 
-                        }elseif($pdf->GetY()<=228.745 && $pdf->GetY()>197.15){
-                        	$pdf->ImprovedTable(${"dataF40".$k});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataF42".$k});
-	                        $pdf->AddPage();
-	                        $pdf->SetFontSize(10);
-	                        $pdf->Ln(30);
-	                        $pdf->ImprovedTable(${"dataF43".$k});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataF44".$k});                        	
-                        }else{
-                        	$pdf->AddPage();
-                        	$pdf->Ln(30);
-                        	$pdf->ImprovedTable(${"dataF40".$k});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataF42".$k});                        
-	                        $pdf->SetFontSize(10);
-	                        $pdf->Ln(20);
-	                        $pdf->ImprovedTable(${"dataF43".$k});
-	                        $pdf->Ln(1);
-	                        $pdf->SetFontSize(9);
-	                        $pdf->ImprovedTable(${"dataF44".$k});                        
-                        }
+                        $pdf->ImprovedTable(${"dataF40".$k});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataF42".$k});
+                        $pdf->MultiCell(160,5,"\n\n\n\n\n\n",0,'J');                    
+                        $pdf->ImprovedTable(${"dataF43".$k});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataF44".$k});
                     }elseif ($cantfirmasF[$k]==3) {
                         ${"dataF30".$k}[] = explode(",",$firmasF[$k]);
                         ${"dataF32".$k}[] = explode(",",$firmasF2[$k]);
                         ${"dataF33".$k}[] = explode(",",$firmasF3[$k]);
                         ${"dataF34".$k}[] = explode(",",$firmasF4[$k]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=197.15){
-                                $pdf->ImprovedTable(${"dataF30".$k});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataF32".$k});
-                                $pdf->Ln(20);
-                                $pdf->SetFontSize(10);
-                                $pdf->ImprovedTable(${"dataF33".$k});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataF34".$k});
-                        }elseif($pdf->GetY()<=228.745 && $pdf->GetY()>197.15){
-                                $pdf->ImprovedTable(${"dataF30".$k});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataF32".$k});
-                                $pdf->AddPage();                                
-                                $pdf->Ln(30);
-                                $pdf->SetFontSize(10);
-                                $pdf->ImprovedTable(${"dataF33".$k});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataF34".$k});
-                        }else{
-                                $pdf->AddPage();
-                                $pdf->Ln(30);
-                                $pdf->ImprovedTable(${"dataF30".$k});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataF32".$k});
-                                $pdf->Ln(20);
-                                $pdf->SetFontSize(10);
-                                $pdf->ImprovedTable(${"dataF33".$k});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataF34".$k});
-                        }
+                        $pdf->ImprovedTable(${"dataF30".$k});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataF32".$k});
+                        $pdf->MultiCell(160,5,"\n\n\n\n\n\n",0,'J');                    
+                        $pdf->ImprovedTable(${"dataF33".$k});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataF34".$k});
                     }elseif ($cantfirmasF[$k]==2) {
                         ${"dataF20".$k}[] = explode(",",$firmasF[$k]);
                         ${"dataF22".$k}[] = explode(",",$firmasF2[$k]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=228.745){
-                                $pdf->ImprovedTable(${"dataF20".$k});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataF22".$k});
-                        }else{
-                                $pdf->AddPage();
-                                $pdf->Ln(30);
-                                $pdf->ImprovedTable(${"dataF20".$k});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataF22".$k});
-                        }
+                        $pdf->ImprovedTable(${"dataF20".$k});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataF22".$k});
                     }else{
                         ${"dataF10".$k}[] = explode(",",$firmasF[$k]);
                         ${"dataF12".$k}[] = explode(",",$firmasF2[$k]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=228.745){
-                                $pdf->ImprovedTable(${"dataF10".$k});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataF12".$k});
-                        }else{
-                                $pdf->AddPage();
-                                $pdf->Ln(30);
-                                $pdf->ImprovedTable(${"dataF10".$k});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataF12".$k});
-                        }
+                        $pdf->ImprovedTable(${"dataF10".$k});
+                        $pdf->MultiCell(160,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataF12".$k});
                     }
                 }    
             }
             if($FCc>0){
                 for($l=0;$l<$FCc;$l++){
-                    $pdf->AddPage();                      
-                    $pdf->setCellHeightRatio(1.5); 
-                    $pdf->SetFontSize(12);         
-                    $pdf->MultiCell(0,5,$textoFC[$l],0,'J');
-                    $pdf->Ln(30); 
+                    $pdf->AddPage();
+                    $pdf->AddFont('trebuc');
+                    $pdf->SetFont('trebuc','',12);            
+                    $pdf->MultiCell(0,5,$textoFC[$l]."\n\n\n\n\n\n",0,'J');
 
                     if($cantfirmasFC[$l]==4){
                         ${"dataFC40".$l}[] = explode(",",$firmasFC[$l]);
@@ -1335,129 +1062,44 @@ require('conversor.php');
                         ${"dataFC43".$l}[] = explode(",",$firmasFC3[$l]);
                         ${"dataFC44".$l}[] = explode(",",$firmasFC4[$l]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=197.15){
-                                $pdf->ImprovedTable(${"dataFC40".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC42".$l});
-                                $pdf->Ln(20);
-                                $pdf->SetFontSize(10);
-                                $pdf->ImprovedTable(${"dataFC43".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC44".$l});
-                        }elseif($pdf->GetY()<=228.745 && $pdf->GetY()>197.15){
-                                $pdf->ImprovedTable(${"dataFC40".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC42".$l});
-                                $pdf->AddPage();
-                                $pdf->SetFontSize(10);
-                                $pdf->Ln(30);
-                                $pdf->SetFontSize(10);
-                                $pdf->ImprovedTable(${"dataFC43".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC44".$l});
-                        }else{
-                                $pdf->AddPage();                                
-                                $pdf->Ln(30);
-                                $pdf->ImprovedTable(${"dataFC40".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC42".$l});
-                                $pdf->Ln(20);
-                                $pdf->SetFontSize(10);
-                                $pdf->ImprovedTable(${"dataFC43".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC44".$l});
-                        }
+                        $pdf->ImprovedTable(${"dataFC40".$l});
+                        $pdf->MultiCell(0,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataFC42".$l});
+                        $pdf->MultiCell(0,5,"\n\n\n\n\n\n",0,'J');                    
+                        $pdf->ImprovedTable(${"dataFC43".$l});
+                        $pdf->MultiCell(0,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataFC44".$l});
                     }elseif ($cantfirmasFC[$l]==3) {
                         ${"dataFC30".$l}[] = explode(",",$firmasFC[$l]);
                         ${"dataFC32".$l}[] = explode(",",$firmasFC2[$l]);
                         ${"dataFC33".$l}[] = explode(",",$firmasFC3[$l]);
                         ${"dataFC34".$l}[] = explode(",",$firmasFC4[$l]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=197.15){
-                                $pdf->ImprovedTable(${"dataFC30".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC32".$l});
-                                $pdf->Ln(20);
-                                $pdf->SetFontSize(10);
-                                $pdf->ImprovedTable(${"dataFC33".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC34".$l});
-                        }elseif($pdf->GetY()<=228.745 && $pdf->GetY()>197.15){
-                                $pdf->ImprovedTable(${"dataFC30".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC32".$l});
-                                $pdf->AddPage();                                
-                                $pdf->Ln(30);
-                                $pdf->SetFontSize(10);
-                                $pdf->ImprovedTable(${"dataFC33".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC34".$l});
-                        }else{
-                                $pdf->AddPage();
-                                $pdf->Ln(30);
-                                $pdf->ImprovedTable(${"dataFC30".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC32".$l});
-                                $pdf->Ln(20);
-                                $pdf->SetFontSize(10);
-                                $pdf->ImprovedTable(${"dataFC33".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC34".$l});
-                        }
+                        $pdf->ImprovedTable(${"dataFC30".$l});
+                        $pdf->MultiCell(0,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataFC32".$l});
+                        $pdf->MultiCell(0,5,"\n\n\n\n\n\n",0,'J');                    
+                        $pdf->ImprovedTable(${"dataFC33".$l});
+                        $pdf->MultiCell(0,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataFC34".$l});
                     }elseif ($cantfirmasFC[$l]==2) {
                         ${"dataFC20".$l}[] = explode(",",$firmasFC[$l]);
                         ${"dataFC22".$l}[] = explode(",",$firmasFC2[$l]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=228.745){
-                                $pdf->ImprovedTable(${"dataFC20".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC22".$l});
-                        }else{
-                                $pdf->AddPage();
-                                $pdf->Ln(30);
-                                $pdf->ImprovedTable(${"dataFC20".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC22".$l});
-                        }
+                        $pdf->ImprovedTable(${"dataFC20".$l});
+                        $pdf->MultiCell(0,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataFC22".$l});
                     }else{
                         ${"dataFC10".$l}[] = explode(",",$firmasFC[$l]);
                         ${"dataFC12".$l}[] = explode(",",$firmasFC2[$l]);
 
-                        $pdf->SetFontSize(10);
-                        if($pdf->GetY()<=228.745){
-                                $pdf->ImprovedTable(${"dataFC10".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC12".$l});
-                        }else{
-                                $pdf->AddPage();
-                                $pdf->Ln(30);
-                                $pdf->ImprovedTable(${"dataFC10".$l});
-                                $pdf->Ln(1);
-                                $pdf->SetFontSize(9);
-                                $pdf->ImprovedTable(${"dataFC12".$l});
-                        }
+                        $pdf->ImprovedTable(${"dataFC10".$l});
+                        $pdf->MultiCell(0,5,"",0,'J');
+                        $pdf->ImprovedTable(${"dataFC12".$l});
                     }
                 }    
             }
-            $pdf->Output('pdf.pdf', 'I');
+            $pdf->Output();  
 
 
 //convercion de mes numero a texto
@@ -1466,5 +1108,4 @@ function nombremes($mes){
  $nombre=strftime("%B",mktime(0, 0, 0, $mes, 1, 2000)); 
  return $nombre;
 } 
-
 ?>

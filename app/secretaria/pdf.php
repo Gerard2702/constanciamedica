@@ -38,7 +38,7 @@ class MYPDF extends TCPDF {
         $this->MultiCell(0,5,'"Con una visión más humana al servicio integral de su salud"',0,"C");
         $this->SetFont('arialnarrow','',12);
         $this->MultiCell(0,5,'"Alameda Juan Pablo II y 25  Avenida Norte Tel.  2591 4240"',0,"C");
-        $this->SetFont('arialnarrowb','',10);
+        $this->SetFont('arialnarrow','BU',12);
         $this->MultiCell(0,5,"email@isss.gob.sv",0,"C");
     }
 }
@@ -68,9 +68,9 @@ $pdf->SetFont("trebuchet", 'B', 12);
 
 // add a page
 $pdf->AddPage();
-$pdf->Ln(20);
+//$pdf->Ln(20);
 // set color for background
-$pdf->SetFillColor(255, 255, 255);
+//$pdf->SetFillColor(255, 255, 255);
 $pdf->setCellHeightRatio(1.5);
 
 // set some text to print
