@@ -6,17 +6,31 @@
     
     include("../../config/database.php");
 
-    if(!empty($_POST['nombre'])){
+    if(!empty($_POST['idsoli'])){
 
-    	$nombre = $_POST['nombre'];
+    	$idsolicitud = $_POST['idsoli'];
 
-    	$sql = "SELECT di.afiliacion_dui,di.nombre_paciente,di.destinos,sv.nombre_servicio,et.nombre_estado FROM datos_iniciales di JOIN servicios sv ON di.id_servicio=sv.id_servicio JOIN estado et ON di.id_estado=et.id_estado WHERE di.nombre_paciente LIKE CONCAT('%',?,'%')";
+    	$sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia WHERE dc.id_datos=?";
     	if($stm = $conn->prepare($sql)){
-                $stm -> bind_param('s',$nombre);
+                $stm -> bind_param('i',$idsolicitud);
                 $stm -> execute();
                 $stm -> store_result();
                 $rows = $stm->num_rows;
-                $stm -> bind_result($afiliacion,$nombre_paciente,$destinos,$servicio,$estado);                
+                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$solicitante,$servicio,$estado,$fechaentrega);                
+            }
+
+    }
+    elseif(!empty($_POST['afiliacion'])){
+
+        $numafiliacion = $_POST['afiliacion'];
+
+        $sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia WHERE di.afiliacion_dui=?";
+        if($stm = $conn->prepare($sql)){
+                $stm -> bind_param('i',$numafiliacion);
+                $stm -> execute();
+                $stm -> store_result();
+                $rows = $stm->num_rows;
+                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$solicitante,$servicio,$estado,$fechaentrega);                
             }
 
     }
@@ -24,13 +38,13 @@
 
     	$numero_recibo = $_POST['recibo'];
 
-    	$sql = "SELECT di.afiliacion_dui,di.nombre_paciente,di.destinos,sv.nombre_servicio,et.nombre_estado FROM datos_iniciales di JOIN servicios sv ON di.id_servicio=sv.id_servicio JOIN estado et ON di.id_estado=et.id_estado WHERE di.numero_recibo=?";
+    	$sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia WHERE di.numero_recibo=?";
     	if($stm = $conn->prepare($sql)){
                 $stm -> bind_param('i',$numero_recibo);
                 $stm -> execute();
                 $stm -> store_result();
                 $rows = $stm->num_rows;
-                $stm -> bind_result($afiliacion,$nombre_paciente,$destinos,$servicio,$estado);                
+                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$solicitante,$servicio,$estado,$fechaentrega);                
             }
 
     }
@@ -38,13 +52,13 @@
 
     	$fechas = $_POST['fecha'];
 
-    	$sql = "SELECT di.afiliacion_dui,di.nombre_paciente,di.destinos,sv.nombre_servicio,et.nombre_estado FROM datos_iniciales di JOIN servicios sv ON di.id_servicio=sv.id_servicio JOIN estado et ON di.id_estado=et.id_estado WHERE di.fecha=?";
+    	$sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia WHERE di.fecha=?";
     	if($stm = $conn->prepare($sql)){
                 $stm -> bind_param('s',$fechas);
                 $stm -> execute();
                 $stm -> store_result();
                 $rows = $stm->num_rows;
-                $stm -> bind_result($afiliacion,$nombre_paciente,$destinos,$servicio,$estado);                
+                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$solicitante,$servicio,$estado,$fechaentrega);                
             }
     }
 
@@ -67,12 +81,19 @@
                             <div id="contenido">
                             	<form class="form-horizontal form-variance" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                                     <div class="form-group">
-                                        <label class="col-sm-1 control-label">Nombre Paciente</label>
+                                        <label class="col-sm-1 control-label">ID Solicitud</label>
                                         <div class="col-sm-2">
-                                            <input class="form-control" id="nombre" placeholder="Nombre Paciente" name="nombre" type="text" autofocus>
+                                            <input class="form-control" id="idsoli" placeholder="Id Solicitud" name="idsoli" type="number" autofocus>
                                         </div>
+                                        <label class="col-sm-1 control-label"># Afiliacion/Dui</label>
+                                        <div class="col-sm-2">
+                                            <input class="form-control" id="afiliacion" placeholder="# Afiliciacion/DUI" name="afiliacion" type="number">
+                                        </div>                                        
+                                    </div>
+                                    
+                                    <div class="form-group">
                                         <label class="col-sm-1 control-label">Número Recibo</label>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-2">
                                             <input class="form-control" type="number" placeholder="Numero de Recibo" name="recibo" >
                                         </div>
                                         <label class="col-sm-1 control-label">Fecha</label>
@@ -89,18 +110,21 @@
                     </div>
                 </div>
             </div>
-            <?php if(isset($_POST['search']) && (!empty($_POST['nombre']) || !empty($_POST['recibo']) || !empty($_POST['fecha']) )){ ?>
+            <?php if(isset($_POST['search']) && (!empty($_POST['recibo']) || !empty($_POST['fecha']) || !empty($_POST['idsoli']) || !empty($_POST['afiliacion']) )){ ?>
             				<div class="panel">
 								<div class="panel-body">
 									<div id="contenido" class="table-responsive">
 		                                <table class="table table-striped table-condensed" id="mitable">
 		                                    <thead class="thead-inverse">
 		                                        <tr>
-		                                            <th class="col-md-2">Afiliacion/DUI</th>
-		                                            <th class="col-md-4">Nombre Paciente</th>
-		                                            <th class="col-md-2">Destinos</th>
-		                                            <th class="col-md-2">Servicio</th>
-		                                            <th class="col-md-2 text-right">Estado</th>                                            
+		                                            <th class="col-md-1">Afiliacion/DUI</th>
+                                                    <th class="col-md-1">Tipo Constancia</th>
+		                                            <th class="col-md-3">Nombre Paciente</th>
+		                                            <th class="col-md-2">Destino</th>
+                                                    <th class="col-md-2">Nombre Solicitante</th>
+		                                            <th class="col-md-1">Servicio</th>
+                                                    <th class="col-md-1">Estado</th>
+		                                            <th class="col-md-2">Fecha Entrega</th>                                            
 		                                        </tr>
 		                                    </thead>
 		                                    <tbody>  		                                                                      	
@@ -110,10 +134,13 @@
 		                                        ?>
 		                                                <tr>
 		                                                <td class="text-left"><?php echo $afiliacion ?></td>
-		                                                <td class="text-left"><?php echo $nombre_paciente ?></td>
-		                                                <td class="text-left"><?php echo $destinos ?></td>
-		                                                <td class="text-left"><?php echo $servicio ?></td>
-		                                                <td class="text-right"><span class="label label-info"><?php echo $estado ?></span></td>                                             
+		                                                <td class="text-left"><?php echo $tipoconstancia ?></td>
+		                                                <td class="text-left"><?php echo $nombrepaciente ?></td>
+		                                                <td class="text-left"><?php echo $destino ?></td>
+                                                        <td class="text-left"><?php echo $solicitante ?></td>
+                                                        <td class="text-left"><?php echo $servicio ?></td>
+                                                        <td class="text-left"><?php if($estado==1){echo "Finalizada";}else{echo "En Progreso";} ?></td>
+		                                                <td class="text-left"><?php echo $fechaentrega ?></td>                                             
 		                                                </tr>    
 		                                        <?php        
 		                                                }
