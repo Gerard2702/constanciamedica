@@ -1,5 +1,9 @@
 <?php
-    $title = "Buscar Soliditud";
+    $title = "Buscar Constancias";
+    if(!isset($_SERVER['HTTP_REFERER'])){
+        header('Location:index.php');
+    }
+
     
     include("../core/header.php");
     include("../core/aside.php");

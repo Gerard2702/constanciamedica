@@ -1,4 +1,7 @@
 <?php 
+if(!isset($_SERVER['HTTP_REFERER'])){
+        header('Location:index.php');
+}
 require_once('../../assets/plugins/tcpdf/examples/tcpdf_include.php');
 include("../../config/database.php");
 require('conversor.php');
