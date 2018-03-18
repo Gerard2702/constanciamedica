@@ -33,6 +33,7 @@
         <li id="pendienterevision"><a href="../secretaria/pendienterevision.php"><i class="fa fa-inbox"></i><span>Pendiente de Revision <?php if($mispendientesrev>0){ ?><small class="label label-danger"><?php echo $mispendientesrev; ?></small><?php } ?></span></a></li>
         <li id="terminadas"><a href="../secretaria/terminadas.php"><i class="fa fa-check-circle "></i><span>Terminadas</span></a></li>
         <li id="buscarsolicitud"><a href="../secretaria/buscarsolicitud.php"><i class="fa fa-search"></i><span>Buscar Constancias</span></a></li>
+        <li id="reporteria"><a href="../secretaria/Reporte.php"><i class="fa fa-file-excel-o"></i><span>Reporte</span></a></li>
 		<?php
 				break;
 			case '2':
@@ -111,6 +112,9 @@
         </li>
         <li id="precio">
             <a href="../admin/adminprecios.php"><i class="fa fa-usd"></i><span>Precio</span></a> 
+        </li>
+         <li id="reporteria">
+            <a href="../admin/Reporte.php"><i class="fa fa-bar-chart"></i><span>Reportes</span></a> 
         </li>
 		<?php
 				break;

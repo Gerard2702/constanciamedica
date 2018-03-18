@@ -84,13 +84,13 @@
    			$stmtcons -> close();
    		}
 
-   		$sqlcreadas = "SELECT dat.id_datosc,dat.id_constancia,dat.fecha_consulta,dat.nombre_solicitante,dat.parentesco,dat.destino,dat.fecha_extension,con.tipo_constancia,dat.estado FROM datos_complementarios dat INNER JOIN constancias con ON dat.id_constancia=con.id_constancia WHERE dat.id_datos=?";
+   		$sqlcreadas = "SELECT dat.id_datosc,dat.id_constancia,dat.fecha_consulta,dat.nombre_solicitante,dat.parentesco,dat.destino,dat.fecha_extension,con.tipo_constancia,dat.estado,dat.fecha_entregada FROM datos_complementarios dat INNER JOIN constancias con ON dat.id_constancia=con.id_constancia WHERE dat.id_datos=?";
    		if($stmtcre = $conn->prepare($sqlcreadas)){
    			$stmtcre -> bind_param('i',$contancianum);
    			$stmtcre -> execute();
    			$stmtcre -> store_result();
 	    	$rowscre = $stmtcre->num_rows;
-   			$stmtcre -> bind_result($id_datosc,$id_constancia,$fecha_consulta,$solicitante,$parentesco,$destinoc,$fecha_extension,$tipoconstancia,$estadocon);
+   			$stmtcre -> bind_result($id_datosc,$id_constancia,$fecha_consulta,$solicitante,$parentesco,$destinoc,$fecha_extension,$tipoconstancia,$estadocon,$fechaentrega);
    		}
 ?>
 	<!--main content start-->
@@ -130,15 +130,15 @@
 	                            	<!-- $constancianum  contiene el id de la solicitud a imprimir-->
 	                            	<a class="btn btn-info" target="_blank" href="constancias.php?contancianum=<?php echo $contancianum ?>"><i class="fa fa-print"></i> Imprimir Constancias</a>
 	                            	<div id="contenido" class="table-responsive">
-			                        	<table class="table table-striped table-condensed" id="mitable">
+			                        	<table class="table table-hover table-condensed" id="mitable">
 			                                <thead class="thead-inverse">
 			                                    <tr>
-			                                        <th class="col-md-1">Tipo Constancia</th>
+			                                        <th class="col-md-2">Tipo Constancia</th>
 			                                        <th class="col-md-1">Fecha Consulta</th>
-			                                        <th class="col-md-3">Solicitante</th>
+			                                        <th class="col-md-2">Solicitante</th>
 			                                        <th class="col-md-1">Parentesco</th>
 			                                        <th class="col-md-3">A presentar en</th>
-			                                        <th class="col-md-1">Fecha Extensión</th>
+			                                        <th class="col-md-1">Fecha Entregada</th>
 			                                        <th class="col-md-2">Opciones</th>
 			                                    </tr>
 			                                </thead>
@@ -200,8 +200,8 @@
 	                                                <td><?php echo $solicitante; ?></td>
 	                                                <td><?php echo $parentesco; ?></td>
 	                                                <td><?php echo $destinoc; ?></td>
-	                                                <td><?php echo $fecha_extension; ?></td>
-	                                                <td><a href="viewconstancia.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo ?>" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($estadocon==1){ ?><a href="javascript:;" class="btn btn-success btn-sm estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="javascript:;" class="btn btn-default btn-sm estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa "> No Aprobado</i></a><?php } ?></td>
+	                                                <td id='tablefecha<?php echo $id_datosc; ?>'><?php echo $fechaentrega; ?></td>
+	                                                <td><a href="viewconstanciaimpresion.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo ?>" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($fechaentrega!=null){ ?><a href="javascript:;" class="btn btn-success btn-sm estado" id="estado<?php echo $id_datosc ?>" data-entrega="<?php echo $fechaentrega; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa fa-check"> Entregada</i></a><?php } else{ ?><a href="javascript:;" class="btn btn-default btn-sm estado" id="estado<?php echo $id_datosc ?>" data-entrega="<?php echo $fechaentrega; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa "> No Entregada</i></a><?php } ?></td>
 	                                            </tr>   
 	                                        <?php 	$cont=$cont+1;
 	                                                }
@@ -229,32 +229,40 @@
 <script>
 	$(document).ready(function(){
 		$('.estado').click(function(e){
-			var estado = $(this).data('estado');
+			swal({
+			  buttons: false,
+			  closeOnClickOutside: false,
+			  text: 'Cargando...'
+			});
+			var entrega = $(this).data('entrega');
 			var id_constancia =  $(this).data('constancia')
-			var idestado = document.getElementById("estado");
 				$.ajax({
-	            url: "../class/secretaria/aprobar.php",
+	            url: "../class/secretaria/entregar.php",
 	            type: 'POST',
 	            data: { 
 	                id_constancia: id_constancia,
-	                estado: estado
+	                entrega: entrega
 	            },
 	            success: function (data) {
-	            	if(data=='true'){
-	            		if(estado==0){
+	            	if(data!='false'){
+	            		if(entrega==''){
 	            			$('#estado'+id_constancia).removeClass('btn-default');
 	            			$('#estado'+id_constancia).addClass('btn-success estado');
-	            			$('#estado'+id_constancia).data( 'estado', '1' );
+	            			$('#estado'+id_constancia).data( 'entrega', data );
 	            			$('#estado'+id_constancia+' i').addClass('fa-check');
-	            			$('#estado'+id_constancia+' i').html('Aprobado');
+	            			$('#estado'+id_constancia+' i').html(' Entregada');
+	            			$('#tablefecha'+id_constancia).html(data);
+
 	            		}
-	            		else if(estado==1){
+	            		else if(entrega!=''){
 	            			$('#estado'+id_constancia).removeClass('btn-success');
 	            			$('#estado'+id_constancia).addClass('btn-default estado');
-	            			$('#estado'+id_constancia).data( 'estado', '0' );
+	            			$('#estado'+id_constancia).data( 'entrega', data );
 	            			$('#estado'+id_constancia+' i').removeClass('fa-check');
-	            			$('#estado'+id_constancia+' i').html('No Aprobado');
+	            			$('#estado'+id_constancia+' i').html('No Entregada');
+	            			$('#tablefecha'+id_constancia).html(data);
 	            		}
+	            		swal.close()
 	            	}
 	            },
 	            error: function () {

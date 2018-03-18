@@ -231,6 +231,11 @@
 <script>
 	$(document).ready(function(){
 		$('.estado').click(function(e){
+			swal({
+			  buttons: false,
+			  closeOnClickOutside: false,
+			  text: 'Cargando...'
+			});
 			var estado = $(this).data('estado');
 			var id_constancia =  $(this).data('constancia')
 			var idestado = document.getElementById("estado");
@@ -257,6 +262,7 @@
 	            			$('#estado'+id_constancia+' i').removeClass('fa-check');
 	            			$('#estado'+id_constancia+' i').html('No Aprobado');
 	            		}
+	            		swal.close()
 	            	}
 	            },
 	            error: function () {
