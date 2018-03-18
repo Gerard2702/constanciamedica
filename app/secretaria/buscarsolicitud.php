@@ -14,13 +14,13 @@
 
     	$idsolicitud = $_POST['idsoli'];
 
-    	$sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia WHERE dc.id_datos=?";
+    	$sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,u.name,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia JOIN usuario u ON di.id_trabajador=u.id_user WHERE dc.id_datos=?";
     	if($stm = $conn->prepare($sql)){
                 $stm -> bind_param('i',$idsolicitud);
                 $stm -> execute();
                 $stm -> store_result();
                 $rows = $stm->num_rows;
-                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$solicitante,$servicio,$estado,$fechaentrega);                
+                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$user,$solicitante,$servicio,$estado,$fechaentrega);                
             }
 
     }
@@ -28,13 +28,13 @@
 
         $numafiliacion = $_POST['afiliacion'];
 
-        $sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia WHERE di.afiliacion_dui=?";
+        $sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,u.name,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia JOIN usuario u ON di.id_trabajador=u.id_user WHERE di.afiliacion_dui=?";
         if($stm = $conn->prepare($sql)){
                 $stm -> bind_param('i',$numafiliacion);
                 $stm -> execute();
                 $stm -> store_result();
                 $rows = $stm->num_rows;
-                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$solicitante,$servicio,$estado,$fechaentrega);                
+                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$user,$solicitante,$servicio,$estado,$fechaentrega);                
             }
 
     }
@@ -42,13 +42,13 @@
 
     	$numero_recibo = $_POST['recibo'];
 
-    	$sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia WHERE di.numero_recibo=?";
+    	$sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,u.name,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia JOIN usuario u ON di.id_trabajador=u.id_user WHERE di.numero_recibo=?";
     	if($stm = $conn->prepare($sql)){
                 $stm -> bind_param('i',$numero_recibo);
                 $stm -> execute();
                 $stm -> store_result();
                 $rows = $stm->num_rows;
-                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$solicitante,$servicio,$estado,$fechaentrega);                
+                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$user,$solicitante,$servicio,$estado,$fechaentrega);                
             }
 
     }
@@ -56,13 +56,13 @@
 
     	$fechas = $_POST['fecha'];
 
-    	$sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia WHERE di.fecha=?";
+    	$sql = "SELECT di.afiliacion_dui,c.tipo_constancia,di.nombre_paciente,dc.destino,u.name,dc.nombre_solicitante,sv.nombre_servicio,dc.estado,dc.fecha_entregada FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN constancias c ON dc.id_constancia=c.id_constancia JOIN usuario u ON di.id_trabajador=u.id_user WHERE di.fecha=?";
     	if($stm = $conn->prepare($sql)){
                 $stm -> bind_param('s',$fechas);
                 $stm -> execute();
                 $stm -> store_result();
                 $rows = $stm->num_rows;
-                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$solicitante,$servicio,$estado,$fechaentrega);                
+                $stm -> bind_result($afiliacion,$tipoconstancia,$nombrepaciente,$destino,$user,$solicitante,$servicio,$estado,$fechaentrega);                
             }
     }
 
@@ -125,12 +125,13 @@
 		                                        <tr>
 		                                            <th class="col-md-1">Afiliacion/DUI</th>
                                                     <th class="col-md-1">Tipo Constancia</th>
-		                                            <th class="col-md-3">Nombre Paciente</th>
+		                                            <th class="col-md-2">Nombre Paciente</th>                                                    
 		                                            <th class="col-md-2">Destino</th>
+                                                    <th class="col-md-1">Creada Por</th>
                                                     <th class="col-md-2">Nombre Solicitante</th>
 		                                            <th class="col-md-1">Servicio</th>
                                                     <th class="col-md-1">Estado</th>
-		                                            <th class="col-md-2">Fecha Entrega</th>                                            
+		                                            <th class="col-md-1">Fecha Entrega</th>                                            
 		                                        </tr>
 		                                    </thead>
 		                                    <tbody>  		                                                                      	
@@ -143,6 +144,7 @@
 		                                                <td class="text-left"><?php echo $tipoconstancia ?></td>
 		                                                <td class="text-left"><?php echo $nombrepaciente ?></td>
 		                                                <td class="text-left"><?php echo $destino ?></td>
+                                                        <td class="text-left"><?php echo $user ?></td>
                                                         <td class="text-left"><?php echo $solicitante ?></td>
                                                         <td class="text-left"><?php echo $servicio ?></td>
                                                         <td class="text-left"><?php if($estado==1){echo "Finalizada";}else{echo "En Progreso";} ?></td>

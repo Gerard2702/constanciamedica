@@ -32,7 +32,7 @@
 
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<html>
 <head>
     <meta hhtp-equiv="Content-type" content="text/html; charset=utf-8" />
 </head>
