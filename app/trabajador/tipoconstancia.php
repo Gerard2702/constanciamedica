@@ -7,7 +7,7 @@
 		<div class="col-md-6 ">
 	    	<div class="form-group">
 	        	<label>Permaneciendo ingresado hasta el Año/Mes/Dia</label>
-	        	<input class="form-control input-sm fecha" type="text" placeholder="Permanecio ingresado hasta el ..." name="permaneciofecha" required="">
+	        	<input class="form-control input-sm fecha" type="text" placeholder="Permanecio ingresado hasta el ..." name="permaneciofecha" required="" data-date-end-date="0d">
 	    	</div>
 	    </div>
 	</div>
@@ -39,7 +39,7 @@
 		<div class="col-md-6 ">
 	    	<div class="form-group">
 	        	<label>Permaneciendo ingresado hasta el Año/Mes/Dia</label>
-	        	<input class="form-control input-sm fecha" type="text" placeholder="Permanecio ingresado hasta el ..." name="permaneciofecha" required="">
+	        	<input class="form-control input-sm fecha" type="text" placeholder="Permanecio ingresado hasta el ..." name="permaneciofecha" required="" data-date-end-date="0d">
 	    	</div>
 	    </div>
 	</div>
@@ -59,13 +59,13 @@
 		<div class="col-md-6 ">
 	    	<div class="form-group">
 	        	<label>Permaneciendo hasta fecha de alta Año/Mes/Dia</label>
-	        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="">
+	        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" data-date-end-date="0d">
 	    	</div>
 	    </div>
 	    <div class="col-md-5 col-md-offset-1 ">
 	    	<div class="form-group">
 	        	<label>Partida de defuncion extendida Año/Mes/Dia</label>
-	        	<input class="form-control input-sm fecha" type="text" placeholder="" name="partidafecha" required="">
+	        	<input class="form-control input-sm fecha" type="text" placeholder="" name="partidafecha" required="" data-date-end-date="0d">
 	    	</div>
 	    </div>
 	</div>
@@ -79,7 +79,7 @@
 	    <div class="col-md-5 col-md-offset-1 ">
 	    	<div class="form-group">
 	        	<label>Fallecimiento en domicilio Año/Mes/Dia</label>
-	        	<input class="form-control input-sm fecha" type="text" placeholder="" name="domiciliofecha" required="">
+	        	<input class="form-control input-sm fecha" type="text" placeholder="" name="domiciliofecha" required="" data-date-end-date="0d">
 	    	</div>
 	    </div>
 	</div>

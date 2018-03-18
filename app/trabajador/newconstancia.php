@@ -132,7 +132,7 @@
                             			<div class="col-md-6">
 	                                    	<div class="form-group">
 	                                        	<label>Consulto el Año/Mes/Dia</label>
-	                                        	<input class="form-control input-sm fecha" type="text" placeholder="Consulto el ..." name="consultafecha" required="">
+	                                        	<input class="form-control input-sm fecha" type="text" placeholder="Consulto el ..." name="consultafecha" required="" data-date-end-date="0d">
 	                                    	</div>
                                     	</div>
                                     	<div class="col-md-3 col-md-offset-1">
@@ -173,7 +173,7 @@
 											<div class="col-md-6 ">
 										    	<div class="form-group">
 										        	<label>Permaneciendo ingresado hasta el Año/Mes/Dia</label>
-										        	<input class="form-control input-sm fecha" type="text" placeholder="Permanecio ingresado hasta el ..." name="permaneciofecha" required="">
+										        	<input class="form-control input-sm fecha" type="text" placeholder="Permanecio ingresado hasta el ..." name="permaneciofecha" required="" data-date-end-date="0d">
 										    	</div>
 										    </div>
 										</div>
@@ -213,7 +213,7 @@
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
 	                                        	<label>Fecha de extensión de constancia</label>
-	                                        	<input class="form-control input-sm fecha" type="text" placeholder="Fecha de extension de constancia" name="fechaextension" >
+	                                        	<input class="form-control input-sm fecha" type="text" placeholder="Fecha de extension de constancia" name="fechaextension" data-date-end-date="0d">
 	                                    	</div>
 	                                    </div>
                                     </div>
