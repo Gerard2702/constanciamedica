@@ -57,18 +57,6 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-bell-o"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu--responsive">
-                                <div class="dropdown-header">Notificaciones</div>
-                                <ul class="Notification-list Notification-list--small niceScroll list-group">
-                                    
-                                </ul>
-                                <div class="dropdown-footer"><a href="">Ver más</a></div>
-                            </ul>
-                        </li>
                         <li class="dropdown dropdown-usermenu">
                             <a href="#" class=" dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <div class="user-avatar"><img src="../../assets/img/edit-user.png" alt="usuario img"></div>

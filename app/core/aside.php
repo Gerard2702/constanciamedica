@@ -29,19 +29,46 @@
 		?>
         <li id="inicio"><a href="../secretaria/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
 		<li id="crearsolicitud"><a href="../secretaria/crearsolicitud.php"><i class="fa fa-file-text-o"></i><span>Crear Solicitud</span></a></li>
-        <li id="pendienteenvio"><a href="../secretaria/pendienteenvio.php"><i class="fa fa-share-square-o"></i><span>Pendiente de Envio<small class="label label-info"><?php echo $mispendientes; ?></small></span></a></li>
-        <li id="pendienterevision"><a href="../secretaria/pendienterevision.php"><i class="fa fa-inbox"></i><span>Pendiente de Revision<small class="label label-danger"><?php echo $mispendientesrev; ?></small></span></a></li>
-        <li id="buscarsolicitud"><a href="../secretaria/buscarsolicitud.php"><i class="fa fa-search"></i><span>Buscar Solicitud</span></a></li>
-        <li id="reporteria"><a href="../secretaria/Reporte.php"><i class="fa fa-file-excel-o"></i><span>Reporte</span></a></li>
+        <li id="pendienteenvio"><a href="../secretaria/pendienteenvio.php"><i class="fa fa-share-square-o"></i><span>Pendiente de Envio <?php if($mispendientes>0){ ?><small class="label label-danger"><?php echo $mispendientes; ?></small><?php } ?></span></a></li>
+        <li id="pendienterevision"><a href="../secretaria/pendienterevision.php"><i class="fa fa-inbox"></i><span>Pendiente de Revision <?php if($mispendientesrev>0){ ?><small class="label label-danger"><?php echo $mispendientesrev; ?></small><?php } ?></span></a></li>
+        <li id="terminadas"><a href="../secretaria/terminadas.php"><i class="fa fa-check-circle "></i><span>Terminadas</span></a></li>
+        <li id="buscarsolicitud"><a href="../secretaria/buscarsolicitud.php"><i class="fa fa-search"></i><span>Buscar Constancias</span></a></li>
 		<?php
 				break;
 			case '2':
 				# MENU TRABAJADOR
+            include("../../config/database.php");
+             $sqlpendientes = "SELECT COUNT(*) as pendientesenvio FROM datos_iniciales WHERE id_estado=2 AND id_servicio=?";
+             if($stmspendientes = $conn->prepare($sqlpendientes)){
+                $stmspendientes->bind_param('s',$_SESSION['id_servicio']);
+                $stmspendientes->execute();
+                $stmspendientes->bind_result($mispendientesrec);
+                $stmspendientes->fetch();
+                $stmspendientes->close();
+             }
+             $sqlpendientes2 = "SELECT COUNT(*) as pendientesenvio FROM datos_iniciales WHERE id_estado=3 AND id_trabajador=?";
+             if($stmspendientes2 = $conn->prepare($sqlpendientes2)){
+                $stmspendientes2->bind_param('s',$_SESSION['id_usuario']);
+                $stmspendientes2->execute();
+                $stmspendientes2->bind_result($mispendientes);
+                $stmspendientes2->fetch();
+                $stmspendientes2->close();
+             }
+
+             $sqledicion = "SELECT COUNT(*) as pendientesenvio FROM datos_iniciales WHERE id_estado=5 AND id_trabajador=?";
+             if($stmtedicion = $conn->prepare($sqledicion)){
+                $stmtedicion->bind_param('s',$_SESSION['id_usuario']);
+                $stmtedicion->execute();
+                $stmtedicion->bind_result($mispendientesedi);
+                $stmtedicion->fetch();
+                $stmtedicion->close();
+             }
+             $conn->close();
 		?>
         <li id="inicio"><a href="../trabajador/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
-		<li id="recibidos"><a href="../trabajador/recibidos.php"><i class="fa fa-inbox"></i><span>Recibidos</span></a></li>
-        <li id="pendientes"><a href="../trabajador/pendientes.php"><i class="fa fa-clock-o "></i><span>Pendiente</span></a></li>
-        <li id="modificacion"><a href="../trabajador/modificacion.php"><i class="fa fa-pencil-square-o "></i><span>Modificación</span></a></li>
+		<li id="recibidos"><a href="../trabajador/recibidos.php"><i class="fa fa-inbox"></i><span>Recibidos<?php if($mispendientesrec>0){ ?><small class="label label-danger"><?php echo $mispendientesrec; ?></small><?php } ?></span></a></li>
+        <li id="pendientes"><a href="../trabajador/pendientes.php"><i class="fa fa-clock-o "></i><span>Pendientes<?php if($mispendientes>0){ ?><small class="label label-danger"><?php echo $mispendientes; ?></small><?php } ?></span></a></li>
+        <li id="modificacion"><a href="../trabajador/modificacion.php"><i class="fa fa-pencil-square-o "></i><span>Modificación<?php if($mispendientesedi>0){ ?><small class="label label-danger"><?php echo $mispendientesedi; ?></small><?php } ?></span></a></li>
 		<?php		
 				break;
 			case '3':
@@ -84,9 +111,6 @@
         </li>
         <li id="precio">
             <a href="../admin/adminprecios.php"><i class="fa fa-usd"></i><span>Precio</span></a> 
-        </li>
-        <li id="reporteria">
-            <a href="../admin/Reporte.php"><i class="fa fa-bar-chart"></i><span>Reportes</span></a> 
         </li>
 		<?php
 				break;

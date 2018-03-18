@@ -85,29 +85,31 @@
                             <div id="contenido">
                             	<form class="form-horizontal form-variance" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                                     <div class="form-group">
-                                        <label class="col-sm-1 control-label">ID Solicitud</label>
-                                        <div class="col-sm-2">
+                                        <label class="col-sm-2 control-label">ID Solicitud</label>
+                                        <div class="col-sm-3">
                                             <input class="form-control" id="idsoli" placeholder="Id Solicitud" name="idsoli" type="number" autofocus>
                                         </div>
-                                        <label class="col-sm-1 control-label"># Afiliacion/Dui</label>
-                                        <div class="col-sm-2">
+                                        <label class="col-sm-2 control-label"># Afiliacion/Dui</label>
+                                        <div class="col-sm-3">
                                             <input class="form-control" id="afiliacion" placeholder="# Afiliciacion/DUI" name="afiliacion" type="number">
                                         </div>                                        
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label class="col-sm-1 control-label">Número Recibo</label>
-                                        <div class="col-sm-2">
+                                        <label class="col-sm-2 control-label">Número Recibo</label>
+                                        <div class="col-sm-3">
                                             <input class="form-control" type="number" placeholder="Numero de Recibo" name="recibo" >
                                         </div>
-                                        <label class="col-sm-1 control-label">Fecha</label>
-                                        <div class="col-sm-2">
+                                        <label class="col-sm-2 control-label">Fecha</label>
+                                        <div class="col-sm-3">
                                             <input class="form-control fecha" type="text" placeholder="Fecha" id="fecha" name="fecha" data-date-end-date="0d">
                                         </div>
-                                    	<div class="col-sm-1">
-                                    		<button type="submit" id="search" name="search" class="btn btn-primary">Buscar</button>
-                                    	</div>
-                                    </div> 
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-2 col-md-offset-2">
+                                            <button type="submit" id="search" name="search" class="btn btn-primary btn-block">Buscar</button>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>                           
                         </div>

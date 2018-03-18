@@ -1419,6 +1419,7 @@ Nav
 
 .ui-aside li > a .label {
     margin-left: 5px;
+    float: right;
 }
 
 .ui-aside li.active > a > .fa-angle-right {

@@ -115,7 +115,7 @@
                             			<div class="col-md-6">
 	                                    	<div class="form-group">
 	                                        	<label>Consulto el dia/mes/Año</label>
-	                                        	<input class="form-control input-sm fecha" type="text" placeholder="" name="consultafecha" required="" value='<?php echo $fecha_consulta; ?>'>
+	                                        	<input class="form-control input-sm fecha" type="text" placeholder="" name="consultafecha" required="" value='<?php echo $fecha_consulta; ?>' data-date-end-date="0d">
 	                                    	</div>
                                     	</div>
                                     	<div class="col-md-3 col-md-offset-1">
@@ -172,7 +172,7 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permaneciendo ingresado hasta</label>
-									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value='<?php echo $fecha_de_alta ?>'>
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value='<?php echo $fecha_de_alta ?>' data-date-end-date="0d">
 									        	<input type="hidden" readonly="" value="<?php echo $id_alt; ?>" name='alt'>
 									    	</div>
 									    </div>
@@ -228,7 +228,7 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permaneciendo ingresado hasta dia/mes/año</label>
-									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_defuncion; ?>">
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_defuncion; ?>" data-date-end-date="0d">
 									        	<input type="text" readonly="" hidden="" value="<?php echo $id_alt; ?>" name='alt'>
 									    	</div>
 									    </div>
@@ -260,14 +260,14 @@
 										<div class="col-md-6 ">
 									    	<div class="form-group">
 									        	<label>Permaneciendo hasta fecha de alta dia/mes/año</label>
-									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_de_alta; ?>">
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="permaneciofecha" required="" value="<?php echo $fecha_de_alta; ?>" data-date-end-date="0d">
 									        	<input type="text" readonly="" hidden="" value="<?php echo $id_alt; ?>" name='alt'>
 									    	</div>
 									    </div>
 									    <div class="col-md-5 col-md-offset-1 ">
 									    	<div class="form-group">
 									        	<label>Partida de defuncion extendida dia/mes/año</label>
-									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="partidafecha" required="" value="<?php echo $fecha_defun_ext; ?>">
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="partidafecha" required="" value="<?php echo $fecha_defun_ext; ?>" data-date-end-date="0d">
 									    	</div>
 									    </div>
 									</div>
@@ -281,7 +281,7 @@
 									    <div class="col-md-5 col-md-offset-1 ">
 									    	<div class="form-group">
 									        	<label>Fallecimiento en domicilio dia/mes/año</label>
-									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="domiciliofecha" required="" value="<?php echo $fecha_fallecimiento ?>">
+									        	<input class="form-control input-sm fecha" type="text" placeholder="" name="domiciliofecha" required="" value="<?php echo $fecha_fallecimiento ?>" data-date-end-date="0d">
 									    	</div>
 									    </div>
 									</div>
@@ -319,7 +319,7 @@
                                     	<div class="col-md-6 ">
 	                                    	<div class="form-group">
 	                                        	<label>Fecha de extensión de constancia</label>
-	                                        	<input class="form-control input-sm fecha" type="text" placeholder="" name="fechaextension" value='<?php echo $fecha_extension; ?>'>
+	                                        	<input class="form-control input-sm fecha" type="text" placeholder="" name="fechaextension" value='<?php echo $fecha_extension; ?>' data-date-end-date="0d">
 	                                    	</div>
 	                                    </div>
                                     </div>
