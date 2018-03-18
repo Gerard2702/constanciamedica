@@ -150,7 +150,9 @@
 				            	?>
             				<div class="panel">
             					<div class="col-md-2 col-md-offset-10">
-                               		<a href="Reporte2.php?fecini=$fechaini&fecf=$fechafin"><button type="button"  class="btn btn-success"> Descargar Formato Excel</button></a> 
+            						<?php
+                               		echo "<a href='Reporte2.php?fecini=$fechaini&fecf=$fechafin'><button type='button'  class='btn btn-success'> Descargar Formato Excel </button></a>"
+                               		?>                               		
                             	</div>
 								<div class="panel-body">
 									<div id="contenido" class="table-responsive">
