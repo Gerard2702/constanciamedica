@@ -27,6 +27,9 @@
 
         <script src="../../assets/js/modernizr-custom.js"></script>
         <script src="../../assets/js/core.js"></script>
+        <script src="../../assets/js/highcharts.js"></script>
+        <script src="../../assets/js/data.js"></script>
+        <script src="../../assets/js/exporting.js"></script>
         
         
     </head>
