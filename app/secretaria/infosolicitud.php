@@ -128,7 +128,7 @@
 	                            </div>
 	                            <div id="contenido">
 	                            	<!-- $constancianum  contiene el id de la solicitud a imprimir-->
-	                            	<a class="btn btn-info" target="_blank" href="constancias.php?contancianum=<?php echo $contancianum ?>"><i class="fa fa-print"></i> Imprimir Constancias</a>
+	                            	<a class="btn btn-info" target="_blank" href="constancias.php?contancianum=<?php echo $contancianum ?>"><i class="fa fa-print"></i> VER PDF</a>
 	                            	<div id="contenido" class="table-responsive">
 			                        	<table class="table table-striped table-condensed" id="mitable">
 			                                <thead class="thead-inverse">
@@ -212,7 +212,7 @@
 			                            </table>
 			                        </div>
 			                        <a class="btn btn-success modificar" href="javascript:;" data-constancia="<?php echo $id_datos; ?>">Enviar para modificacion</a>
-			                        <a class="btn btn-warning" href="#">Finalizar</a>  
+			                        <a class="btn btn-warning finalizar" href="javascript:;" data-constancia="<?php echo $id_datos; ?>">Finalizar</a>  
 	                            </div>
 	                        </div>
 	                    </div>
@@ -282,6 +282,41 @@
             .then((enviar) => {
               if (enviar) {
                 $('#myModal').modal();
+              } else {
+                
+              }
+            });
+		});
+
+		$('.finalizar').click(function(){
+			var id_solicitud =  $(this).data('constancia');
+			swal({
+              title: "Desea finalizar la solicitud?",
+              text: "Una vez finalizado no podra hacer modificaciones!",
+              icon: "warning",
+              buttons: true,
+            })
+            .then((finalizar) => {
+              if (finalizar) {
+                $.ajax({
+                    url: "../class/secretaria/finalizar.php",
+                    type: 'POST',
+                    data: { 
+                        id_solicitud: id_solicitud
+                    },
+                    success: function (data) {
+                        swal({
+                            title: "Solicitud finalizada con exito!",
+                            icon: "success",
+                        })
+                            .then((value) => {
+                              location.href ="pendienterevision.php";
+                        });                      
+                    },
+                    error: function () {
+                        alert("UN ERROR HA OCURRIDO");
+                    }
+                });
               } else {
                 
               }

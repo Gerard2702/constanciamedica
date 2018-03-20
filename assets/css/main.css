@@ -1,54 +1,4 @@
 
-/*--------------------------------------------
-Table of contents
-
-01 -    Layout
-02 -    Core CSS
-            -   Type
-            -   tabs
-            -   forms
-            -   buttons
-            -   colors
-03 -    Nav
-04 -    Components
-            -   iChecks
-            -   Dropdowns
-            -   pagination
-            -   Labels
-            -   Badges
-            -   Alerts
-            -   Panels
-05 -    Right side Widget
-06 -    Login
-07 -    Invoice
-08 -    Utilities
-09 -    Notifications
-10 -    Mailbox
-11 -    Note
-12 -    Profile
-13 -    Timeline
-14 -    Calendar
-15 -    Widgets
-            -   high charts
-            -   spark line
-            -   table
-            -   nestables
-            -   short states
-16 -    Plugins
-            -   File upload
-            -   Chart Rickshaw
-            -   Ckeditor
-            -   Toastr Notifications
-            -   Select 2
-            -   TagsInput
-            -   Bootstrap TimePicker
-----------------------------------------------*/
-
-
-/*--------------------------------------------
-Layout
-----------------------------------------------*/
-
 .row {
     margin-right: -5px;
     margin-left: -5px;
@@ -646,6 +596,7 @@ body {
     font-size: 14px;
     color: #626262;
     background-color: #EFEFEF;
+    /*background-image: url("http://www.imagen.com.mx/assets/img/imagen_share.png");*/
     -webkit-font-smoothing: antialiased;
     line-height: 1.5;
     letter-spacing: 0;
@@ -2301,6 +2252,7 @@ Login
 .sign-in-wrapper .sign-container {
     max-width: 350px;
     background: #ffffff;
+
     padding: 20px;
     -webkit-border-radius: 5px;
     border-radius: 5px;

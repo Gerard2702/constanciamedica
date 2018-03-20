@@ -128,7 +128,7 @@
 	                            </div>
 	                            <div id="contenido">
 	                            	<!-- $constancianum  contiene el id de la solicitud a imprimir-->
-	                            	<a class="btn btn-info" target="_blank" href="../secretaria/constancias.php?contancianum=<?php echo $contancianum ?>"><i class="fa fa-print"></i> Imprimir Constancias</a>
+	                            	<a class="btn btn-info" target="_blank" href="../secretaria/constancias.php?contancianum=<?php echo $contancianum ?>"><i class="fa fa-print"></i> VER PDF</a>
 	                            	<div id="contenido" class="table-responsive">
 			                        	<table class="table table-striped table-condensed" id="mitable">
 			                                <thead class="thead-inverse">
@@ -201,7 +201,7 @@
 	                                                <td><?php echo $parentesco; ?></td>
 	                                                <td><?php echo $destinoc; ?></td>
 	                                                <td><?php echo $fecha_extension; ?></td>
-	                                                <td><a href="viewconstancia.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo ?>" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> </td>
+	                                                <td><a href="viewconstancia.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo ?>" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="Ver Detalle"><i class="fa fa-eye"></i></a> <?php if($estadocon==1){ ?><a href="javascript:;" class="btn btn-success btn-sm estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="javascript:;" class="btn btn-default btn-sm estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa "> No Aprobado</i></a><?php } ?></td>
 	                                            </tr>   
 	                                        <?php 	$cont=$cont+1;
 	                                                }
@@ -211,6 +211,8 @@
 			                                </tbody>
 			                            </table>
 			                        </div>
+			                        <a class="btn btn-success modificar" href="javascript:;" data-constancia="<?php echo $id_datos; ?>">Enviar para modificacion</a>
+			                        <a class="btn btn-warning finalizar" href="javascript:;" data-constancia="<?php echo $id_datos; ?>">Finalizar</a>  
 	                            </div>
 	                        </div>
 	                    </div>
@@ -228,6 +230,171 @@
 ?>
 <script>
 	$(document).ready(function(){
+		$('.estado').click(function(e){
+			swal({
+			  buttons: false,
+			  closeOnClickOutside: false,
+			  text: 'Cargando...'
+			});
+			var estado = $(this).data('estado');
+			var id_constancia =  $(this).data('constancia')
+			var idestado = document.getElementById("estado");
+				$.ajax({
+	            url: "../class/secretaria/aprobar.php",
+	            type: 'POST',
+	            data: { 
+	                id_constancia: id_constancia,
+	                estado: estado
+	            },
+	            success: function (data) {
+	            	if(data=='true'){
+	            		if(estado==0){
+	            			$('#estado'+id_constancia).removeClass('btn-default');
+	            			$('#estado'+id_constancia).addClass('btn-success estado');
+	            			$('#estado'+id_constancia).data( 'estado', '1' );
+	            			$('#estado'+id_constancia+' i').addClass('fa-check');
+	            			$('#estado'+id_constancia+' i').html('Aprobado');
+	            		}
+	            		else if(estado==1){
+	            			$('#estado'+id_constancia).removeClass('btn-success');
+	            			$('#estado'+id_constancia).addClass('btn-default estado');
+	            			$('#estado'+id_constancia).data( 'estado', '0' );
+	            			$('#estado'+id_constancia+' i').removeClass('fa-check');
+	            			$('#estado'+id_constancia+' i').html('No Aprobado');
+	            		}
+	            		swal.close()
+	            	}
+	            },
+	            error: function () {
+	                alert("UN ERROR HA OCURRIDO");
+	            }
+			});	
+		})
+
+		$('.modificar').click(function(){
+			var id_constancia =  $(this).data('constancia');
+			swal({
+              title: "Desea enviar la solicitud para modificación?",
+              text: "",
+              icon: "warning",
+              buttons: true,
+            })
+            .then((enviar) => {
+              if (enviar) {
+                $('#myModal').modal();
+              } else {
+                
+              }
+            });
+		});
+
+		$('.finalizar').click(function(){
+			var id_solicitud =  $(this).data('constancia');
+			swal({
+              title: "Desea finalizar la solicitud?",
+              text: "Una vez finalizado no podra hacer modificaciones!",
+              icon: "warning",
+              buttons: true,
+            })
+            .then((finalizar) => {
+              if (finalizar) {
+                $.ajax({
+                    url: "../class/secretaria/finalizar.php",
+                    type: 'POST',
+                    data: { 
+                        id_solicitud: id_solicitud
+                    },
+                    success: function (data) {
+                        swal({
+                            title: "Solicitud finalizada con exito!",
+                            icon: "success",
+                        })
+                            .then((value) => {
+                              location.href ="pendienterevision.php";
+                        });                      
+                    },
+                    error: function () {
+                        alert("UN ERROR HA OCURRIDO");
+                    }
+                });
+              } else {
+                
+              }
+            });
+		});
+
+		$('.frmcomentario').submit(function(e){
+			e.preventDefault();
+			var comentario = $('#comentarioinput').val();
+			$.ajax({
+	            url: "../class/trabajador/editarsolicitud.php",
+	            type: 'POST',
+	            data: { 
+	                comentario: comentario
+	            },
+	            success: function (data) {
+	            	if(data=='true'){
+	            		swal({
+                            title: "Solicitud enviada para modificación!",
+                            icon: "success",
+                        }).then((value) => {
+                              location.href ="pendienterevision.php";
+                        });	
+	            	}
+	            	else{
+	            		swal({
+                            title: "Un error ha ocurrido!",
+                            icon: "error",
+                        }).then((value) => {
+                              location.reload(true);
+                        });
+	            	}
+	            },
+	            error: function () {
+	                alert("UN ERROR HA OCURRIDO");
+	            }
+			});	
+		});
 
 	})
+</script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Especificaciones</h4>
+            </div>
+            <div class="modal-body">
+                <div id="conten-modal">
+                    <form class="frmcomentario" action="" method="post">
+                    	<div class="row">
+                			<div class="col-md-12">
+                    			<div class="form-group">
+                                	<label>Comentario</label>
+                                	<textarea class="form-control input-sm" name="comentario" id="comentarioinput" cols="30" rows="3" required=""></textarea>
+                                	<?php $_SESSION['id_datosmodificarsolicitud'] = $id_datos; ?>
+                            	</div>
+                			</div>
+                		</div>
+                		<div class="row">
+                			<div class="col-md-12">
+                    			<div class="form-group">
+                                	<button type="submit" class="btn btn-primary">Enviar para modificar</button>
+                            	</div>
+                			</div>
+                		</div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+	
 </script>

@@ -119,15 +119,33 @@
 		<?php
 				break;
             case '4':
+            include("../../config/database.php");
+            $sqlrevision = "SELECT COUNT(*) as pendientesenvio FROM datos_iniciales WHERE id_estado=4";
+             if($stmtrevision = $conn->prepare($sqlrevision)){
+                $stmtrevision->execute();
+                $stmtrevision->bind_result($mispendientesrev);
+                $stmtrevision->fetch();
+                $stmtrevision->close();
+             }
+             $conn->close();
         ?>
         <li id="inicio"><a href="../jefe/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
-        <li id="revision"><a href="../jefe/revision.php"><i class="fa fa-inbox"></i><span>Revisión</span></a></li>
+        <li id="pendienterevision"><a href="../jefe/pendienterevision.php"><i class="fa fa-inbox"></i><span>Pendiente de Revision <?php if($mispendientesrev>0){ ?><small class="label label-danger"><?php echo $mispendientesrev; ?></small><?php } ?></span></a></li>
         <?php 
                 break;
             case '5':
+            include("../../config/database.php");
+            $sqlrevision = "SELECT COUNT(*) as pendientesenvio FROM datos_iniciales WHERE id_estado=4";
+             if($stmtrevision = $conn->prepare($sqlrevision)){
+                $stmtrevision->execute();
+                $stmtrevision->bind_result($mispendientesrev);
+                $stmtrevision->fetch();
+                $stmtrevision->close();
+             }
+             $conn->close();
         ?>
         <li id="inicio"><a href="../jefesocial/"><i class="fa fa-home"></i><span> INICIO </span></a></li>
-        <li id="revision"><a href="../jefesocial/revision.php"><i class="fa fa-inbox"></i><span>Revisión</span></a></li>
+        <li id="pendienterevision"><a href="../jefesocial/pendienterevision.php"><i class="fa fa-inbox"></i><span>Pendiente de Revision <?php if($mispendientesrev>0){ ?><small class="label label-danger"><?php echo $mispendientesrev; ?></small><?php } ?></span></a></li>
         <?php
                 # code...
                 break;

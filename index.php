@@ -20,7 +20,7 @@
 
         <script src="assets/js/core.js"></script>
     </head>
-    <body>
+    <body id="milogin">
         <div class="sign-in-wrapper">
             
             <div class="sign-container">

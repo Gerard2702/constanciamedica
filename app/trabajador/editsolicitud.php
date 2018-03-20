@@ -15,11 +15,11 @@
     $constancianum=$_SESSION['constancia_trabajando'];
     $numcon=$_GET['con'];
     $alt = $_GET['alt'];
-    $sqlconstancia = "SELECT dai.id_datos,dai.fecha,dai.numero_recibo,dai.afiliacion_dui,dai.nombre_paciente,dai.destinos,dai.cantidad,ser.nombre_servicio,dai.fecha_presentado,dai.fecha_cancelado FROM datos_iniciales dai INNER JOIN servicios ser ON dai.id_servicio=ser.id_servicio WHERE dai.id_datos=?";
+    $sqlconstancia = "SELECT dai.id_datos,dai.fecha,dai.numero_recibo,dai.afiliacion_dui,dai.nombre_paciente,dai.destinos,dai.id_servicio,dai.cantidad,ser.nombre_servicio,dai.fecha_presentado,dai.fecha_cancelado FROM datos_iniciales dai INNER JOIN servicios ser ON dai.id_servicio=ser.id_servicio WHERE dai.id_datos=?";
 	if($stmtcons = $conn->prepare($sqlconstancia)){
 		$stmtcons -> bind_param('s',$constancianum);
 		$stmtcons -> execute();
-		$stmtcons -> bind_result($id_datos,$fechacreacion,$nrecibo,$afiliacion,$nombrepaciente,$destinos,$cantidad,$servicio,$fechapresento,$fechacancelo);
+		$stmtcons -> bind_result($id_datos,$fechacreacion,$nrecibo,$afiliacion,$nombrepaciente,$destinos,$id_servicioini,$cantidad,$servicio,$fechapresento,$fechacancelo);
 		$stmtcons -> fetch();
 		$stmtcons -> close();
 	}
@@ -43,8 +43,9 @@
     	$stmt -> bind_result($id_servicio,$nombre_servicio);
     }
 
-    $sqlmedico = "SELECT id_medico,nombre FROM medico_tratante WHERE id_status=1 ORDER BY nombre ASC";
+    $sqlmedico = "SELECT id_medico,nombre FROM medico_tratante WHERE id_status=1 AND id_servicio=? ORDER BY nombre ASC";
     if($stmt2 = $conn->prepare($sqlmedico)){
+    	$stmt2 -> bind_param('i',$id_servicioini);
     	$stmt2 -> execute();
     	$stmt2 -> store_result();
     	$rows2 = $stmt2->num_rows;
@@ -337,7 +338,7 @@
                                                         <input class="checkmedico"	type="checkbox" name="checkmedico">
                                                         <?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm medico" name="medico">
+                                                    <select class="form-control input-sm medico miselect" name="medico">
                                                     	<option value="" disabled selected>Seleccione medico tratante</option>
 	                                        			<?php 
 					                            			if($rows2 > 0){
@@ -370,7 +371,7 @@
                                                         <input class="checkjefe" type="checkbox" name="checkjefe">
                                                         <?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm jefe" name="jefe">
+                                                    <select class="form-control input-sm jefe miselect" name="jefe">
 	                                        			<option value="" disabled selected>Seleccione un jefe de servicio</option>
 	                                        			<?php 
 					                            			if($rowsjefeservicio > 0){
@@ -405,7 +406,7 @@
 														<input class="checkjefesocial" type="checkbox" name="checkjefesocial">
 														<?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm jefesocial" name="jefesocial">
+                                                    <select class="form-control input-sm jefesocial miselect" name="jefesocial">
 	                                        			<option value="" disabled selected>Seleccione un jefe de trabajo social</option>
 	                                        			<?php 
 					                            			if($rowsjefesocial > 0){
@@ -438,7 +439,7 @@
 														<input class="checkdirector" type="checkbox" name="checkdirector">
 														<?php } ?>
                                                     </span>
-                                                    <select class="form-control input-sm director" name="director">
+                                                    <select class="form-control input-sm director miselect" name="director">
 	                                        			<option value="" disabled selected>Seleccione un director</option>
 	                                        			<?php 
 					                            			if($rowsdirector > 0){
@@ -515,7 +516,9 @@
 			}
         });
     });
-
+    $('.miselect').select2({
+	  		
+	});
     $('.fecha').datepicker({
 		    todayBtn: "linked",
 		    format: 'yyyy-mm-dd',

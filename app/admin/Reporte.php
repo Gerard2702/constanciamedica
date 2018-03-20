@@ -21,8 +21,8 @@
 		    }
 
 		    $sql2 = "SELECT COUNT(id_datos) FROM datos_complementarios WHERE estado=1 AND id_servicio=?";
+		    $i=0;
 		    if($rows>0){
-		    	$i=0;
 		    	while($stm->fetch()){
 		    		${"name".$i}=$nombre;
 			    	if(${"stm".$i} = $conn->prepare($sql2)){
@@ -46,8 +46,8 @@
 		    }
 
 		    $sql2 = "SELECT COUNT(id_datos) FROM datos_complementarios WHERE estado=1 AND id_constancia=?";
+		    $i=0;
 		    if($rows>0){
-		    	$i=0;
 		    	while($stm->fetch()){
 		    		${"name".$i}=$nombre;
 			    	if(${"stm".$i} = $conn->prepare($sql2)){

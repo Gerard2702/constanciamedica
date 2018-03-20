@@ -12,11 +12,11 @@
 
     $constancianum=$_SESSION['constancia_trabajando'];
 
-    $sqlconstancia = "SELECT dai.id_datos,dai.fecha,dai.numero_recibo,dai.afiliacion_dui,dai.nombre_paciente,dai.destinos,dai.cantidad,ser.nombre_servicio,dai.fecha_presentado,dai.fecha_cancelado FROM datos_iniciales dai INNER JOIN servicios ser ON dai.id_servicio=ser.id_servicio WHERE dai.id_datos=?";
+    $sqlconstancia = "SELECT dai.id_datos,dai.fecha,dai.numero_recibo,dai.afiliacion_dui,dai.nombre_paciente,dai.destinos,dai.id_servicio,dai.cantidad,ser.nombre_servicio,dai.fecha_presentado,dai.fecha_cancelado FROM datos_iniciales dai INNER JOIN servicios ser ON dai.id_servicio=ser.id_servicio WHERE dai.id_datos=?";
 	if($stmtcons = $conn->prepare($sqlconstancia)){
 		$stmtcons -> bind_param('s',$constancianum);
 		$stmtcons -> execute();
-		$stmtcons -> bind_result($id_datos,$fechacreacion,$nrecibo,$afiliacion,$nombrepaciente,$destinos,$cantidad,$servicio,$fechapresento,$fechacancelo);
+		$stmtcons -> bind_result($id_datos,$fechacreacion,$nrecibo,$afiliacion,$nombrepaciente,$destinos,$id_servicioini,$cantidad,$servicio,$fechapresento,$fechacancelo);
 		$stmtcons -> fetch();
 		$stmtcons -> close();
 	}
@@ -37,8 +37,9 @@
     	$stmt -> bind_result($id_servicio,$nombre_servicio);
     }
 
-    $sqlmedico = "SELECT id_medico,nombre FROM medico_tratante WHERE id_status=1 ORDER BY nombre ASC";
+    $sqlmedico = "SELECT id_medico,nombre FROM medico_tratante WHERE id_status=1 AND id_servicio=? ORDER BY nombre ASC";
     if($stmt2 = $conn->prepare($sqlmedico)){
+    	$stmt2 -> bind_param('i',$id_servicioini);
     	$stmt2 -> execute();
     	$stmt2 -> store_result();
     	$rows2 = $stmt2->num_rows;
@@ -227,7 +228,7 @@
                                                     <span class="input-group-addon">
                                                         <input class="checkmedico"	type="checkbox" checked name="checkmedico">
                                                     </span>
-                                                    <select class="form-control input-sm medico" name="medico" required="">
+                                                    <select class="form-control input-sm medico miselect" name="medico" required="">
                                                     	<option value="" disabled selected>Seleccione medico tratante</option>
 	                                        			<?php 
 					                            			if($rows2 > 0){
@@ -250,7 +251,7 @@
                                                     <span class="input-group-addon">
                                                         <input class="checkjefe" type="checkbox" checked name="checkjefe">
                                                     </span>
-                                                    <select class="form-control input-sm jefe" name="jefe" required="">
+                                                    <select class="form-control input-sm jefe miselect" name="jefe" required="">
 	                                        			<option value="" disabled selected>Seleccione un jefe de servicio</option>
 	                                        			<?php 
 					                            			if($rowsjefeservicio > 0){
@@ -275,7 +276,7 @@
                                                     <span class="input-group-addon">
                                                         <input class="checkjefesocial" type="checkbox" checked name="checkjefesocial">
                                                     </span>
-                                                    <select class="form-control input-sm jefesocial" name="jefesocial" required="">
+                                                    <select class="form-control input-sm jefesocial miselect" name="jefesocial" required="">
 	                                        			<option value="" disabled selected>Seleccione un jefe de trabajo social</option>
 	                                        			<?php 
 					                            			if($rowsjefesocial > 0){
@@ -298,7 +299,7 @@
                                                     <span class="input-group-addon">
                                                         <input class="checkdirector" type="checkbox" checked name="checkdirector">
                                                     </span>
-                                                    <select class="form-control input-sm director" name="director" required="">
+                                                    <select class="form-control input-sm director miselect" name="director" required="">
 	                                        			<option value="" disabled selected>Seleccione un director</option>
 	                                        			<?php 
 					                            			if($rowsdirector > 0){
@@ -334,8 +335,9 @@
 
  ?>
  <script>
+ 	
     $(document).ready(function(){
-        
+
         $(".cambiarconstancia").change(function(){
             var id_tipoconstancia = $( ".cambiarconstancia option:selected" ).val();
             var nombre = $( ".cambiarconstancia option:selected" ).text();
@@ -389,7 +391,10 @@
 			}
         });
     });
-    
+    $('.miselect').select2({
+	  		
+	});
+
 	var id_tipoconstancia = $( ".cambiarconstancia option:selected" ).val();
     var nombre = $( ".cambiarconstancia option:selected" ).text();
     $("#constanciatitulo").html("Crear constancia de "+nombre);

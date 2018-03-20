@@ -24,13 +24,13 @@
 		$stmtcons -> close();
 	}
 
-	$sqldatosc = "SELECT dat.id_datosc,dat.id_constancia,dat.id_datos,dat.fecha_consulta,dat.id_servicio,dat.diagnostico,dat.nombre_solicitante,dat.parentesco,dat.destino,dat.fecha_extension,dat.id_medico,med.nombre,dat.id_jefe,jef.nombre,dat.id_jefesocial,jefs.nombre,dat.id_director,dir.nombre FROM datos_complementarios dat LEFT JOIN medico_tratante med ON med.id_medico=dat.id_medico LEFT JOIN jefe_trabajo_social jefs ON jefs.id_jefesocial=dat.id_jefesocial LEFT JOIN jefe_servicio jef ON jef.id_jefe=dat.id_jefe LEFT JOIN director dir ON dir.id_director=dat.id_director WHERE dat.id_datosc=? AND dat.id_datos=?";
+	$sqldatosc = "SELECT dat.id_datosc,dat.id_constancia,dat.id_datos,dat.fecha_consulta,dat.id_servicio,dat.diagnostico,dat.nombre_solicitante,dat.parentesco,dat.destino,dat.fecha_extension,dat.id_medico,med.nombre,dat.id_jefe,jef.nombre,dat.id_jefesocial,jefs.nombre,dat.id_director,dir.nombre,dat.estado FROM datos_complementarios dat LEFT JOIN medico_tratante med ON med.id_medico=dat.id_medico LEFT JOIN jefe_trabajo_social jefs ON jefs.id_jefesocial=dat.id_jefesocial LEFT JOIN jefe_servicio jef ON jef.id_jefe=dat.id_jefe LEFT JOIN director dir ON dir.id_director=dat.id_director WHERE dat.id_datosc=? AND dat.id_datos=?";
     if($stmt1 = $conn->prepare($sqldatosc)){
     	$stmt1 -> bind_param('ii',$numcon,$constancianum);
     	$stmt1 -> execute();
     	$stmt1 -> store_result();
     	$rows1 = $stmt1->num_rows;
-    	$stmt1 -> bind_result($id_datosc,$id_tipoconstancia,$id_datos,$fecha_consulta,$id_servicio,$diagnosticoini,$nombresolicitante,$parentesco,$destino,$fecha_extension,$id_medicoc,$medico,$id_jefec,$jefe,$id_jefesocialc,$jefesocial,$id_directorc,$director);
+    	$stmt1 -> bind_result($id_datosc,$id_tipoconstancia,$id_datos,$fecha_consulta,$id_servicio,$diagnosticoini,$nombresolicitante,$parentesco,$destino,$fecha_extension,$id_medicoc,$medico,$id_jefec,$jefe,$id_jefesocialc,$jefesocial,$id_directorc,$director,$estadocon);
     	$stmt1 -> fetch();
     	$stmt1 -> close();
     }
@@ -452,6 +452,12 @@
 	                                    	</div>
 	                                    </div>
                                     </div>
+                                    <div class="row">
+                                    	<div class="col-md-12">
+						         			<a href="javascript:history.back(1)" class="btn btn-info" id="btn-regresar"><i class="fa fa-arrow-left"></i> Regresar</a>
+						         			<?php if($estadocon==1){ ?><a href="javascript:;" class="btn btn-success estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa fa-check"> Aprobado</i></a><?php } else{ ?><a href="javascript:;" class="btn btn-default estado" id="estado<?php echo $id_datosc ?>" data-estado="<?php echo $estadocon; ?>" data-constancia="<?php echo $id_datosc; ?>"><i class="fa "> No Aprobado</i></a><?php } ?>
+						         		</div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -467,5 +473,42 @@
 
  ?>
  <script>
-  
+  $(document).ready(function(){
+
+  	$('.estado').click(function(e){
+			var estado = $(this).data('estado');
+			var id_constancia =  $(this).data('constancia')
+			var idestado = document.getElementById("estado");
+				$.ajax({
+	            url: "../class/secretaria/aprobar.php",
+	            type: 'POST',
+	            data: { 
+	                id_constancia: id_constancia,
+	                estado: estado
+	            },
+	            success: function (data) {
+	            	if(data=='true'){
+	            		if(estado==0){
+	            			$('#estado'+id_constancia).removeClass('btn-default');
+	            			$('#estado'+id_constancia).addClass('btn-success estado');
+	            			$('#estado'+id_constancia).data( 'estado', '1' );
+	            			$('#estado'+id_constancia+' i').addClass('fa-check');
+	            			$('#estado'+id_constancia+' i').html('Aprobado');
+	            		}
+	            		else if(estado==1){
+	            			$('#estado'+id_constancia).removeClass('btn-success');
+	            			$('#estado'+id_constancia).addClass('btn-default estado');
+	            			$('#estado'+id_constancia).data( 'estado', '0' );
+	            			$('#estado'+id_constancia+' i').removeClass('fa-check');
+	            			$('#estado'+id_constancia+' i').html('No Aprobado');
+	            		}
+	            	}
+	            },
+	            error: function () {
+	                alert("UN ERROR HA OCURRIDO");
+	            }
+			});	
+		});
+
+  })
  </script>

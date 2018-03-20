@@ -23,7 +23,7 @@
                     <div class="panel">
                         <div class="panel-body">
                             <div id="titulo">
-                            	<h4>PENDIENTES DE REVISION</h4>
+                            	<h4>SOLICITUDES PENDIENTES DE REVISION</h4>
                             </div>
                             <div id="contenido" class="table-responsive">
                             	<table class="table table-hover table-condensed" id="mitable">
@@ -72,6 +72,6 @@
     include("../core/footer.php");
  ?>
  <script>
- 	$('#revision').addClass('active');
+ 	$('#pendienterevision').addClass('active');
 
  </script>
