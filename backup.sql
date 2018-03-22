@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `datos_complementarios` (
   CONSTRAINT `Fk_dcservicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.datos_complementarios: ~12 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.datos_complementarios: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `datos_complementarios` DISABLE KEYS */;
 INSERT INTO `datos_complementarios` (`id_datosc`, `id_constancia`, `id_datos`, `fecha_consulta`, `id_servicio`, `diagnostico`, `nombre_solicitante`, `parentesco`, `destino`, `fecha_extension`, `id_medico`, `id_jefe`, `id_jefesocial`, `id_director`, `estado`, `fecha_entregada`) VALUES
 	(1, 1, 1, '2017-12-18', 7, 'Miastenia Gravis, ingresando al Servicio de Medicina Tres el mismo día con igual diagnóstico', 'SR. ESTEBAN PINEDA VALCACERES', 'esposo de paciente', 'CORTE SUPREMA DE JUSTICIA', '2018-01-15', 3, 2, 3, 3, 0, NULL),
@@ -392,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `tipo_usuario` (
   PRIMARY KEY (`id_tipousuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.tipo_usuario: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.tipo_usuario: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `tipo_usuario` DISABLE KEYS */;
 INSERT INTO `tipo_usuario` (`id_tipousuario`, `nombre_tipo`) VALUES
 	(1, 'secretaria'),
@@ -420,7 +420,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   CONSTRAINT `FK_utipousuario` FOREIGN KEY (`id_tipousuario`) REFERENCES `tipo_usuario` (`id_tipousuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla ts2.usuario: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla ts2.usuario: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`id_user`, `name`, `user`, `id_status`, `password`, `id_tipousuario`, `id_servicio`) VALUES
 	(1, 'Garrido Irene', 'secre', 1, '202cb962ac59075b964b07152d234b70', 1, 1),
