@@ -35,20 +35,22 @@ require('conversor.php');
  $firmasFC3 = array();
  $firmasFC4 = array();
 
-     $id_datosi = $_GET['contancianum'];
+ $aprob = "VoBo"; // visto bueno solicitado, debe llevarlo por peticion de jefes
 
-            $sql1 = "SELECT dc.id_medico, dc.id_jefe, dc.id_jefesocial, dc.id_director, dc.destino, dc.fecha_consulta, dc.diagnostico, dc.nombre_solicitante, dc.parentesco, dc.fecha_extension, di.nombre_paciente, di.afiliacion_dui, sv.nombre_servicio, dca.fecha_de_alta, dca.diagnostico FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_const_alta dca ON dc.id_datosc=dca.id_datosc WHERE di.id_datos=?";
+     $id_datosi = $_GET['contancianum'];
+            //consulta sql para obetener los datos necesarios de la constancia
+            $sql1 = "SELECT dc.id_medico, dc.id_jefe, dc.id_jefesocial, dc.id_director, dc.destino, dc.fecha_consulta, dc.diagnostico, dc.nombre_solicitante, dc.parentesco, dc.fecha_extension, di.nombre_paciente, di.afiliacion_dui, sv.nombre_servicio, dca.fecha_de_alta, dca.diagnostico, dc.estado FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_const_alta dca ON dc.id_datosc=dca.id_datosc WHERE di.id_datos=?";
             if($stmalta = $conn->prepare($sql1)){
                 $stmalta -> bind_param('i',$id_datosi);
                 $stmalta -> execute();
                 $stmalta -> store_result();
                 $rowsalta = $stmalta->num_rows;
-                $stmalta -> bind_result($idmedicoA,$idjefeservicioA,$idjefesocialA,$iddirectorA,$destinoA,$fecha_consultaA,$diagnosticodcA,$nombre_solicitanteA,$parentescoA,$fecha_extensionA,$nombre_pacienteA,$afiliacion_duiA,$nombre_servicioA,$fecha_altaA,$diagnosticoaltaA);                
+                $stmalta -> bind_result($idmedicoA,$idjefeservicioA,$idjefesocialA,$iddirectorA,$destinoA,$fecha_consultaA,$diagnosticodcA,$nombre_solicitanteA,$parentescoA,$fecha_extensionA,$nombre_pacienteA,$afiliacion_duiA,$nombre_servicioA,$fecha_altaA,$diagnosticoaltaA,$estadoA);                
             }
             
             if($rowsalta>0){                
                 while ($stmalta->fetch()) {
-                    $sqlopc = "SELECT mt.nombre FROM medico_tratante mt WHERE id_medico=?";
+                    $sqlopc = "SELECT mt.nombre FROM medico_tratante mt WHERE id_medico=?";//obtener nombre medico mediante id
                     if($stmopc = $conn->prepare($sqlopc)){
                         $stmopc -> bind_param('i',$idmedicoA);
                         $stmopc -> execute();
@@ -56,7 +58,7 @@ require('conversor.php');
                         $rowsopc = $stmopc->num_rows;
                         $stmopc -> bind_result($nombremedico);                        
                     }
-                    $sqlopc2 = "SELECT js.nombre FROM jefe_Servicio js WHERE id_jefe=?";
+                    $sqlopc2 = "SELECT js.nombre FROM jefe_Servicio js WHERE id_jefe=?";//obtener nombre jefe de servicio mediante id
                     if($stmopc2 = $conn->prepare($sqlopc2)){
                         $stmopc2 -> bind_param('i',$idjefeservicioA);
                         $stmopc2 -> execute();
@@ -64,7 +66,7 @@ require('conversor.php');
                         $rowsopc2 = $stmopc2->num_rows;
                         $stmopc2 -> bind_result($nombrejefeservicio);                        
                     }
-                    $sqlopc3 = "SELECT jts.nombre FROM jefe_trabajo_social jts WHERE id_jefesocial=?";
+                    $sqlopc3 = "SELECT jts.nombre FROM jefe_trabajo_social jts WHERE id_jefesocial=?";//obtener nombre jefe trabajo social mediante id
                     if($stmopc3 = $conn->prepare($sqlopc3)){
                         $stmopc3 -> bind_param('i',$idjefesocialA);
                         $stmopc3 -> execute();
@@ -72,7 +74,7 @@ require('conversor.php');
                         $rowsopc3 = $stmopc3->num_rows;
                         $stmopc3 -> bind_result($nombrejefesocial);                        
                     }
-                    $sqlopc4 = "SELECT d.nombre FROM director d WHERE id_director=?";
+                    $sqlopc4 = "SELECT d.nombre FROM director d WHERE id_director=?";//obtener nombre director mediante id
                     if($stmopc4 = $conn->prepare($sqlopc4)){
                         $stmopc4 -> bind_param('i',$iddirectorA);
                         $stmopc4 -> execute();
@@ -109,7 +111,11 @@ require('conversor.php');
                             $cantfirmasA[] = 4;
                             $firmasA[] = "$nombremedico,$nombrejefeservicio";
                             $firmasA2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasA3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoA==1){
+                                $firmasA3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";    
+                            }else{
+                                $firmasA3[] = "$nombrejefesocial,$nombredirector";    
+                            }                            
                             $firmasA4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -121,7 +127,11 @@ require('conversor.php');
                             $cantfirmasA[] = 3;
                             $firmasA[] = "$nombremedico,$nombrejefeservicio";
                             $firmasA2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasA3[] = "$nombrejefesocial, ";
+                            if($estadoA==1){
+                                $firmasA3[] = "$nombrejefesocial"."\t\t$aprob".", ";    
+                            }else{
+                                $firmasA3[] = "$nombrejefesocial, ";
+                            }                            
                             $firmasA4[] = "Jefe Trabajo Social, ";
                         }
                     }
@@ -130,7 +140,11 @@ require('conversor.php');
                             $cantfirmasA[] = 3;
                             $firmasA[] = "$nombremedico, ";
                             $firmasA2[] = "Médico Tratante, ";
-                            $firmasA3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoA==1){
+                                $firmasA3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";    
+                            }else{
+                                $firmasA3[] = "$nombrejefesocial,$nombredirector";
+                            }                            
                             $firmasA4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -138,7 +152,7 @@ require('conversor.php');
                         while (($stmopc->fetch()) && ($stmopc2->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasA[] = 3;
                             $firmasA[] = "$nombremedico,$nombrejefeservicio";
-                            $firmasA2[] = "Médico Tratante,Jefe de Servicio";
+                            $firmasA2[] = "Médico Tratante,Jefe de Servicio"; 
                             $firmasA3[] = "$nombredirector, ";
                             $firmasA4[] = "Director Hospital General, ";
                         }
@@ -148,7 +162,11 @@ require('conversor.php');
                             $cantfirmasA[]=3;
                             $firmasA[] = "$nombrejefeservicio, ";
                             $firmasA2[] = "Jefe de Servicio, ";
-                            $firmasA3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoA==1){
+                                $firmasA3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";    
+                            }else{
+                                $firmasA3[] = "$nombrejefesocial,$nombredirector";    
+                            }                             
                             $firmasA4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -165,7 +183,11 @@ require('conversor.php');
                     if(($rowsopc>0) && ($rowsopc3>0)){
                         while (($stmopc->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasA[] = 2;
-                            $firmasA[] = "$nombremedico,$nombrejefesocial";
+                            if($estadoA==1){
+                                $firmasA[] = "$nombremedico,$nombrejefesocial"."\t\t$aprob";    
+                            }else{
+                                $firmasA[] = "$nombremedico,$nombrejefesocial";
+                            }                            
                             $firmasA2[] = "Médico Tratante,Jefe Trabajo Social";
                         }
                     }
@@ -179,14 +201,22 @@ require('conversor.php');
                     if(($rowsopc3>0) && ($rowsopc4>0)){
                         while (($stmopc3->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasA[] = 2;
-                            $firmasA[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoA==1){
+                                $firmasA[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";    
+                            }else{
+                                $firmasA[] = "$nombrejefesocial,$nombredirector";    
+                            }
                             $firmasA2[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
                     if(($rowsopc2>0) && ($rowsopc3>0)){
                         while (($stmopc2->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasA[] = 2;
-                            $firmasA[] = "$nombrejefeservicio,$nombrejefesocial";
+                            if($estadoA==1){
+                                $firmasA[] = "nombrejefeservicio,$nombrejefesocial"."\t\t$aprob";    
+                            }else{
+                                $firmasA[] = "$nombrejefeservicio,$nombrejefesocial";    
+                            }                            
                             $firmasA2[] = "Jefe de Servicio,Jefe Trabajo Social";                            
                         }
                     }
@@ -216,9 +246,13 @@ require('conversor.php');
                     }
                     if($rowsopc3>0 ){
                         while ($stmopc3->fetch()) {
-                           $cantfirmasA[] = 1;                           
-                            $firmasA[] = "$nombrejefesocial, ";
-                            $firmasA2[] = "Jefe Trabajo Social, ";
+                           $cantfirmasA[] = 1;   
+                           if($estadoA==1){
+                                $firmasA[] = "$nombrejefesocial"."\t\t$aprob".", ";
+                           }else{                        
+                                $firmasA[] = "$nombrejefesocial, ";
+                           }
+                           $firmasA2[] = "Jefe Trabajo Social, ";
                         }
                     }
                     if($rowsopc4>0){
@@ -236,13 +270,13 @@ require('conversor.php');
             
 
 
-            $sql2 = "SELECT dc.id_medico, dc.id_jefe, dc.id_jefesocial, dc.id_director, dc.destino, dc.fecha_consulta, dc.diagnostico, dc.nombre_solicitante, dc.parentesco, dc.fecha_extension, di.nombre_paciente, di.afiliacion_dui, sv.nombre_servicio,  dci.diagnostico FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_const_ingreso dci ON dc.id_datosc=dci.id_datosc WHERE di.id_datos=?";
+            $sql2 = "SELECT dc.id_medico, dc.id_jefe, dc.id_jefesocial, dc.id_director, dc.destino, dc.fecha_consulta, dc.diagnostico, dc.nombre_solicitante, dc.parentesco, dc.fecha_extension, di.nombre_paciente, di.afiliacion_dui, sv.nombre_servicio, dci.diagnostico, dc.estado FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_const_ingreso dci ON dc.id_datosc=dci.id_datosc WHERE di.id_datos=?";
             if($stmaing = $conn->prepare($sql2)){
                 $stmaing -> bind_param('i',$id_datosi);
                 $stmaing -> execute();
                 $stmaing -> store_result();
                 $rowsing = $stmaing->num_rows;
-                $stmaing -> bind_result($idmedicoI,$idjefeservicioI,$idjefesocialI,$iddirectorI,$destinoI,$fecha_consultaI,$diagnosticoingresadoI,$nombre_solicitanteI,$parentescoI,$fecha_extensionI,$nombre_pacienteI,$afiliacion_duiI,$nombre_servicioI,$diagnosticoactualI);                
+                $stmaing -> bind_result($idmedicoI,$idjefeservicioI,$idjefesocialI,$iddirectorI,$destinoI,$fecha_consultaI,$diagnosticoingresadoI,$nombre_solicitanteI,$parentescoI,$fecha_extensionI,$nombre_pacienteI,$afiliacion_duiI,$nombre_servicioI,$diagnosticoactualI,$estadoI);                
             }
                       
             if($rowsing>0){                
@@ -303,7 +337,11 @@ require('conversor.php');
                             $cantfirmasI[] = 4;
                             $firmasI[] = "$nombremedico,$nombrejefeservicio";
                             $firmasI2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasI3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoI==1){
+                                $firmasI3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                            }else{
+                                $firmasI3[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasI4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -315,7 +353,11 @@ require('conversor.php');
                             $cantfirmasI[] = 3;
                             $firmasI[] = "$nombremedico,$nombrejefeservicio";
                             $firmasI2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasI3[] = "$nombrejefesocial, ";
+                            if($estadoI==1){
+                                $firmasI3[] = "$nombrejefesocial"."\t\t$aprob".", ";
+                            }else{
+                                $firmasI3[] = "$nombrejefesocial, ";
+                            }
                             $firmasI4[] = "Jefe Trabajo Social, ";
                         }
                     }
@@ -324,7 +366,11 @@ require('conversor.php');
                             $cantfirmasI[] = 3;
                             $firmasI[] = "$nombremedico, ";
                             $firmasI2[] = "Médico Tratante, ";
-                            $firmasI3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoI==1){
+                                $firmasI3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                            }else{
+                                $firmasI3[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasI4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -342,7 +388,11 @@ require('conversor.php');
                             $cantfirmasI[]=3;
                             $firmasI[] = "$nombrejefeservicio, ";
                             $firmasI2[] = "Jefe de Servicio, ";
-                            $firmasI3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoI==1){
+                                $firmasI3[] = "$nombrejefesocial"."\t\t$aprob"."$nombredirector";
+                            }else{
+                                $firmasI3[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasI4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -359,7 +409,11 @@ require('conversor.php');
                     if(($rowsopc>0) && ($rowsopc3>0)){
                         while (($stmopc->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasI[] = 2;
-                            $firmasI[] = "$nombremedico,$nombrejefesocial";
+                            if($estadoI==1){
+                                $firmasI[] = "$nombremedico, $nombrejefesocial"."\t\t$aprob";
+                            }else{
+                                $firmasI[] = "$nombremedico,$nombrejefesocial";
+                            }
                             $firmasI2[] = "Médico Tratante,Jefe Trabajo Social";
                         }
                     }
@@ -373,14 +427,22 @@ require('conversor.php');
                     if(($rowsopc3>0) && ($rowsopc4>0)){
                         while (($stmopc3->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasI[] = 2;
-                            $firmasI[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoI==1){
+                                $firmasI[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                            }else{
+                                $firmasI[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasI2[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
                     if(($rowsopc2>0) && ($rowsopc3>0)){
                         while (($stmopc2->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasI[] = 2;
-                            $firmasI[] = "$nombrejefeservicio,$nombrejefesocial";
+                            if($estadoI==1){
+                                $firmasI[]= "$nombrejefeservicio,$nombrejefesocial"."\t\t$aprob";
+                            }else{
+                                $firmasI[] = "$nombrejefeservicio,$nombrejefesocial";
+                            }
                             $firmasI2[] = "Jefe de Servicio,Jefe Trabajo Social";                            
                         }
                     }
@@ -410,8 +472,12 @@ require('conversor.php');
                     }
                     if($rowsopc3>0 ){
                         while ($stmopc3->fetch()) {
-                           $cantfirmasI[] = 1;                           
-                            $firmasI[] = "$nombrejefesocial, ";
+                           $cantfirmasI[] = 1;  
+                           if($estadoI==1){
+                                $firmasI[] = "$nombrejefesocial"."\t\t$aprob".", ";
+                           }else{                         
+                                $firmasI[] = "$nombrejefesocial, ";
+                           }
                             $firmasI2[] = "Jefe Trabajo Social, ";
                         }
                     }
@@ -432,13 +498,13 @@ require('conversor.php');
 
 
 
-            $sql3 = "SELECT dc.id_medico, dc.id_jefe, dc.id_jefesocial, dc.id_director, dc.destino, dc.fecha_consulta, dc.diagnostico, dc.nombre_solicitante, dc.parentesco, dc.fecha_extension, di.nombre_paciente, di.afiliacion_dui, sv.nombre_servicio,  dcf.fecha_defuncion, dcf.diagnostico FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_const_fallecimiento dcf ON dc.id_datosc=dcf.id_datosc WHERE di.id_datos=?";
+            $sql3 = "SELECT dc.id_medico, dc.id_jefe, dc.id_jefesocial, dc.id_director, dc.destino, dc.fecha_consulta, dc.diagnostico, dc.nombre_solicitante, dc.parentesco, dc.fecha_extension, di.nombre_paciente, di.afiliacion_dui, sv.nombre_servicio,  dcf.fecha_defuncion, dcf.diagnostico, dc.estado FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_const_fallecimiento dcf ON dc.id_datosc=dcf.id_datosc WHERE di.id_datos=?";
             if($stmfall = $conn->prepare($sql3)){
                 $stmfall -> bind_param('i',$id_datosi);
                 $stmfall -> execute();
                 $stmfall -> store_result();
                 $rowsfall = $stmfall->num_rows;
-                $stmfall -> bind_result($idmedicoF,$idjefeservicioF,$idjefesocialF,$iddirectorF,$destinoF,$fecha_consultaF,$diagnosticodcF,$nombre_solicitanteF,$parentescoF,$fecha_extensionF,$nombre_pacienteF,$afiliacion_duiF,$nombre_servicioF,$fecha_defuncionF,$diagnostico_defuncionF);
+                $stmfall -> bind_result($idmedicoF,$idjefeservicioF,$idjefesocialF,$iddirectorF,$destinoF,$fecha_consultaF,$diagnosticodcF,$nombre_solicitanteF,$parentescoF,$fecha_extensionF,$nombre_pacienteF,$afiliacion_duiF,$nombre_servicioF,$fecha_defuncionF,$diagnostico_defuncionF,$estadoF);
             }
         
             if($rowsfall>0){                
@@ -503,7 +569,11 @@ require('conversor.php');
                             $cantfirmasF[] = 4;
                             $firmasF[] = "$nombremedico,$nombrejefeservicio";
                             $firmasF2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasF3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoF==1){
+                                $firmasF3[] = "$nombrejefesocial"."\t\t$aprob".", $nombredirector";
+                            }else{
+                                $firmasF3[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasF4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -515,7 +585,11 @@ require('conversor.php');
                             $cantfirmasF[] = 3;
                             $firmasF[] = "$nombremedico,$nombrejefeservicio";
                             $firmasF2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasF3[] = "$nombrejefesocial, ";
+                            if($estadoF==1){
+                                $firmasF3[] = "$nombrejefesocial"."\t\t$aprob".", ";
+                            }else{
+                                $firmasF3[] = "$nombrejefesocial, ";
+                            }
                             $firmasF4[] = "Jefe Trabajo Social, ";
                         }
                     }
@@ -524,7 +598,11 @@ require('conversor.php');
                             $cantfirmasF[] = 3;
                             $firmasF[] = "$nombremedico, ";
                             $firmasF2[] = "Médico Tratante, ";
-                            $firmasF3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoF==1){
+                                $firmasF3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                            }else{
+                                $firmasF3[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasF4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -542,7 +620,11 @@ require('conversor.php');
                             $cantfirmasF[]=3;
                             $firmasF[] = "$nombrejefeservicio, ";
                             $firmasF2[] = "Jefe de Servicio, ";
-                            $firmasF3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoF==1){
+                                $firmasF3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";                                
+                            }else{
+                                $firmasF3[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasF4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -559,7 +641,11 @@ require('conversor.php');
                     if(($rowsopc>0) && ($rowsopc3>0)){
                         while (($stmopc->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasF[] = 2;
-                            $firmasF[] = "$nombremedico,$nombrejefesocial";
+                            if($estadoF==1){
+                                $firmasF[] = "$nombremedico,$nombrejefesocial"."\t\t$aprob";
+                            }else{
+                                $firmasF[] = "$nombremedico,$nombrejefesocial";
+                            }
                             $firmasF2[] = "Médico Tratante,Jefe Trabajo Social";
                         }
                     }
@@ -573,14 +659,22 @@ require('conversor.php');
                     if(($rowsopc3>0) && ($rowsopc4>0)){
                         while (($stmopc3->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasF[] = 2;
-                            $firmasF[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoF==1){
+                                $firmasF[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                            }else{
+                                $firmasF[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasF2[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
                     if(($rowsopc2>0) && ($rowsopc3>0)){
                         while (($stmopc2->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasF[] = 2;
-                            $firmasF[] = "$nombrejefeservicio,$nombrejefesocial";
+                            if($estadoF==1){
+                                $firmasF[] = "$nombrejefeservicio,$nombrejefesocial"."\t\t$aprob";
+                            }else{
+                                $firmasF[] = "$nombrejefeservicio,$nombrejefesocial";
+                            }
                             $firmasF2[] = "Jefe de Servicio,Jefe Trabajo Social";                            
                         }
                     }
@@ -610,8 +704,12 @@ require('conversor.php');
                     }
                     if($rowsopc3>0 ){
                         while ($stmopc3->fetch()) {
-                           $cantfirmasF[] = 1;                           
-                            $firmasF[] = "$nombrejefesocial, ";
+                           $cantfirmasF[] = 1;      
+                           if($estadoF==1){
+                                $firmasF[] = "$nombrejefesocial"."\t\t$aprob";
+                           }else{
+                                $firmasF[] = "$nombrejefesocial, ";
+                           }
                             $firmasF2[] = "Jefe Trabajo Social, ";
                         }
                     }
@@ -630,13 +728,13 @@ require('conversor.php');
 
             
 
-            $sql4 = "SELECT dc.id_medico, dc.id_jefe, dc.id_jefesocial, dc.id_director, dc.destino, dc.fecha_consulta, dc.diagnostico, dc.nombre_solicitante, dc.parentesco, dc.fecha_extension, di.nombre_paciente, di.afiliacion_dui, sv.nombre_servicio,  dcfc.fecha_de_alta, dcfc.fecha_defun_ext, dcfc.lugar_de_extension, dcfc.fecha_fallecimiento FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_const_fallecimiento_casa dcfc ON dc.id_datosc=dcfc.id_datosc WHERE di.id_datos=?";
+            $sql4 = "SELECT dc.id_medico, dc.id_jefe, dc.id_jefesocial, dc.id_director, dc.destino, dc.fecha_consulta, dc.diagnostico, dc.nombre_solicitante, dc.parentesco, dc.fecha_extension, di.nombre_paciente, di.afiliacion_dui, sv.nombre_servicio,  dcfc.fecha_de_alta, dcfc.fecha_defun_ext, dcfc.lugar_de_extension, dcfc.fecha_fallecimiento, dc.estado FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_const_fallecimiento_casa dcfc ON dc.id_datosc=dcfc.id_datosc WHERE di.id_datos=?";
             if($stmfallcasa = $conn->prepare($sql4)){
                 $stmfallcasa -> bind_param('i',$id_datosi);
                 $stmfallcasa -> execute();
                 $stmfallcasa -> store_result();
                 $rowsfallcasa = $stmfallcasa->num_rows;
-                $stmfallcasa -> bind_result($idmedicoFC,$idjefeservicioFC,$idjefesocialFC,$iddirectorFC,$destinoFC,$fecha_consultaFC,$diagnosticodcFC,$nombre_solicitanteFC,$parentescoFC,$fecha_extensionFC,$nombre_pacienteFC,$afiliacion_duiFC,$nombre_servicioFC,$fecha_altaFC,$fecha_defun_extFC,$lugar_extFC,$fecha_fallecimientoFC);
+                $stmfallcasa -> bind_result($idmedicoFC,$idjefeservicioFC,$idjefesocialFC,$iddirectorFC,$destinoFC,$fecha_consultaFC,$diagnosticodcFC,$nombre_solicitanteFC,$parentescoFC,$fecha_extensionFC,$nombre_pacienteFC,$afiliacion_duiFC,$nombre_servicioFC,$fecha_altaFC,$fecha_defun_extFC,$lugar_extFC,$fecha_fallecimientoFC,$estadoFC);
             }
           
             if($rowsfallcasa>0){                
@@ -709,7 +807,11 @@ require('conversor.php');
                             $cantfirmasFC[] = 4;
                             $firmasFC[] = "$nombremedico,$nombrejefeservicio";
                             $firmasFC2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasFC3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoFC==1){
+                                $firmasFC3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                            }else{
+                                $firmasFC3[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasFC4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -721,7 +823,11 @@ require('conversor.php');
                             $cantfirmasFC[] = 3;
                             $firmasFC[] = "$nombremedico,$nombrejefeservicio";
                             $firmasFC2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasFC3[] = "$nombrejefesocial, ";
+                            if($estadoFC==1){
+                                $firmasFC3[] = "$nombrejefesocial"."\t\t$aprob".", ";
+                            }else{
+                                $firmasFC3[] = "$nombrejefesocial, ";
+                            }
                             $firmasFC4[] = "Jefe Trabajo Social, ";
                         }
                     }
@@ -730,7 +836,11 @@ require('conversor.php');
                             $cantfirmasFC[] = 3;
                             $firmasFC[] = "$nombremedico, ";
                             $firmasFC2[] = "Médico Tratante, ";
-                            $firmasFC3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoFC==1){
+                                $firmasFC3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                            }else{
+                                $firmasFC3[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasFC4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -748,7 +858,11 @@ require('conversor.php');
                             $cantfirmasFC[] = 3;
                             $firmasFC[] = "$nombrejefeservicio, ";
                             $firmasFC2[] = "Jefe de Servicio, ";
-                            $firmasFC3[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoFC==1){
+                                $firmasFC3[] = "$nombrejefesocial"."\t\t$aprob"."$nombredirector";
+                            }else{
+                                $firmasFC3[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasFC4[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
@@ -765,7 +879,11 @@ require('conversor.php');
                     if(($rowsopc>0) && ($rowsopc3>0)){
                         while (($stmopc->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasFC[] = 2;
-                            $firmasFC[] = "$nombremedico,$nombrejefesocial";
+                            if($estadoFC==1){
+                                $firmasFC[] = "$nombremedico,$nombrejefesocial"."\t\t$aprob";
+                            }else{
+                                $firmasFC[] = "$nombremedico,$nombrejefesocial";
+                            }
                             $firmasFC2[] = "Médico Tratante,Jefe Trabajo Social";
                         }
                     }
@@ -779,14 +897,22 @@ require('conversor.php');
                     if(($rowsopc3>0) && ($rowsopc4>0)){
                         while (($stmopc3->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasFC[] = 2;
-                            $firmasFC[] = "$nombrejefesocial,$nombredirector";
+                            if($estadoFC==1){
+                                $firmasFC[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                            }else{
+                                $firmasFC[] = "$nombrejefesocial,$nombredirector";
+                            }
                             $firmasFC2[] = "Jefe Trabajo Social,Director Hospital General";
                         }
                     }
                     if(($rowsopc2>0) && ($rowsopc3>0)){
                         while (($stmopc2->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasFC[] = 2;
-                            $firmasFC[] = "$nombrejefeservicio,$nombrejefesocial";
+                            if($estadoFC==1){
+                                $firmasFC[] = "$nombrejefeservicio,$nombrejefesocial"."\t\t$aprob";
+                            }else{
+                                $firmasFC[] = "$nombrejefeservicio,$nombrejefesocial";
+                            }
                             $firmasFC2[] = "Jefe de Servicio,Jefe Trabajo Social";                            
                         }
                     }
@@ -816,8 +942,12 @@ require('conversor.php');
                     }
                     if($rowsopc3>0 ){
                         while ($stmopc3->fetch()) {
-                           $cantfirmasFC[] = 1;                           
-                            $firmasFC[] = "$nombrejefesocial, ";
+                           $cantfirmasFC[] = 1;  
+                           if($estadoFC==1){
+                            $firmasFC[] = "$nombrejefesocial"."\t\t$aprob".", ";
+                           }else{                         
+                                $firmasFC[] = "$nombrejefesocial, ";
+                           }
                             $firmasFC2[] = "Jefe Trabajo Social, ";
                         }
                     }
@@ -838,14 +968,13 @@ require('conversor.php');
 
 			    //Page header
 			    public function Header() {
-
-			    	$id_soli = $_GET['contancianum'];
+			    	
 			    	// Set font
 			        $this->SetFont('arialblack', 'B', 12);			        
 			        $this->Image('../../assets/pdf/img/logoseguro.jpg',30, 5, 25, 25);			        
 			        // Título
 			        $this->Cell(30);
-			        $this->MultiCell(0,5,"INSTITUTO SALVADOREÑO"."\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".$id_soli,0,'L');
+			        $this->MultiCell(0,5,"INSTITUTO SALVADOREÑO",0,'L');
 			        //$this->MultiCell(0,5,$id_soli,0,'R');
 			        $this->Cell(30);
 			        $this->MultiCell(0,5,"DEL SEGURO SOCIAL",0,'L');
@@ -860,16 +989,19 @@ require('conversor.php');
 
 			    // Page footer
 			    public function Footer() {
+                    $id_soli = $_GET['contancianum'];
 			        // Position at 20 mm from bottom
 			        $this->SetY(-20);
 			        // Set font
 			        $this->Image('../../assets/pdf/img/footer.png',null, null, 170, 1);
 			        $this->SetFont('arialblack','B',12);
-			        $this->MultiCell(0,5,'"Con una visión más humana al servicio integral de su salud"',0,"C");
+			        $this->MultiCell(0,5,"Con una visión más humana al servicio integral de su salud",0,"C");
 			        $this->SetFont('arialnarrow','',12);
-			        $this->MultiCell(0,5,'"Alameda Juan Pablo II y 25  Avenida Norte Tel.  2591 4240"',0,"C");
+			        $this->MultiCell(0,5,"Alameda Juan Pablo II y 25  Avenida Norte Tel.  2591 4240",0,"C");
 			        $this->SetFont('arialnarrowb','BU',10);
 			        $this->MultiCell(0,5,"email@isss.gob.sv",0,"C");
+                    $this->SetFont('arialblack','B',8);
+                    $this->MultiCell(0,5,$id_soli,0,"R");
 			    }
 
 			    function ImprovedTable($data)

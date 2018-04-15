@@ -37,8 +37,10 @@
     <meta hhtp-equiv="Content-type" content="text/html; charset=utf-8" />
 </head>
 <body style="text-align: center">
-    <div style="font-family: 'Times New Roman', Times, serif; font-size:12; font-style: inherit; color: #A9A9A9; text-align: center;"></div>
-    <p><strong>CONTROL DE CONSTANCIAS CANCELADAS - HOSPITAL GENERAL</strong></p>
+    <div style="font-family: 'Times New Roman', Times, serif; font-size:16; font-style: inherit; color: #000000; text-align: center;">
+        <p><strong>CONTROL DE CONSTANCIAS CANCELADAS - HOSPITAL GENERAL</strong></p>
+    </div>
+    
 
 <table border="1" cellpadding="0" cellspacing="0">
     <th bgcolor="#A9A9A9" height="75" style="color:#000000">Fecha</th>

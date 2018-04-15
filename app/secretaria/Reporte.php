@@ -181,7 +181,7 @@
 		                                                <td class="text-left"><?php echo $afiliacion ?></td>
                                                         <td class="text-left"><?php echo $destino ?></td>
                                                         <td class="text-left"><?php echo $cantidad ?></td>
-                                                        <td class="text-left"><?php echo $total ?></td>		                                                
+                                                        <td class="text-left"><?php echo "$".$total ?></td>		                                                
 													<?php	$monto= $monto + $total; ?>
 		                                                </tr>    		                                        
 		                                            <?php
@@ -194,7 +194,7 @@
 		                                                <td class="text-left"></td>
 		                                                <td class="text-left"></td>
 		                                                <td class="text-left"></td>
-		                                                <td class="text-center"><strong><?php echo $monto ?></strong></td>
+		                                                <td class="text-center"><strong><?php echo "$".$monto ?></strong></td>
 		                                            	</tr>
 		                                            <?php
 		                                            }else{?>	
