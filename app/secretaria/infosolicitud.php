@@ -305,13 +305,25 @@
                         id_solicitud: id_solicitud
                     },
                     success: function (data) {
-                        swal({
-                            title: "Solicitud finalizada con exito!",
-                            icon: "success",
-                        })
-                            .then((value) => {
-                              location.href ="pendienterevision.php";
-                        });                      
+                    	if(data=='true'){
+                    		swal({
+	                            title: "Solicitud finalizada con exito!",
+	                            icon: "success",
+	                        })
+	                        .then((value) => {
+	                            location.href ="pendienterevision.php";
+	                        }); 
+                    	}
+                    	if(data=='aprobar'){
+                    		swal({
+	                            title: "Faltan constancias por ser aprobadas",
+	                            icon: "info",
+	                        })
+	                        .then((value) => {
+	                
+	                        }); 
+                    	}
+                                             
                     },
                     error: function () {
                         alert("UN ERROR HA OCURRIDO");

@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
         <!-- FIN PLUGINS -->
-
+        
         <!-- ESTILOS  -->
         <link rel="stylesheet" href="assets/css/main.css">
         <link rel="stylesheet" href="assets/css/style.css">
