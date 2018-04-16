@@ -31,13 +31,13 @@
                             			<div class="col-md-4">
 	                            			<div class="form-group">
 	                                        	<label>Fecha</label>
-	                                        	<input class="form-control fecha" type="text" placeholder="fecha" name="fecha" required="" data-date-end-date="0d" autocomplete="off">  
+	                                        	<input class="form-control fecha" type="text" placeholder="fecha" name="fecha" id="fecha" required="" data-date-end-date="0d" autocomplete="off">  
 	                                    	</div>
                             			</div>
 	                                    <div class="col-md-4 col-md-offset-1">
 	                                    	<div class="form-group">
 	                                        	<label>N# Recibo</label>
-	                                        	<input class="form-control" type="text" placeholder="Numero de Recibo" name="recibo" required="" pattern="[0-9]{1,5}" title="Solo digitos, maximo 5">
+	                                        	<input class="form-control" type="text" placeholder="Numero de Recibo" name="recibo" id="recibo" required="" pattern="[0-9]{1,5}" title="Solo digitos, maximo 5">
 	                                    	</div>
 	                                    </div>
                             		</div>
@@ -45,13 +45,13 @@
                             			<div class="col-md-4">
 	                                    	<div class="form-group">
 	                                        	<label>N# Afiliacion/DUI</label>
-	                                        	<input class="form-control" type="text" placeholder="Numero de Afiliacion/DUI" name="afiliacion" required="" pattern="[0-9]{9}" title="Debe contener 9 digitos sin guiones o espacios">
+	                                        	<input class="form-control" type="text" placeholder="Numero de Afiliacion/DUI" name="afiliacion" id="afiliacion" required="" pattern="[0-9]{9}" title="Debe contener 9 digitos sin guiones o espacios">
 	                                    	</div>
 	                                    </div>
 	                                    <div class="col-md-4 col-md-offset-1">
 	                                    	<div class="form-group">
 	                                        	<label>Nombre del paciente</label>
-	                                        	<input class="form-control" type="text" placeholder="Nombre del paciente" name="nombrepaciente" required="" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,100}" title="Solo debe contener letras mayusculas o minusculas y al menos 3 caracteres">
+	                                        	<input class="form-control" type="text" placeholder="Nombre del paciente" name="nombrepaciente" id="nombrepaciente" required="" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,100}" title="Solo debe contener letras mayusculas o minusculas y al menos 3 caracteres">
 	                                    	</div>
 	                                    </div>
                             		</div>
@@ -59,7 +59,7 @@
                             			<div class="col-md-4">
 	                                    	<div class="form-group">
 	                                        	<label>Constancia a presentar en</label>
-	                                        	<input class="form-control" type="text" placeholder="Constancia a presentar en" name="lugarpresentar" required="" >
+	                                        	<input class="form-control" type="text" placeholder="Constancia a presentar en" name="lugarpresentar" id="lugarpresentar" required="" >
 	                                    	</div>
                                     	</div>
                             		</div>
@@ -67,7 +67,7 @@
                             			<div class="col-md-4">
 	                                    	<div class="form-group">
 	                                        	<label>Servicio</label>
-	                                        	<select class="form-control miselect" name="servicio" required="">
+	                                        	<select class="form-control miselect" name="servicio" id="servicio" required="">
 	                                        		<option value="" ></option>
 	                                        		<?php 
 	                                        			if($rows > 0){
@@ -85,7 +85,7 @@
 	                                    <div class="col-md-4 col-md-offset-1">
 	                                    	<div class="form-group">
 	                                        	<label>Cantidad</label>
-	                                        	<input class="form-control" type="number" placeholder="Cantidad de constancias" name="cantidad" required="" >
+	                                        	<input class="form-control" type="number" placeholder="Cantidad de constancias" name="cantidad" id="cantidad" required="" >
 	                                    	</div>
 	                                    </div>
                             		</div>
@@ -93,20 +93,20 @@
                                     	<div class="col-md-4 ">
 	                                    	<div class="form-group">
 	                                        	<label>Fecha que se presento</label>
-	                                        	<input class="form-control fecha" type="text" placeholder="Fecha que se presento" name="fechapresento" required="" data-date-end-date="0d">
+	                                        	<input class="form-control fecha" type="text" placeholder="Fecha que se presento" name="fechapresento" id="fechapresento" required="" data-date-end-date="0d">
 	                                    	</div>
 	                                    </div>
 	                                    <div class="col-md-4 col-md-offset-1">
 	                                    	<div class="form-group">
 	                                        	<label>Fecha cancelado solicitud</label>
-	                                        	<input class="form-control fecha" type="text" placeholder="Fecha cancelado solicitud" name="fechacancelado" required="" data-date-end-date="0d">
+	                                        	<input class="form-control fecha" type="text" placeholder="Fecha cancelado solicitud" name="fechacancelado" id="fechacancelado" required="" data-date-end-date="0d">
 	                                    	</div>
 	                                    </div>
                                     </div>
                                     <div class="row">
                                     	<div class="col-md-12">
-	                                    	<button type="submit" name="guardar" class="btn btn-primary">Guardar</button>
-	                                    	<button type="submit" name="guardarenviar" class="btn btn-primary">Guardar y enviar</button>
+	                                    	<button type="submit" name="guardar" id="guardar" class="btn btn-primary">Guardar</button>
+	                                    	<button type="submit" name="guardarenviar" id="guardarenviar" class="btn btn-primary">Guardar y enviar</button>
                                     	</div>
                                     </div>	
                                 </form>
@@ -122,6 +122,36 @@
     include("../core/footer.php");
 
  ?>
+ <?php 
+ 	if ($_GET['estado']) {
+ 		if($_GET['estado']==1){
+ ?>
+	 <script>
+	 	swal({
+		    title: "Solicitud guardada con exito!",
+		    icon: "success",
+		})
+		.then((value) => {
+		    location.href ="crearsolicitud.php";
+		}); 
+	 </script>
+ <?php
+ 		}
+ 		if($_GET['estado']==2){
+ ?>
+	<script>
+	 	swal({
+		    title: "Solicitud enviada exito!",
+		    icon: "success",
+		})
+		.then((value) => {
+		    location.href ="crearsolicitud.php";
+		}); 
+	 </script>
+ <?php
+ 		}
+ 	}
+  ?>
  <script>
  	$('#crearsolicitud').addClass('active');
 	$('.fecha').datepicker({
@@ -140,6 +170,65 @@
 
 	$(document).ready(function(){
 		
+		/*$('.miform').submit(function(e){
+			e.preventDefault();
+			var fecha = $('#fecha').val();
+			var recibo = $('#recibo').val();
+			var afiliacion = $('#afiliacion').val();
+			var nombrepaciente = $('#nombrepaciente').val();
+			var lugarpresentar = $('#lugarpresentar').val();
+			var servicio = $('#servicio').val();
+			var cantidad = $('#cantidad').val();
+			var fechapresento = $('#fechapresento').val();
+			var fechacancelado = $('#fechacancelado').val();
+			var guardar = $('#guardar').val()
+			alert('done');
+			$.ajax({
+	            url: "../class/secretaria/newsolicitud.php",
+	            type: 'POST',
+	            data: { 
+	                fecha = fecha,
+	                recibo = recibo,
+	                afiliacion = afiliacion,
+	                nombrepaciente = nombrepaciente,
+	                lugarpresentar = lugarpresentar,
+	                servicio = servicio,
+	                cantidad = cantidad,
+	                fechapresento = fechapresento,
+	                fechacancelado = fechacancelado
+	            },
+	            success: function (data) {
+	            	if(data=='true'){
+	            		swal({
+                            title: "Solicitud enviada a trabajador social",
+                            icon: "success",
+                        }).then((value) => {
+                              location.href ="crearsolicitud.php";
+                        });	
+	            	}
+	            	if(data=='true2'){
+	            		swal({
+                            title: "Solicitud guardada con exito",
+                            icon: "success",
+                        }).then((value) => {
+                              location.href ="crearsolicitud.php";
+                        });
+	            	}
+	            	else{
+	            		swal({
+                            title: "Un error ha ocurrido!",
+                            icon: "error",
+                        }).then((value) => {
+                              location.reload(true);
+                        });
+	            	}
+	            },
+	            error: function () {
+	                alert("UN ERROR HA OCURRIDO");
+	            }
+			});
+		})*/
+
 	});
 
  </script>

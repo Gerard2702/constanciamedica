@@ -42,7 +42,7 @@ try {
 	$conn->commit();
 	$stmt->close();
 	$conn->close();
-	header("Location:../../secretaria/crearsolicitud.php");
+	header('Location:../../secretaria/crearsolicitud.php?estado='.$id_estado);
 	
 } catch (Exception $e) {
 	$conn->rollback();
