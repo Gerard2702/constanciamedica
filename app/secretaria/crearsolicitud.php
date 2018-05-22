@@ -123,7 +123,7 @@
 
  ?>
  <?php 
- 	if ($_GET['estado']) {
+ 	if (isset($_GET['estado'])) {
  		if($_GET['estado']==1){
  ?>
 	 <script>

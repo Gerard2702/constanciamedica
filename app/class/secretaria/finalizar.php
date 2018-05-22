@@ -18,7 +18,7 @@ try {
 	}
 	$stmtverificar -> close();
 
-	if($estado=='true'){
+	if($ctrl=='true'){
 		$sqlup = "UPDATE datos_iniciales SET id_estado=6 WHERE id_datos=?";
 		$stmt = $conn->prepare($sqlup);
 		$stmt->bind_param('i',$contancianum);

@@ -290,6 +290,7 @@
 
 		$('.finalizar').click(function(){
 			var id_solicitud =  $(this).data('constancia');
+			console.log(id_solicitud)
 			swal({
               title: "Desea finalizar la solicitud?",
               text: "Una vez finalizado no podra hacer modificaciones!",

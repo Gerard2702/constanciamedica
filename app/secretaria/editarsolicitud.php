@@ -34,7 +34,7 @@
             <div class="col-md-5 col-md-offset-1">
             	<div class="form-group">
                 	<label>N# Recibo</label>
-                	<input class="form-control input-sm" type="text" placeholder="Numero de Recibo" name="recibo" required="" pattern="[0-9]{10}" title="Debe contener 10 digitos" autocomplete="off" value="<?php echo $nrecibo; ?>">
+                	<input class="form-control input-sm" type="text" placeholder="Numero de Recibo" name="recibo" required="" pattern="[0-9]{1,5}" title="Solo digitos, maximo 5" autocomplete="off" value="<?php echo $nrecibo; ?>">
                 	<input type="text" name="id_solicitud" readonly="" hidden="" value="<?php echo $id_datos; ?>">
             	</div>
             </div>
