@@ -35,6 +35,7 @@ require('conversor.php');
  $firmasFC3 = array();
  $firmasFC4 = array();
 
+//COMPLETADO CON CAMBIO DE VoBo
  $aprob = "VoBo"; // visto bueno solicitado, debe llevarlo por peticion de jefes
 
      $id_datosi = $_GET['contancianum'];
@@ -98,10 +99,10 @@ require('conversor.php');
                     $destinoA1 = strtoupper($destinoA);
                     $solicitanteA = strtoupper($nombre_solicitanteA);
                     if(empty($parentescoA)){
-                        $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.\n\n\nA solicitud de $solicitanteA ($parentescoA), y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";  
+                        $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.------------------------------------------------------------\n\n\nA solicitud de $solicitanteA ($parentescoA), y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";  
                     }
                     else{
-                        $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.\n\n\nA solicitud de $solicitanteA, y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";  
+                        $textoA[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteA, con número de afiliación $afiliacion_duiA, consultó el día $diaconsulta de  $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioA de este Centro Hospitalario, con diagnóstico $diagnosticodcA; permaneciendo ingresada/o, hasta el día $diaalta de $mesalta de 201$anioalta, fecha de alta con diagnóstico $diagnosticoaltaA.------------------------------------------------------------\n\n\nA solicitud de $solicitanteA, y para ser presentada en $destinoA1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";  
                     }
                     
 
@@ -112,7 +113,7 @@ require('conversor.php');
                             $firmasA[] = "$nombremedico,$nombrejefeservicio";
                             $firmasA2[] = "Médico Tratante,Jefe de Servicio";
                             if($estadoA==1){
-                                $firmasA3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";    
+                                $firmasA3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";    
                             }else{
                                 $firmasA3[] = "$nombrejefesocial,$nombredirector";    
                             }                            
@@ -128,7 +129,7 @@ require('conversor.php');
                             $firmasA[] = "$nombremedico,$nombrejefeservicio";
                             $firmasA2[] = "Médico Tratante,Jefe de Servicio";
                             if($estadoA==1){
-                                $firmasA3[] = "$nombrejefesocial"."\t\t$aprob".", ";    
+                                $firmasA3[] = "$nombrejefesocial, ";    
                             }else{
                                 $firmasA3[] = "$nombrejefesocial, ";
                             }                            
@@ -141,7 +142,7 @@ require('conversor.php');
                             $firmasA[] = "$nombremedico, ";
                             $firmasA2[] = "Médico Tratante, ";
                             if($estadoA==1){
-                                $firmasA3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";    
+                                $firmasA3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";    
                             }else{
                                 $firmasA3[] = "$nombrejefesocial,$nombredirector";
                             }                            
@@ -163,7 +164,7 @@ require('conversor.php');
                             $firmasA[] = "$nombrejefeservicio, ";
                             $firmasA2[] = "Jefe de Servicio, ";
                             if($estadoA==1){
-                                $firmasA3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";    
+                                $firmasA3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";    
                             }else{
                                 $firmasA3[] = "$nombrejefesocial,$nombredirector";    
                             }                             
@@ -184,7 +185,7 @@ require('conversor.php');
                         while (($stmopc->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasA[] = 2;
                             if($estadoA==1){
-                                $firmasA[] = "$nombremedico,$nombrejefesocial"."\t\t$aprob";    
+                                $firmasA[] = "$nombremedico,$nombrejefesocial";    
                             }else{
                                 $firmasA[] = "$nombremedico,$nombrejefesocial";
                             }                            
@@ -194,7 +195,11 @@ require('conversor.php');
                     if(($rowsopc>0) && ($rowsopc4>0)){
                         while (($stmopc->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasA[] = 2;
-                            $firmasA[] = "$nombremedico,$nombredirector";
+                            if($estadoA==1){
+                                $firmasA[] = "$nombremedico, $aprob"."\t\t"."$nombredirector";    
+                            }else{
+                                $firmasA[] = "$nombremedico, $nombredirector";
+                            }                            
                             $firmasA2[] = "Médico Tratante,Director Hospital General";
                         }
                     }
@@ -202,7 +207,7 @@ require('conversor.php');
                         while (($stmopc3->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasA[] = 2;
                             if($estadoA==1){
-                                $firmasA[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";    
+                                $firmasA[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";    
                             }else{
                                 $firmasA[] = "$nombrejefesocial,$nombredirector";    
                             }
@@ -213,7 +218,7 @@ require('conversor.php');
                         while (($stmopc2->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasA[] = 2;
                             if($estadoA==1){
-                                $firmasA[] = "nombrejefeservicio,$nombrejefesocial"."\t\t$aprob";    
+                                $firmasA[] = "nombrejefeservicio,$nombrejefesocial";    
                             }else{
                                 $firmasA[] = "$nombrejefeservicio,$nombrejefesocial";    
                             }                            
@@ -223,7 +228,11 @@ require('conversor.php');
                     if(($rowsopc2>0) && ($rowsopc4>0)){
                         while (($stmopc2->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasA[] = 2;
-                            $firmasA[] = "$nombrejefeservicio,$nombredirector";
+                            if($estadoA==1){
+                                $firmasA[] = "$nombrejefeservicio,$aprob"."\t\t"."$nombredirector";    
+                            }else{
+                                $firmasA[] = "$nombrejefeservicio,$nombredirector";    
+                            }
                             $firmasA2[] = "Jefe de Servicio,Director Hospital General";                            
                         }
                     }
@@ -246,19 +255,19 @@ require('conversor.php');
                     }
                     if($rowsopc3>0 ){
                         while ($stmopc3->fetch()) {
-                           $cantfirmasA[] = 1;   
-                           if($estadoA==1){
-                                $firmasA[] = "$nombrejefesocial"."\t\t$aprob".", ";
-                           }else{                        
-                                $firmasA[] = "$nombrejefesocial, ";
-                           }
+                           $cantfirmasA[] = 1;                              
+                           $firmasA[] = "$nombrejefesocial, ";
                            $firmasA2[] = "Jefe Trabajo Social, ";
                         }
                     }
                     if($rowsopc4>0){
                         while ($stmopc4->fetch()) {
                             $cantfirmasA[] = 1;                            
-                            $firmasA[] = "$nombredirector, ";
+                            if($estadoA==1){
+                                $firmasA[] = "$aprob\t\t$nombredirector, ";
+                            }else{
+                                $firmasA[] = "$nombredirector, ";
+                            }
                             $firmasA2[] = "Director Hospital General, ";
                         }
                     }
@@ -325,9 +334,9 @@ require('conversor.php');
                     $destinoI1 = strtoupper($destinoI);
                     $solicitanteI = strtoupper($nombre_solicitanteI);
                     if(empty($parentescoI)){
-                        $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.\n\n\nA solicitud de $solicitanteI, y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.------------------------------------------------------------\n\n\nA solicitud de $solicitanteI, y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
                     }else{
-                        $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.\n\n\nA solicitud de $solicitanteI ($parentescoI), y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoI[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteI, con número de afiliación $afiliacion_duiI, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioI de este Centro Hospitalario, con diagnóstico $diagnosticoingresadoI; Permanece ingresada /o a la fecha con diagnóstico $diagnosticoactualI.------------------------------------------------------------\n\n\nA solicitud de $solicitanteI ($parentescoI), y para ser presentada en $destinoI1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
                     }
                     
 
@@ -338,7 +347,7 @@ require('conversor.php');
                             $firmasI[] = "$nombremedico,$nombrejefeservicio";
                             $firmasI2[] = "Médico Tratante,Jefe de Servicio";
                             if($estadoI==1){
-                                $firmasI3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                                $firmasI3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasI3[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -353,11 +362,7 @@ require('conversor.php');
                             $cantfirmasI[] = 3;
                             $firmasI[] = "$nombremedico,$nombrejefeservicio";
                             $firmasI2[] = "Médico Tratante,Jefe de Servicio";
-                            if($estadoI==1){
-                                $firmasI3[] = "$nombrejefesocial"."\t\t$aprob".", ";
-                            }else{
-                                $firmasI3[] = "$nombrejefesocial, ";
-                            }
+                            $firmasI3[] = "$nombrejefesocial, ";
                             $firmasI4[] = "Jefe Trabajo Social, ";
                         }
                     }
@@ -367,7 +372,7 @@ require('conversor.php');
                             $firmasI[] = "$nombremedico, ";
                             $firmasI2[] = "Médico Tratante, ";
                             if($estadoI==1){
-                                $firmasI3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                                $firmasI3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasI3[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -379,7 +384,11 @@ require('conversor.php');
                             $cantfirmasI[] = 3;
                             $firmasI[] = "$nombremedico,$nombrejefeservicio";
                             $firmasI2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasI3[] = "$nombredirector, ";
+                            if($estadoI==1){
+                                $firmasI3[] = "$aprob"."\t\t"."$nombredirector, ";
+                            }else{
+                                $firmasI3[] = "$nombredirector, ";
+                            }                            
                             $firmasI4[] = "Director Hospital General, ";
                         }
                     }
@@ -389,7 +398,7 @@ require('conversor.php');
                             $firmasI[] = "$nombrejefeservicio, ";
                             $firmasI2[] = "Jefe de Servicio, ";
                             if($estadoI==1){
-                                $firmasI3[] = "$nombrejefesocial"."\t\t$aprob"."$nombredirector";
+                                $firmasI3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasI3[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -410,7 +419,7 @@ require('conversor.php');
                         while (($stmopc->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasI[] = 2;
                             if($estadoI==1){
-                                $firmasI[] = "$nombremedico, $nombrejefesocial"."\t\t$aprob";
+                                $firmasI[] = "$nombremedico,$nombrejefesocial";
                             }else{
                                 $firmasI[] = "$nombremedico,$nombrejefesocial";
                             }
@@ -420,7 +429,11 @@ require('conversor.php');
                     if(($rowsopc>0) && ($rowsopc4>0)){
                         while (($stmopc->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasI[] = 2;
-                            $firmasI[] = "$nombremedico,$nombredirector";
+                            if($estadoI==1){
+                                $firmasI[] = "$nombremedico,$aprob"."\t\t"."$nombredirector";
+                            }else{
+                                $firmasI[] = "$nombremedico,$nombredirector";
+                            }                            
                             $firmasI2[] = "Médico Tratante,Director Hospital General";
                         }
                     }
@@ -428,7 +441,7 @@ require('conversor.php');
                         while (($stmopc3->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasI[] = 2;
                             if($estadoI==1){
-                                $firmasI[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                                $firmasI[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasI[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -439,7 +452,7 @@ require('conversor.php');
                         while (($stmopc2->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasI[] = 2;
                             if($estadoI==1){
-                                $firmasI[]= "$nombrejefeservicio,$nombrejefesocial"."\t\t$aprob";
+                                $firmasI[]= "$nombrejefeservicio,$nombrejefesocial";
                             }else{
                                 $firmasI[] = "$nombrejefeservicio,$nombrejefesocial";
                             }
@@ -449,7 +462,11 @@ require('conversor.php');
                     if(($rowsopc2>0) && ($rowsopc4>0)){
                         while (($stmopc2->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasI[] = 2;
-                            $firmasI[] = "$nombrejefeservicio,$nombredirector";
+                            if($estadoI==1){
+                                $firmasI[] = "$nombrejefeservicio,$aprob"."\t\t"."$nombredirector";
+                            }else{
+                                $firmasI[] = "$nombrejefeservicio,$nombredirector";
+                            }                            
                             $firmasI2[] = "Jefe de Servicio,Director Hospital General";                            
                         }
                     }
@@ -474,7 +491,7 @@ require('conversor.php');
                         while ($stmopc3->fetch()) {
                            $cantfirmasI[] = 1;  
                            if($estadoI==1){
-                                $firmasI[] = "$nombrejefesocial"."\t\t$aprob".", ";
+                                $firmasI[] = "$nombrejefesocial, ";
                            }else{                         
                                 $firmasI[] = "$nombrejefesocial, ";
                            }
@@ -484,7 +501,11 @@ require('conversor.php');
                     if($rowsopc4>0){
                         while ($stmopc4->fetch()) {
                             $cantfirmasI[] = 1;                            
-                            $firmasI[] = "$nombredirector, ";
+                            if($estadoI==1){
+                                $firmasI[] = "$aprob"."\t\t"."$nombredirector, ";
+                            }else{
+                                $firmasI[] = "$nombredirector, ";
+                            }                            
                             $firmasI2[] = "Director Hospital General, ";
                         }
                     }
@@ -557,9 +578,9 @@ require('conversor.php');
                     $destinoF1 = strtoupper($destinoF);
                     $solicitanteF = strtoupper($nombre_solicitanteF);
                     if(empty($parentescoF)){
-                        $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.\n\n\nA solicitud de $solicitanteF, y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.------------------------------------------------------------\n\n\nA solicitud de $solicitanteF, y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
                     }else{
-                        $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.\n\n\nA solicitud de $solicitanteF ($parentescoF), y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoF[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteF, con número de afiliación $afiliacion_duiF, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioF de este Centro Hospitalario, con diagnóstico $diagnosticodcF; permaneciendo ingresada/o, hasta el día $diadef de $mesdef de 201$aniodef, fecha de fallecimiento por diagnóstico $diagnostico_defuncionF.------------------------------------------------------------\n\n\nA solicitud de $solicitanteF ($parentescoF), y para ser presentada en $destinoF1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
                     }
                     
 
@@ -570,7 +591,7 @@ require('conversor.php');
                             $firmasF[] = "$nombremedico,$nombrejefeservicio";
                             $firmasF2[] = "Médico Tratante,Jefe de Servicio";
                             if($estadoF==1){
-                                $firmasF3[] = "$nombrejefesocial"."\t\t$aprob".", $nombredirector";
+                                $firmasF3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasF3[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -586,7 +607,7 @@ require('conversor.php');
                             $firmasF[] = "$nombremedico,$nombrejefeservicio";
                             $firmasF2[] = "Médico Tratante,Jefe de Servicio";
                             if($estadoF==1){
-                                $firmasF3[] = "$nombrejefesocial"."\t\t$aprob".", ";
+                                $firmasF3[] = "$nombrejefesocial";
                             }else{
                                 $firmasF3[] = "$nombrejefesocial, ";
                             }
@@ -599,7 +620,7 @@ require('conversor.php');
                             $firmasF[] = "$nombremedico, ";
                             $firmasF2[] = "Médico Tratante, ";
                             if($estadoF==1){
-                                $firmasF3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                                $firmasF3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasF3[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -611,7 +632,11 @@ require('conversor.php');
                             $cantfirmasF[] = 3;
                             $firmasF[] = "$nombremedico,$nombrejefeservicio";
                             $firmasF2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasF3[] = "$nombredirector, ";
+                            if($estadoF==1){
+                                $firmasF3[] = "$aprob"."\t\t"."$nombredirector, ";
+                            }else{
+                                $firmasF3[] = "$nombredirector, ";
+                            }                            
                             $firmasF4[] = "Director Hospital General, ";
                         }
                     }
@@ -621,7 +646,7 @@ require('conversor.php');
                             $firmasF[] = "$nombrejefeservicio, ";
                             $firmasF2[] = "Jefe de Servicio, ";
                             if($estadoF==1){
-                                $firmasF3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";                                
+                                $firmasF3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";                                
                             }else{
                                 $firmasF3[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -642,7 +667,7 @@ require('conversor.php');
                         while (($stmopc->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasF[] = 2;
                             if($estadoF==1){
-                                $firmasF[] = "$nombremedico,$nombrejefesocial"."\t\t$aprob";
+                                $firmasF[] = "$nombremedico,$nombrejefesocial";
                             }else{
                                 $firmasF[] = "$nombremedico,$nombrejefesocial";
                             }
@@ -652,7 +677,11 @@ require('conversor.php');
                     if(($rowsopc>0) && ($rowsopc4>0)){
                         while (($stmopc->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasF[] = 2;
-                            $firmasF[] = "$nombremedico,$nombredirector";
+                            if($estadoF==1){
+                                $firmasF[] = "$nombremedico,$aprob"."\t\t"."$nombredirector";
+                            }else{
+                                $firmasF[] = "$nombremedico,$nombredirector";
+                            }                            
                             $firmasF2[] = "Médico Tratante,Director Hospital General";
                         }
                     }
@@ -660,7 +689,7 @@ require('conversor.php');
                         while (($stmopc3->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasF[] = 2;
                             if($estadoF==1){
-                                $firmasF[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                                $firmasF[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasF[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -671,7 +700,7 @@ require('conversor.php');
                         while (($stmopc2->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasF[] = 2;
                             if($estadoF==1){
-                                $firmasF[] = "$nombrejefeservicio,$nombrejefesocial"."\t\t$aprob";
+                                $firmasF[] = "$nombrejefeservicio,$nombrejefesocial";
                             }else{
                                 $firmasF[] = "$nombrejefeservicio,$nombrejefesocial";
                             }
@@ -681,7 +710,11 @@ require('conversor.php');
                     if(($rowsopc2>0) && ($rowsopc4>0)){
                         while (($stmopc2->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasF[] = 2;
-                            $firmasF[] = "$nombrejefeservicio,$nombredirector";
+                            if($estadoF==1){
+                                $firmasF[] = "$nombrejefeservicio,$aprob"."\t\t"."$nombredirector";
+                            }else{
+                                $firmasF[] = "$nombrejefeservicio,$nombredirector";
+                            }                            
                             $firmasF2[] = "Jefe de Servicio,Director Hospital General";                            
                         }
                     }
@@ -705,18 +738,18 @@ require('conversor.php');
                     if($rowsopc3>0 ){
                         while ($stmopc3->fetch()) {
                            $cantfirmasF[] = 1;      
-                           if($estadoF==1){
-                                $firmasF[] = "$nombrejefesocial"."\t\t$aprob";
-                           }else{
-                                $firmasF[] = "$nombrejefesocial, ";
-                           }
+                            $firmasF[] = "$nombrejefesocial, ";
                             $firmasF2[] = "Jefe Trabajo Social, ";
                         }
                     }
                     if($rowsopc4>0){
                         while ($stmopc4->fetch()) {
-                            $cantfirmasF[] = 1;                            
-                            $firmasF[] = "$nombredirector, ";
+                            $cantfirmasF[] = 1;     
+                            if($estadoF==1){
+                                $firmasF[] = "$aprob"."\t\t"."$nombredirector, ";
+                            }else{
+                                $firmasF[] = "$nombredirector, ";
+                            }                                                
                             $firmasF2[] = "Director Hospital General, ";
                         }
                     }
@@ -795,9 +828,9 @@ require('conversor.php');
                     $destinoFC1 = strtoupper($destinoFC);
                     $solicitanteFC = strtoupper($nombre_solicitanteFC);
                     if(empty($parentescoFC)){
-                        $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.\n\n\nA solicitud de $solicitanteFC, y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.------------------------------------------------------------\n\n\nA solicitud de $solicitanteFC, y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
                     }else{
-                        $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.\n\n\nA solicitud de $solicitanteFC ($parentescoFC), y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.------------------------------------------------------------";
+                        $textoFC[] = "El Infrascrito Médico Director del Hospital General del Instituto Salvadoreño del Seguro Social, Hace Constar Que:\n\nPaciente $pacienteFC, con número de afiliación $afiliacion_duiFC, consultó el día $diaconsulta de $mesconsulta de 201$anioconsulta en el Servicio de $nombre_servicioFC de este Centro Hospitalario, con diagnóstico $diagnosticodcFC; área en la que permaneció hasta la fecha de alta el día $diaalta de $mesalta de 201$anioalta. Según Partida de Defunción Extendida el día $diapartdef de $mespartdef de 201$aniopartdef en $lugar_extFC, paciente fallecido en su domicilio el día $diafall de $mesfall de 201$aniofall.------------------------------------------------------------\n\n\nA solicitud de $solicitanteFC ($parentescoFC), y para ser presentada en $destinoFC1, se extiende la presente constancia en la ciudad de San Salvador, el día $diaext de $mesext de $anioext.";
                     }
                     
 
@@ -808,7 +841,7 @@ require('conversor.php');
                             $firmasFC[] = "$nombremedico,$nombrejefeservicio";
                             $firmasFC2[] = "Médico Tratante,Jefe de Servicio";
                             if($estadoFC==1){
-                                $firmasFC3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                                $firmasFC3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasFC3[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -823,11 +856,7 @@ require('conversor.php');
                             $cantfirmasFC[] = 3;
                             $firmasFC[] = "$nombremedico,$nombrejefeservicio";
                             $firmasFC2[] = "Médico Tratante,Jefe de Servicio";
-                            if($estadoFC==1){
-                                $firmasFC3[] = "$nombrejefesocial"."\t\t$aprob".", ";
-                            }else{
-                                $firmasFC3[] = "$nombrejefesocial, ";
-                            }
+                            $firmasFC3[] = "$nombrejefesocial, ";
                             $firmasFC4[] = "Jefe Trabajo Social, ";
                         }
                     }
@@ -837,7 +866,7 @@ require('conversor.php');
                             $firmasFC[] = "$nombremedico, ";
                             $firmasFC2[] = "Médico Tratante, ";
                             if($estadoFC==1){
-                                $firmasFC3[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                                $firmasFC3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasFC3[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -849,7 +878,11 @@ require('conversor.php');
                             $cantfirmasFC[] = 3;
                             $firmasFC[] = "$nombremedico,$nombrejefeservicio";
                             $firmasFC2[] = "Médico Tratante,Jefe de Servicio";
-                            $firmasFC3[] = "$nombredirector, ";
+                            if($estadoFC==1){
+                                $firmasFC3[] = "$aprob"."\t\t"."$nombredirector, ";
+                            }else{
+                                $firmasFC3[] = "$nombredirector, ";
+                            }                            
                             $firmasFC4[] = "Director Hospital General, ";
                         }
                     }
@@ -859,7 +892,7 @@ require('conversor.php');
                             $firmasFC[] = "$nombrejefeservicio, ";
                             $firmasFC2[] = "Jefe de Servicio, ";
                             if($estadoFC==1){
-                                $firmasFC3[] = "$nombrejefesocial"."\t\t$aprob"."$nombredirector";
+                                $firmasFC3[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasFC3[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -880,7 +913,7 @@ require('conversor.php');
                         while (($stmopc->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasFC[] = 2;
                             if($estadoFC==1){
-                                $firmasFC[] = "$nombremedico,$nombrejefesocial"."\t\t$aprob";
+                                $firmasFC[] = "$nombremedico,$nombrejefesocial";
                             }else{
                                 $firmasFC[] = "$nombremedico,$nombrejefesocial";
                             }
@@ -890,7 +923,11 @@ require('conversor.php');
                     if(($rowsopc>0) && ($rowsopc4>0)){
                         while (($stmopc->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasFC[] = 2;
-                            $firmasFC[] = "$nombremedico,$nombredirector";
+                            if($estadoFC==1){
+                                $firmasFC[] = "$nombremedico,$aprob"."\t\t"."$nombredirector";
+                            }else{
+                                $firmasFC[] = "$nombremedico,$nombredirector";    
+                            }                            
                             $firmasFC2[] = "Médico Tratante,Director Hospital General";
                         }
                     }
@@ -898,7 +935,7 @@ require('conversor.php');
                         while (($stmopc3->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasFC[] = 2;
                             if($estadoFC==1){
-                                $firmasFC[] = "$nombrejefesocial"."\t\t$aprob".",$nombredirector";
+                                $firmasFC[] = "$nombrejefesocial,$aprob"."\t\t"."$nombredirector";
                             }else{
                                 $firmasFC[] = "$nombrejefesocial,$nombredirector";
                             }
@@ -908,18 +945,18 @@ require('conversor.php');
                     if(($rowsopc2>0) && ($rowsopc3>0)){
                         while (($stmopc2->fetch()) && ($stmopc3->fetch())) {
                             $cantfirmasFC[] = 2;
-                            if($estadoFC==1){
-                                $firmasFC[] = "$nombrejefeservicio,$nombrejefesocial"."\t\t$aprob";
-                            }else{
-                                $firmasFC[] = "$nombrejefeservicio,$nombrejefesocial";
-                            }
+                            $firmasFC[] = "$nombrejefeservicio,$nombrejefesocial";
                             $firmasFC2[] = "Jefe de Servicio,Jefe Trabajo Social";                            
                         }
                     }
                     if(($rowsopc2>0) && ($rowsopc4>0)){
                         while (($stmopc2->fetch()) && ($stmopc4->fetch())) {
                             $cantfirmasFC[] = 2;
-                            $firmasFC[] = "$nombrejefeservicio,$nombredirector";
+                            if($estadoFC==1){
+                                $firmasFC[] = "$nombrejefeservicio,$aprob"."\t\t"."$nombredirector";
+                            }else{
+                                $firmasFC[] = "$nombrejefeservicio,$nombredirector";
+                            }                            
                             $firmasFC2[] = "Jefe de Servicio,Director Hospital General";                            
                         }
                     }
@@ -942,19 +979,19 @@ require('conversor.php');
                     }
                     if($rowsopc3>0 ){
                         while ($stmopc3->fetch()) {
-                           $cantfirmasFC[] = 1;  
-                           if($estadoFC==1){
-                            $firmasFC[] = "$nombrejefesocial"."\t\t$aprob".", ";
-                           }else{                         
-                                $firmasFC[] = "$nombrejefesocial, ";
-                           }
+                           $cantfirmasFC[] = 1;                         
+                            $firmasFC[] = "$nombrejefesocial, ";
                             $firmasFC2[] = "Jefe Trabajo Social, ";
                         }
                     }
                     if($rowsopc4>0){
                         while ($stmopc4->fetch()) {
-                            $cantfirmasFC[] = 1;                            
-                            $firmasFC[] = "$nombredirector, ";
+                            $cantfirmasFC[] = 1; 
+                            if($estadoFC==1){
+                                $firmasFC[] = "$aprob"."\t\t"."$nombredirector, ";
+                            }else{
+                                $firmasFC[] = "$nombredirector, ";
+                            }                            
                             $firmasFC2[] = "Director Hospital General, ";
                         }
                     }

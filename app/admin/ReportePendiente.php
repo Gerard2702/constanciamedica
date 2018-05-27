@@ -21,7 +21,7 @@
         
         if($var=="servicio"){
 
-            $sql = "SELECT DISTINCT(dc.id_servicio),sv.nombre_servicio FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio WHERE dc.estado=1 ORDER BY dc.id_servicio ASC";
+            $sql = "SELECT DISTINCT(dc.id_servicio),sv.nombre_servicio FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio WHERE dc.estado=0 ORDER BY dc.id_servicio ASC";
             if($stm = $conn->prepare($sql)){                
                         $stm->execute();
                         $stm->store_result();
@@ -32,8 +32,8 @@
             $i=0;
             $r=0;
             if(!empty($fechainicial) && empty($fechafinal)){
-                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=1 AND dc.id_servicio=? AND di.fecha=?";
-                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=1 AND dc.id_servicio=? AND di.fecha=?";
+                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=0 AND dc.id_servicio=? AND di.fecha=?";
+                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=0 AND dc.id_servicio=? AND di.fecha=?";
                 if(isset($_POST['detail']) && $_POST['detail']==1){
                     if($rows>0){
                         while($stm->fetch()){
@@ -76,8 +76,8 @@
                 }
                 
             }else if (!empty($fechainicial) && !empty($fechafinal)) {
-                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=1 AND dc.id_servicio=? AND di.fecha BETWEEN ? AND ?";
-                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=1 AND dc.id_servicio=? AND di.fecha BETWEEN ? AND ?";
+                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=0 AND dc.id_servicio=? AND di.fecha BETWEEN ? AND ?";
+                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=0 AND dc.id_servicio=? AND di.fecha BETWEEN ? AND ?";
                 if(isset($_POST['detail']) && $_POST['detail']==1){
                     if($rows>0){
                         while($stm->fetch()){
@@ -121,8 +121,8 @@
                 }
                 
             }else{
-                $sql2 = "SELECT COUNT(id_datos) FROM datos_complementarios WHERE estado=1 AND id_servicio=?";
-                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia , dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=1 AND dc.id_servicio=?";
+                $sql2 = "SELECT COUNT(id_datos) FROM datos_complementarios WHERE estado=0 AND id_servicio=?";
+                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia , dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=0 AND dc.id_servicio=?";
                 if(isset($_POST['detail']) && $_POST['detail']==1){                 
                     if($rows>0){
                         while($stm->fetch()){
@@ -165,7 +165,7 @@
             }
             
         }elseif ($var=="tipo de constancias") {     
-            $sql="SELECT DISTINCT(dc.id_constancia),c.tipo_constancia FROM datos_complementarios dc JOIN constancias c ON dc.id_constancia=c.id_constancia WHERE dc.estado=1 ORDER BY dc.id_constancia ASC";
+            $sql="SELECT DISTINCT(dc.id_constancia),c.tipo_constancia FROM datos_complementarios dc JOIN constancias c ON dc.id_constancia=c.id_constancia WHERE dc.estado=0 ORDER BY dc.id_constancia ASC";
             if($stm = $conn->prepare($sql)){                
                         $stm->execute();
                         $stm->store_result();
@@ -176,8 +176,8 @@
             $i=0;
             $r=0;
             if(!empty($fechainicial) && empty($fechafinal)){
-                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=1 AND dc.id_constancia=? AND di.fecha=?";
-                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=1 AND dc.id_constancia=? AND di.fecha=?";
+                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=0 AND dc.id_constancia=? AND di.fecha=?";
+                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=0 AND dc.id_constancia=? AND di.fecha=?";
                 if(isset($_POST['detail']) && $_POST['detail']==1){                 
                     if($rows>0){
                         while($stm->fetch()){
@@ -218,8 +218,8 @@
                     }
                 }
             }else if (!empty($fechainicial) && !empty($fechafinal)) {
-                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=1 AND dc.id_constancia=? AND di.fecha BETWEEN ? AND ?";
-                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=1 AND dc.id_constancia=? AND di.fecha BETWEEN ? AND ?";
+                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=0 AND dc.id_constancia=? AND di.fecha BETWEEN ? AND ?";
+                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=0 AND dc.id_constancia=? AND di.fecha BETWEEN ? AND ?";
                 if(isset($_POST['detail']) && $_POST['detail']==1){                 
                     if($rows>0){
                         while($stm->fetch()){
@@ -261,8 +261,8 @@
                 }
 
             }else{
-                $sql2 = "SELECT COUNT(id_datos) FROM datos_complementarios WHERE estado=1 AND id_constancia=?";
-                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=1 AND dc.id_constancia=?";
+                $sql2 = "SELECT COUNT(id_datos) FROM datos_complementarios WHERE estado=0 AND id_constancia=?";
+                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=0 AND dc.id_constancia=?";
                 if(isset($_POST['detail']) && $_POST['detail']==1){                 
                     if($rows>0){
                         while($stm->fetch()){
@@ -317,8 +317,8 @@
             $i=0;
             $r=0;
             if(!empty($fechainicial) && empty($fechafinal)){
-                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=1 AND dc.id_datos IN (SELECT id_datos FROM datos_iniciales WHERE id_trabajador=?) AND di.fecha=?";
-                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=1 AND di.id_trabajador=? AND di.fecha=?";
+                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=0 AND dc.id_datos IN (SELECT id_datos FROM datos_iniciales WHERE id_trabajador=?) AND di.fecha=?";
+                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=0 AND di.id_trabajador=? AND di.fecha=?";
                 if(isset($_POST['detail']) && $_POST['detail']==1){                 
                     if($rows>0){
                         while($stm->fetch()){
@@ -359,8 +359,8 @@
                     }
                 }
             }else if (!empty($fechainicial) && !empty($fechafinal)) {
-                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=1 AND dc.id_datos IN (SELECT id_datos FROM datos_iniciales WHERE id_trabajador=?) AND di.fecha BETWEEN ? AND ?";
-                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=1 AND di.id_trabajador=? AND di.fecha BETWEEN ? AND ?";
+                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=0 AND dc.id_datos IN (SELECT id_datos FROM datos_iniciales WHERE id_trabajador=?) AND di.fecha BETWEEN ? AND ?";
+                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=0 AND di.id_trabajador=? AND di.fecha BETWEEN ? AND ?";
                 if(isset($_POST['detail']) && $_POST['detail']==1){                 
                     if($rows>0){
                         while($stm->fetch()){
@@ -401,8 +401,8 @@
                     }
                 }
             }else{
-                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=1 AND dc.id_datos IN (SELECT id_datos FROM datos_iniciales WHERE id_trabajador=?);";
-                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=1 AND di.id_trabajador=?";
+                $sql2 = "SELECT COUNT(dc.id_datos) FROM datos_complementarios dc JOIN datos_iniciales di ON dc.id_datos=di.id_datos WHERE dc.estado=0 AND dc.id_datos IN (SELECT id_datos FROM datos_iniciales WHERE id_trabajador=?);";
+                $sql3 = "SELECT us.name, di.nombre_paciente, dc.nombre_solicitante, cs.tipo_constancia, dc.destino, dc.fecha_extension, sv.nombre_servicio  FROM datos_complementarios dc JOIN servicios sv ON dc.id_servicio=sv.id_servicio JOIN datos_iniciales di ON dc.id_datos=di.id_datos JOIN usuario us ON di.id_trabajador=us.id_user JOIN constancias cs ON dc.id_constancia=cs.id_constancia WHERE dc.estado=0 AND di.id_trabajador=?";
                 if(isset($_POST['detail']) && $_POST['detail']==1){                 
                     if($rows>0){
                         while($stm->fetch()){
@@ -446,12 +446,13 @@
 
         }
     }
+
 ?>
 
 <!--main content start-->
 <div id="content" class="ui-content ui-content-aside-overlay">
     <div class="page-head-wrap">
-        <h4 class="margin0">REPORTES CONSTANCIAS TERMINADAS</h4>  
+        <h4 class="margin0">REPORTES CONSTANCIAS PENDIENTES</h4>  
     </div>
     <div class="ui-content-body">
         <div class="ui-container">
@@ -470,14 +471,14 @@
                                             	<option  value="trabajador">Trabajador</option>
                                             </select>
                                         </div>              
-                                        <label class="col-sm-1 control-label">Fechas?</label>
+                                        <label class="col-sm-1 control-label">Fechas</label>
                                     	<div class="col-sm-1">
                                     		<input type="checkbox" id="fec" name="fec" value="1">
                                     	</div>
-                                    	<label class="col-sm-1 control-label">Detallado</label>
-										<div class="col-sm-1">
-											<input type="checkbox" id="detail" name="detail" value="1">
-										</div>
+                                        <label class="col-sm-1 control-label">Detallado</label>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" id="detail" name="detail" value="1">
+                                        </div>
                                     </div> 
                                     <div class="form-group" id="hidden_fields">                                    	
                                     		<label class="col-sm-1 control-label">Inicio</label>
@@ -501,54 +502,54 @@
                 </div>
             </div>
             <?php if(isset($_POST['search']) && (!empty($_POST['tipo'])) ){
-            	if(isset($_POST['detail']) && $_POST['detail']==1){?>
-            		<div class="panel">
-            			<div class="panel-body">
-							<div id="titulo">
-                            	<h4>REPORTE CONSTANCIAS CREADAS POR <?php echo strtoupper($_POST['tipo']) ?></h4>
+                if(isset($_POST['detail']) && $_POST['detail']==1){?>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div id="titulo">
+                                <h4>REPORTE CONSTANCIAS PENDIENTES POR <?php echo strtoupper($_POST['tipo']) ?></h4>
                             </div>
-								<div id="contenido" class="table-responsive" style="display:none">
-		                                <table class="table table-striped table-condensed" id="mitable">
-		                                    <thead class="thead-inverse">
-		                                        <tr>
-		                                        	<th class="col-md-1" style="display:none;"></th>
-		                                        	<?php for ($ind=0; $ind < $i ; $ind++) { ?>
-		                                        		<th class="col-md-1"><?php echo ${"name".$ind} ?></th>	
-		                                        	<?php } ?>                                            
-		                                        </tr>
-		                                    </thead>
-		                                    <tbody>
-		                                        	<tr>
-		                                        	<th class="col-md-1" style="display:none;"></th>
-		                                        	<?php
-		                                        	for ($n=0; $n < $i ; $n++) { ?>
-		                                        		<td class="text-left"><?php echo ${"total".$n} ?></td>
-		                                        	<?php
-		                                        	}?>
-		                                        	</tr>
-		                                        	<?php		                                             
-		                                            for ($w=0; $w < $i ; $w++) { 
-		                                            	${"stm".$w}->close();
-		                                            }
-		                                        ?> 
-		                                    </tbody>
-		                                </table>
-		                            </div>
-		                            <div style="clear:both; margin:10px"></div>
-		                            <div id="container" class="ui-container">		                            	
-		                        </div>	
-	                    </div>
-	                    <div class="line-separator">                        	
+                                <div id="contenido" class="table-responsive" style="display:none">
+                                        <table class="table table-striped table-condensed" id="mitable">
+                                            <thead class="thead-inverse">
+                                                <tr>
+                                                    <th class="col-md-1" style="display:none;"></th>
+                                                    <?php for ($ind=0; $ind < $i ; $ind++) { ?>
+                                                        <th class="col-md-1"><?php echo ${"name".$ind} ?></th>  
+                                                    <?php } ?>                                            
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                    <th class="col-md-1" style="display:none;"></th>
+                                                    <?php
+                                                    for ($n=0; $n < $i ; $n++) { ?>
+                                                        <td class="text-left"><?php echo ${"total".$n} ?></td>
+                                                    <?php
+                                                    }?>
+                                                    </tr>
+                                                    <?php                                                    
+                                                    for ($w=0; $w < $i ; $w++) { 
+                                                        ${"stm".$w}->close();
+                                                    }
+                                                ?> 
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="clear:both; margin:10px"></div>
+                                    <div id="container" class="ui-container">                                       
+                                </div>  
+                        </div>
+                        <div class="line-separator">                            
                         </div>
                         <div class="panel-body">
                             <div id="contenido" class="table-responsive">
                                 <table class="table table-striped table-condensed" id="tables">
                                     <thead class="thead-inverse">
                                         <tr>
-                                        	<th class="col-md-1">Trabajador</th>            
-                                        	<th class="col-md-2">Paciente</th>                                
+                                            <th class="col-md-2">Trabajador</th>            
+                                            <th class="col-md-2">Paciente</th>                                
                                             <th class="col-md-2">Nombre Solicitante</th>
-                                            <th class="col-md-1">Tipo</th>
+                                            <th class="col-md-2">Tipo</th>
                                             <th class="col-md-2">Destino</th>
                                             <th class="col-md-1">Fecha Extension</th>
                                             <th class="col-md-1">Servicio</th>
@@ -556,7 +557,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-		                                    for ($n=0; $n < $i ; $n++) { 
+                                            for ($n=0; $n < $i ; $n++) { 
                                                 if(${"rowss".$n}>0){
                                                     while (${"stms".$n}->fetch()) {                                                     
                                                     ?>
@@ -576,48 +577,48 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>	
+                        </div>  
                     </div>
-            	<?php 
-            		}else{
-            	 ?>
-            			<div class="panel">
-								<div class="panel-body">
-									<div id="titulo">
-                                		<h4>REPORTE CONSTANCIAS CREADAS POR <?php echo strtoupper($_POST['tipo']) ?></h4>
-                            		</div>
-									<div id="contenido" class="table-responsive" style="display:none;">
-		                                <table class="table table-striped table-condensed" id="mitable">
-		                                    <thead class="thead-inverse">
-		                                        <tr>
-		                                        	<th  class="col-md-1" style="display:none;"></th>
-		                                        	<?php for ($ind=0; $ind < $i ; $ind++) { ?>
-		                                        		<th class="col-md-1"><?php echo ${"name".$ind} ?></th>	
-		                                        	<?php } ?>                                            
-		                                        </tr>
-		                                    </thead>
-		                                    <tbody>
-		                                        	<tr>
-		                                        	<th class="col-md-1" style="display:none;"></th>
-		                                        	<?php
-		                                        	for ($n=0; $n < $i ; $n++) { ?>
-		                                        		<td class="text-left"><?php echo ${"total".$n} ?></td>
-		                                        	<?php
-		                                        	}?>
-		                                        	</tr>
-		                                        	<?php		                                             
-		                                            for ($w=0; $w < $i ; $w++) { 
-		                                            	${"stm".$w}->close();
-		                                            }
-		                                        ?> 
-		                                    </tbody>
-		                                </table>
-		                            </div>
-		                            <div style="clear:both; margin:10px"></div>
-		                            <div id="container" class="ui-container">
-		                            </div>	
-	                        	</div>
-                    	</div>                    
+                <?php 
+                    }else{
+                 ?>
+                        <div class="panel">
+                                <div class="panel-body">
+                                    <div id="titulo">
+                                        <h4>REPORTE CONSTANCIAS PENDIENTES POR <?php echo strtoupper($_POST['tipo']) ?></h4>
+                                    </div>
+                                    <div id="contenido" class="table-responsive" style="display:none;">
+                                        <table class="table table-striped table-condensed" id="mitable">
+                                            <thead class="thead-inverse">
+                                                <tr>
+                                                    <th  class="col-md-1" style="display:none;"></th>
+                                                    <?php for ($ind=0; $ind < $i ; $ind++) { ?>
+                                                        <th class="col-md-1"><?php echo ${"name".$ind} ?></th>  
+                                                    <?php } ?>                                            
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                    <th class="col-md-1" style="display:none;"></th>
+                                                    <?php
+                                                    for ($n=0; $n < $i ; $n++) { ?>
+                                                        <td class="text-left"><?php echo ${"total".$n} ?></td>
+                                                    <?php
+                                                    }?>
+                                                    </tr>
+                                                    <?php                                                    
+                                                    for ($w=0; $w < $i ; $w++) { 
+                                                        ${"stm".$w}->close();
+                                                    }
+                                                ?> 
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="clear:both; margin:10px"></div>
+                                    <div id="container" class="ui-container">
+                                    </div>  
+                                </div>
+                        </div>                    
                 <?php }
             } ?>
         </div>
@@ -630,8 +631,8 @@
  ?>
 
 <script>
-	window.onload = function(){document.getElementById("tipo").value = "<?=$_POST['tipo']?>" }
-	
+    window.onload = function(){document.getElementById("tipo").value = "<?=$_POST['tipo']?>" }
+    
     Highcharts.chart('container', {
     data: {
         table: 'mitable'
@@ -719,13 +720,3 @@
   });
 });
  </script>
-
- <style type="text/css">
- 	.line-separator{
-		margin: 0 0 15px 0;
-		border-bottom:1px solid #cccccc;
-		padding: 0px 0 0px 0;
-		padding: 20px 0 20px 0;
-		padding: 20px 0 20px 0;
-		}
- </style>
