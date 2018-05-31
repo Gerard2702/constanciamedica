@@ -148,7 +148,14 @@
 	                            	<h4>Constancias creadas</h4> 
 	                            </div>
 	                            <div id="contenido">
-	                            	<a class="btn btn-info" href="newconstanciamod.php"><i class="fa fa-plus"></i> Agregar Constancia</a>
+	                            	<?php 
+                                    if($rowscre>=$cantidad){ ?>
+                                     <a class="btn btn-info" href="" disabled><i class="fa fa-plus"></i> Agregar Constancia</a>
+                                    <?php }
+                                    else{  ?>
+                                  <a class="btn btn-info" href="newconstanciamod.php"><i class="fa fa-plus"></i> Agregar Constancia</a>
+                                 <?php   }
+                                 ?>
 	                            	<div id="contenido" class="table-responsive">
 			                        	<table class="table table-striped table-condensed" id="mitable">
 			                                <thead class="thead-inverse">
@@ -282,9 +289,10 @@ $(document).ready(function(){
                     else{
                     	swal({
                         title: "Un Error ha ocurrido!",
+                        text: data,
                         icon: "error",
 	                    }).then((value) => {
-	                          location.href ="infosolicitud.php?con=<?php echo $id_datos ?>";
+	                          location.href ="infosolicitudmod.php?con=<?php echo $id_datos ?>";
 	                    });
                     }
                 },
@@ -330,6 +338,7 @@ $(document).ready(function(){
                 	else{
                 		swal({
                         title: "Un Error ha ocurrido!",
+                        text: data,
                         icon: "error",
 	                    }).then((value) => {
 	                          location.href ="infosolicitudmod.php?con=<?php echo $id_datos ?>";

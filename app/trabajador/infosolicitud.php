@@ -127,18 +127,26 @@
 	                            	<h4>Constancias creadas</h4> 
 	                            </div>
 	                            <div id="contenido">
-	                            	<a class="btn btn-info" href="newconstancia.php"><i class="fa fa-plus"></i> Agregar Constancia</a>
+                                <?php 
+                                    if($rowscre>=$cantidad){ ?>
+                                     <a class="btn btn-info" href="" disabled><i class="fa fa-plus"></i> Agregar Constancia</a>
+                                    <?php }
+                                    else{  ?>
+                                  <a class="btn btn-info" href="newconstancia.php"><i class="fa fa-plus"></i> Agregar Constancia</a>
+                                 <?php   }
+                                 ?>
+	                            	
 	                            	<div id="contenido" class="table-responsive">
 			                        	<table class="table table-striped table-condensed" id="mitable">
 			                                <thead class="thead-inverse">
 			                                    <tr>
 			                                        <th class="col-md-2">Tipo Constancia</th>
 			                                        <th class="col-md-1">Fecha Consulta</th>
-			                                        <th class="col-md-3">Solicitante</th>
+			                                        <th class="col-md-2">Solicitante</th>
 			                                        <th class="col-md-1">Parentesco</th>
 			                                        <th class="col-md-3">A presentar en</th>
 			                                        <th class="col-md-1">Fecha Extensión</th>
-			                                        <th class="col-md-1">Opciones</th>
+			                                        <th class="col-md-2">Opciones</th>
 			                                    </tr>
 			                                </thead>
 			                                <tbody> 
@@ -199,7 +207,7 @@
 	                                                <td><?php echo $parentesco; ?></td>
 	                                                <td><?php echo $destinoc; ?></td>
 	                                                <td><?php echo $fecha_extension; ?></td>
-	                                                <td><a href="editconstancia.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo ?>" class="btn btn-success btn-sm " data-toggle="tooltip" data-placement="left" title="Ver o editar"><i class="fa fa-edit"></i></a> <a href="javascript:;" class="btn btn-danger btn-sm eliminar"  data-placement="left" data-constancia="<?php echo $id_datosc ?>" data-tipo="<?php echo $id_constancia; ?>" data-alt="<?php echo $id_tipo; ?>"data-toggle="tooltip" data-placement="left" title="Eliminar"><i class="fa fa-times"></i></a></td>
+	                                                <td><a href="editconstancia.php?con=<?php echo $id_datosc; ?>&alt=<?php echo $id_tipo ?>" class="btn btn-success btn-sm " data-toggle="tooltip" data-placement="left" title="Ver o editar"><i class="fa fa-edit"></i></a> <a href="javascript:;" class="btn btn-warning btn-sm duplicar" data-constancia="<?php echo $id_datosc ?>" data-tipo="<?php echo $id_constancia; ?>" data-alt="<?php echo $id_tipo; ?>" data-toggle="tooltip" data-placement="left" title="Duplicar"><i class="fa fa-copy"></i></a> <a href="javascript:;" class="btn btn-danger btn-sm eliminar"  data-placement="left" data-constancia="<?php echo $id_datosc ?>" data-tipo="<?php echo $id_constancia; ?>" data-alt="<?php echo $id_tipo; ?>"data-toggle="tooltip" data-placement="left" title="Eliminar"><i class="fa fa-times"></i></a></td>
 	                                            </tr>   
 	                                        <?php 
 	                                                }
@@ -259,6 +267,7 @@ $(document).ready(function(){
                     else{
                     	swal({
                         title: "Un Error ha ocurrido!",
+                        text: data,
                         icon: "error",
 	                    }).then((value) => {
 	                          location.href ="infosolicitud.php?con=<?php echo $id_datos ?>";
@@ -320,5 +329,52 @@ $(document).ready(function(){
           } else {}
         });     
     });
+
+    $('.duplicar').click(function(e){
+      e.preventDefault();
+      var id_datosc = $(this).data('constancia');
+      var tipo = $(this).data('tipo');
+      var alt = $(this).data('alt');
+      swal({
+          title: "Desea Duplicar la constancia?",
+          text: "",
+          icon: "warning",
+          buttons: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            $.ajax({
+                url: "../class/trabajador/duplicarconstancia.php",
+                type: 'POST',
+                data: { 
+                    id_constancia: id_datosc,
+                    id_tipo: tipo,
+                    id_alt: alt
+                },success: function (data) {
+                  if(data=="true"){
+                    swal({
+                        title: "Constancia duplicada con exito!",
+                        icon: "success",
+                      }).then((value) => {
+                            location.href ="infosolicitud.php?con=<?php echo $id_datos ?>";
+                      }); 
+                  }
+                  else{
+                    alert(data)
+                    swal({
+                        title: "Un Error ha ocurrido!",
+                        icon: "error",
+                      }).then((value) => {
+                            location.href ="infosolicitud.php?con=<?php echo $id_datos ?>";
+                      });
+                  }
+                    
+                },error: function () {
+                    alert("UN ERROR HA OCURRIDO");
+                }
+            });
+          } else {}
+        });
+    })
 })
 </script>

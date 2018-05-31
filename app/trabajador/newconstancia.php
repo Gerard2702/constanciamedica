@@ -1,6 +1,8 @@
 <?php
     $title = "NUEVA CONSTANCIA";
-   
+   	if(!isset($_SERVER['HTTP_REFERER'])){
+      header('Location:index.php');
+    }
     include("../core/header.php");
 
     include("../core/aside.php");
